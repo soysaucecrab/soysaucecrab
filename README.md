@@ -30,10 +30,10 @@
 
 ## 📊 GitHub Stats
 
-## 📊 GitHub Stats
-
 <div align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=soysaucecrab&theme=tokyonight&hide_border=true" alt="GitHub Streak" />
+  <img src="https://github-readme-stats-git-masterrst-anuraghazra.vercel.app/api?username=soysaucecrab&show_icons=true&theme=tokyonight&hide_border=true" alt="Zinu's GitHub Stats" />
+  <br/>
+  <img src="https://github-readme-stats-git-masterrst-anuraghazra.vercel.app/api/top-langs/?username=soysaucecrab&layout=compact&theme=tokyonight&hide_border=true" alt="Top Languages" />
 </div>
 
 ---
