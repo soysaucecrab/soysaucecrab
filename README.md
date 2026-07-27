@@ -1,9 +1,5 @@
 # Hi there, I'm KIM ZINU 👋
 
-<div align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=36BCF7&center=true&vCenter=true&width=500&lines=Student+at+SKKU;Algorithm+%26+Game+Dev;AI+%26+Software+Engineering" alt="Typing SVG" />
-</div>
-
 <br/>
 
 ## 👨‍💻 About Me
