@@ -1,0 +1,28 @@
+/* Design tokens. One accent (crab). Light + dark via prefers-color-scheme.
+   No manual theme toggle in v1 (no localStorage per project rules). */
+:root {
+  --bg: #F1EBDD;      /* soy-light paper */
+  --fg: #1A1613;      /* ink */
+  --dim: #776E60;     /* muted */
+  --line: #D6CBB6;    /* hairline / tree guide */
+  --panel: #E9E0CF;   /* button surface */
+  --crab: #D33A1C;    /* accent — marks, large, borders */
+  --crabink: #A82F13; /* accent — small text (AA on paper) */
+
+  --ui: 'Ubuntu', 'Noto Sans KR', 'Apple SD Gothic Neo', system-ui, -apple-system, sans-serif;
+  --mono: 'Ubuntu Mono', 'Noto Sans KR', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  --measure: 720px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16110C;    /* soy near-black */
+    --fg: #EFE9DB;
+    --dim: #9A9082;
+    --line: #332C24;
+    --panel: #1F1913;
+    --crab: #F26A45;
+    --crabink: #F26A45;
+  }
+}

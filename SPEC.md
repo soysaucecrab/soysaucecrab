@@ -3,6 +3,26 @@
 개인 사이트 v1 명세. CLAUDE.md의 규칙을 전제로 하며, 여기에는 확정된
 결정과 구현 범위만 적는다.
 
+## v1 구현 확정 (2026-09-01, Astro)
+
+- **디자인 방향**: 간장게장(soysaucecrab) 아이덴티티 = 터미널/파일트리
+  셸 + 학술적 콘텐츠. 팔레트는 먹빛 배경 + 게주홍 악센트 1색. 홈은
+  파일트리(VSCode식 세로 가이드선)로 섹션을 나열, 프롬프트
+  `soysaucecrab ~ % whoami`, 게 SVG 마크, 커서 깜빡임(모션 1회).
+- **포지셔닝 문구**: "ML Engineer & Developer".
+- **폰트(self-host, 서브셋)**: Ubuntu(라틴 본문), Ubuntu Mono(터미널
+  크롬), Noto Sans KR(한글, 사용 글자만 가변축 서브셋 ~16KB). 세리프
+  없음. 전부 UFL/OFL.
+- **다국어**: 영어 기본. `/`(en) + `/ko/` 라우트로 정적 분리, 언어 전환은
+  링크(무JS·무localStorage). UI 문자열은 `src/i18n/ui.ts`, 콘텐츠는
+  컬렉션 프런트매터에 `{en, ko}`.
+- **자바스크립트 0**: 라우팅·언어·상호작용 전부 정적/CSS. 모션은
+  `prefers-reduced-motion` 존중.
+- **콘텐츠 현황**: news 3건, projects 2건(zipge active / sideways
+  shipped) 실데이터. publications는 빈 컬렉션 → 빈 상태 페이지만.
+  archived 프로젝트는 v1에서 미노출.
+- **배포**: Cloudflare Pages. 빌드 `npm run build`, 출력 `dist/`.
+
 ## 확정된 결정 (2026-08-31)
 
 - **CV 링크**: hero에 CV PDF 링크를 넣는다. 파일은 `public/cv.pdf`.

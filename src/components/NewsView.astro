@@ -1,0 +1,13 @@
+---
+import { getCollection } from 'astro:content';
+import { type Lang, t, pathFor } from '../i18n/ui';
+import NewsList from './NewsList.astro';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const news = (await getCollection('news')).sort((a, b) => +b.data.date - +a.data.date);
+---
+<a class="back" href={pathFor(lang, 'home')}>cd ~</a>
+<p class="crumb m"><span class="sl">~/</span><span class="nm">news</span></p>
+<p class="psub">{t(lang, 'newsSub')}</p>
+<div class="nbody"><NewsList items={news} lang={lang} /></div>
