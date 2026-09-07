@@ -6,7 +6,7 @@
 
 - 🎓 Studying at **Sungkyunkwan University (@SKKU)**
 - 💻 Interested in **Algorithmic Problem Solving**, **Game Development**, and **Machine Learning**
-- 📬 Instagram: [@21nu_o31g](https://www.instagram.com/21nu_o31g/)
+- 📬 Personal Hompage : https://zinu.kim
 
 ---
 
