@@ -142,6 +142,22 @@
   .crate .t { font-weight: 650; letter-spacing: -.01em; }
   .crate .t i { font-style: normal; color: var(--muted); font-weight: 400; }
   .crate .s { color: var(--muted); font-size: .9rem; }
+
+  /* time-of-day slider */
+  .daylight { margin-top: 28px; }
+  .daylight .stage { position: relative; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,.06); aspect-ratio: 1000 / 650; background: #d9c9c4; }
+  .daylight .stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
+  .daylight .stage img.on { opacity: 1; }
+  .daylight .clock { position: absolute; left: 14px; bottom: 12px; padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,.72); color: #1f2a25; font: 600 .85rem/1.5 ui-monospace, "SF Mono", Menlo, monospace; backdrop-filter: blur(6px); }
+  .daylight input[type=range] { width: 100%; margin: 22px 0 6px; accent-color: var(--orange); height: 28px; cursor: pointer; }
+  .daylight .marks { position: relative; height: 30px; margin: 0 9px; }
+  .daylight .marks button { position: absolute; top: 0; transform: translateX(-50%); appearance: none; border: 0; background: none; padding: 4px 2px; font: inherit; font-size: .95rem; color: var(--muted); cursor: pointer; white-space: nowrap; }
+  .daylight .marks button:nth-child(1) { left: 0; transform: translateX(-9px); }
+  .daylight .marks button:nth-child(2) { left: 33.333%; }
+  .daylight .marks button:nth-child(3) { left: 66.667%; }
+  .daylight .marks button:nth-child(4) { left: 100%; transform: translateX(calc(-100% + 9px)); }
+  .daylight .marks button[aria-pressed="true"] { color: var(--ink); font-weight: 650; }
+  .daylight .marks button:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; border-radius: 6px; }
   .final { text-align: center; padding: 80px 0 40px; }
   .final img { width: 88px; height: 88px; margin: 0 auto 10px; }
   footer { border-top: 1px solid var(--line); padding: 24px 0 48px; color: var(--muted); font-size: .92rem; display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
@@ -205,12 +221,7 @@
     <section aria-labelledby="l-title">
       <h2 id="l-title">Time of day</h2>
       <p class="sub">Sunlight through a window moves across the desk with your Mac's clock, and the whole scene shifts its mood.</p>
-      <div class="times">
-        <figure><img src="/groovside/assets/time-dawn.webp" loading="lazy" alt="The turntable in soft peach morning light"><figcaption>Morning<span>A peach glow</span></figcaption></figure>
-        <figure><img src="/groovside/assets/time-noon.webp" loading="lazy" alt="The turntable in bright noon light"><figcaption>Noon<span>Clear and bright</span></figcaption></figure>
-        <figure><img src="/groovside/assets/time-sunset.webp" loading="lazy" alt="The turntable in orange sunset light"><figcaption>Sunset<span>Long orange light</span></figcaption></figure>
-        <figure><img src="/groovside/assets/time-night.webp" loading="lazy" alt="The turntable in deep blue night"><figcaption>Night<span>Quiet and blue</span></figcaption></figure>
-      </div>
+      <div class="daylight" data-clock='7:30 AM|1:00 PM|6:30 PM|10:00 PM' data-names='Morning|Noon|Sunset|Night'><div class="stage"><img src="/groovside/assets/time-dawn.webp" alt="The turntable in soft peach morning light" class="on" width="1000" height="650"><img src="/groovside/assets/time-noon.webp" alt="The turntable in bright noon light" loading="lazy" width="1000" height="650"><img src="/groovside/assets/time-sunset.webp" alt="The turntable in orange sunset light" loading="lazy" width="1000" height="650"><img src="/groovside/assets/time-night.webp" alt="The turntable in deep blue night" loading="lazy" width="1000" height="650"><span class="clock" aria-hidden="true">7:30 AM</span></div><input type="range" min="0" max="3" step="0.01" value="0" aria-label="Time of day" aria-valuetext="Morning" title="Drag to change the time"><div class="marks"><button type="button" data-v="0" aria-pressed="true">Morning</button><button type="button" data-v="1" aria-pressed="false">Noon</button><button type="button" data-v="2" aria-pressed="false">Sunset</button><button type="button" data-v="3" aria-pressed="false">Night</button></div></div>
     </section>
 
     <section aria-labelledby="c-title">
@@ -256,6 +267,25 @@
     function apply() { if (mq.matches) { v.removeAttribute('autoplay'); v.pause(); } else { v.play && v.play().catch(function () {}); } }
     apply();
     if (mq.addEventListener) mq.addEventListener('change', apply);
+  })();
+
+  // Time-of-day slider: crossfade the four scenes; start at the visitor's own time of day.
+  (function () {
+    var box = document.querySelector('.daylight'); if (!box) return;
+    var imgs = box.querySelectorAll('.stage img'), range = box.querySelector('input'), btns = box.querySelectorAll('.marks button');
+    var clock = box.querySelector('.clock'), clocks = box.dataset.clock.split('|'), names = box.dataset.names.split('|');
+    function show(v) {
+      v = Math.max(0, Math.min(3, v));
+      imgs.forEach(function (im, i) { im.classList.remove('on'); im.style.opacity = Math.max(0, 1 - Math.abs(v - i)); });
+      var n = Math.round(v);
+      btns.forEach(function (b, i) { b.setAttribute('aria-pressed', i === n ? 'true' : 'false'); });
+      clock.textContent = clocks[n]; range.setAttribute('aria-valuetext', names[n]);
+    }
+    range.addEventListener('input', function () { show(parseFloat(range.value)); });
+    btns.forEach(function (b) { b.addEventListener('click', function () { range.value = b.dataset.v; show(+b.dataset.v); }); });
+    var h = new Date().getHours(), start = h < 6 || h >= 20 ? 3 : h < 10 ? 0 : h < 16 ? 1 : 2;
+    imgs.forEach(function (im) { im.loading = 'eager'; });
+    range.value = start; show(start);
   })();
 </script>
 </body>
