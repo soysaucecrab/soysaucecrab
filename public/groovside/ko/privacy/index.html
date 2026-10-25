@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>개인정보 처리방침 · GroovSide</title>
+<meta name="description" content="GroovSide 개인정보 처리방침. 계정, 분석, 추적이 없습니다.">
+<meta name="color-scheme" content="light dark">
+<style>
+  :root { --bg: #fbfaf7; --fg: #1d1c1a; --muted: #6b6862; --line: #e6e2da; --accent: #c4542b; --code: #f1eee8; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #141412; --fg: #ecebe7; --muted: #a29f98; --line: #2c2b28; --accent: #e57a4f; --code: #22211f; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.75 -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", system-ui, sans-serif; word-break: keep-all; }
+  main { max-width: 680px; margin: 0 auto; padding: 48px 20px 80px; }
+  .app { font-weight: 700; color: var(--accent); text-decoration: none; }
+  h1 { font-size: 2rem; line-height: 1.25; margin: 8px 0 4px; }
+  h2 { font-size: 1.12rem; margin: 36px 0 8px; }
+  .meta { color: var(--muted); margin: 0 0 28px; }
+  .lead { font-size: 1.05rem; padding: 16px 18px; border: 1px solid var(--line); border-radius: 12px; }
+  a { color: var(--accent); }
+  code { background: var(--code); padding: 1px 6px; border-radius: 5px; font-size: 0.9em; word-break: break-all; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.95rem; margin: 8px 0; }
+  th, td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; }
+  ul { padding-left: 1.2em; }
+  footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.9rem; }
+  @media (max-width: 560px) { table, thead, tbody, tr, th, td { display: block; } thead { display: none; } td { border: 0; padding: 2px 0; } tr { border-bottom: 1px solid var(--line); padding: 10px 0; } td:first-child { font-weight: 600; } }
+</style>
+</head>
+<body>
+<main>
+  <a class="app" href="../../">GroovSide</a>
+  <h1>개인정보 처리방침</h1>
+  <p class="meta">시행일 2026년 10월 26일</p>
+
+  <p>GroovSide는 Apple Music이나 Spotify에서 재생 중인 곡을 Mac 바탕화면 위의 레코드로 보여 주는 앱입니다. 한국에 사는 개인 개발자 zinu kim(이하 "저")이 만들고 Mac App Store에서 판매합니다.</p>
+  <p class="lead">요약: <strong>앱에는 계정, 분석, 추적이 없고, 저는 이용자에 대한 정보를 수집하지 않습니다.</strong> 앱에 필요한 것은 이용자의 Mac에만 저장됩니다. 인터넷에는 앨범의 곡 목록을 찾을 때만 연결합니다.</p>
+
+  <h2>1. 앱이 Mac에서 읽는 것</h2>
+  <p>지금 재생 중인 곡을 보여 주기 위해, 이용자의 허락(macOS 자동화 권한)을 받아 Music이나 Spotify에서 곡 제목, 아티스트, 앨범, 앨범 아티스트, 곡·디스크 번호, 길이, 재생 위치, 앨범 커버를 읽습니다. 읽기만 하며, 재생을 조작하거나 Music·Spotify를 스스로 실행하지 않습니다.</p>
+  <p>음량 노브를 위해 Mac의 출력 음량을, 창문 빛을 위해 Mac의 시계를 읽습니다.</p>
+
+  <h2>2. 앱이 인터넷으로 보내는 것</h2>
+  <table>
+    <thead><tr><th>보내는 곳</th><th>보내는 내용</th><th>이유</th></tr></thead>
+    <tbody>
+      <tr><td>Apple iTunes Search API (<code>itunes.apple.com</code>)</td><td>재생 중인 곡의 아티스트·앨범·곡 이름, 스토어 국가</td><td>앨범의 곡 목록과 곡 길이를 찾아 LP 면으로 나누기 위해</td></tr>
+      <tr><td>Spotify 이미지 서버</td><td>Spotify가 앱에 알려 준 앨범 커버 주소로 보내는 요청</td><td>Spotify 곡의 커버를 보여 주기 위해</td></tr>
+    </tbody>
+  </table>
+  <p>이 요청은 이용자의 Mac에서 Apple과 Spotify로 바로 가며 저를 거치지 않고, 저는 그 내용을 받지 않습니다. 두 회사는 여느 웹사이트처럼 IP 주소를 보게 되며, 각 회사의 방침(<a href="https://www.apple.com/kr/legal/privacy/" rel="noopener noreferrer">Apple</a>, <a href="https://www.spotify.com/kr-ko/legal/privacy-policy/" rel="noopener noreferrer">Spotify</a>)에 따라 처리합니다.</p>
+  <p>그 밖에는 아무것도 보내지 않습니다. 앱에는 자체 분석, 충돌 보고, 광고 코드가 없고, 저는 이용자의 음악 감상 기록을 받지 않습니다.</p>
+
+  <h2>3. 앱이 Mac에 저장하는 것</h2>
+  <ul>
+    <li><strong>설정</strong>(색, 배치, 소리 등)</li>
+    <li><strong>오늘 들은 곡</strong>: "Played Today" 수를 보여 주기 위한 오늘 들은 곡의 제목, 아티스트, 시각. 날이 바뀌면 새로 시작합니다.</li>
+    <li><strong>지금 판</strong>: 판 위에 그려진 선과 그 판의 앨범</li>
+    <li><strong>앨범 곡 목록</strong>: iTunes Search API로 찾은 곡 목록(최근 500개 앨범까지). 다시 찾지 않기 위해 저장합니다.</li>
+  </ul>
+  <p>이 정보는 이용자의 Mac에만 있고 저에게 보내지 않습니다. 앱 전용 폴더 <code>~/Library/Containers/kim.zinu.groovside</code>에 저장됩니다. 앱을 지워도 macOS가 이 폴더를 남기므로, 정보까지 지우려면 앱을 끈 뒤 이 폴더를 지우면 됩니다.</p>
+
+  <h2>4. 앱 구매</h2>
+  <p>앱은 Mac App Store에서 Apple로부터 구매합니다. 결제, 세금, 환불, 가족 공유는 Apple이 자체 약관과 <a href="https://www.apple.com/kr/legal/privacy/" rel="noopener noreferrer">Apple 개인정보 처리방침</a>에 따라 처리합니다. 저는 구매자의 이름, 이메일, 결제 정보를 받지 않으며, Apple은 개인을 알 수 없는 판매 보고서만 저에게 줍니다.</p>
+  <p>이용자가 Mac 설정(<strong>시스템 설정 → 개인정보 보호 및 보안 → 분석 및 향상</strong>)에서 앱 개발자와 공유를 켠 경우, Apple이 충돌 보고서와 사용 통계를 저와 공유할 수 있습니다. 여기에는 이용자를 알아볼 수 있는 정보가 없으며, 저는 문제를 고치고 앱을 개선하는 데만 씁니다. 이 공유는 언제든 끌 수 있습니다.</p>
+  <p>App Store에 리뷰를 쓰면 Apple이 이용자가 정한 이름으로 공개하며, 저는 그곳에서 읽고 답할 수 있습니다.</p>
+
+  <h2>5. 이메일 문의 시 처리하는 개인정보</h2>
+  <ul>
+    <li><strong>항목</strong>: 이메일 주소, 적으신 경우 이름, 문의 내용</li>
+    <li><strong>목적</strong>: 문의에 답하기 위해서만 씁니다.</li>
+    <li><strong>보유 기간과 파기</strong>: 답변이 끝나 더 필요하지 않으면 지체 없이 메일을 지웁니다. 다른 법령에 따라 보관해야 하는 경우에는 그 기간만 보관합니다.</li>
+    <li><strong>제3자 제공</strong>: 하지 않습니다.</li>
+    <li><strong>처리 위탁·국외 이전</strong>: <code>support@zinu.kim</code>으로 온 메일은 Cloudflare, Inc.(미국)의 이메일 전달 서비스를 거쳐 제 메일함으로 전달됩니다. 메일을 보내는 시점에 미국으로 전송되며, 위 보유 기간 동안 보관됩니다. 이를 원하지 않으면 메일 대신 App Store 리뷰로 의견을 남기실 수 있습니다.</li>
+  </ul>
+
+  <h2>6. 이 웹사이트</h2>
+  <p>이 웹사이트는 Cloudflare를 통해 제공되며, Cloudflare는 사이트 제공과 보호를 위해 IP 주소를 처리할 수 있습니다. 이 사이트는 쿠키와 분석 도구를 쓰지 않습니다.</p>
+
+  <h2>7. 이용자의 권리와 행사 방법</h2>
+  <p>제가 가질 수 있는 이용자의 정보는 보내 주신 이메일뿐입니다. 이용자는 언제든 그 정보의 열람, 정정, 삭제, 처리 정지를 아래 이메일로 요청할 수 있으며, 30일 안에 답합니다. 구매와 관련된 사항은 Apple에 문의해 주세요.</p>
+
+  <h2>8. 안전성 확보 조치</h2>
+  <p>앱은 정보를 이용자의 Mac 안 앱 전용 폴더(macOS 샌드박스)에만 저장하고, 앱이 하는 통신은 모두 암호화(HTTPS)됩니다.</p>
+
+  <h2>9. 어린이</h2>
+  <p>앱은 어린이를 대상으로 하지 않으며, 저는 어린이의 정보를 알면서 수집하지 않습니다.</p>
+
+  <h2>10. 개인정보 보호책임자</h2>
+  <p>zinu kim · <a href="mailto:support@zinu.kim">support@zinu.kim</a></p>
+
+  <h2>11. 권익침해 구제 방법</h2>
+  <p>개인정보 침해에 대한 상담이나 구제가 필요하면 아래 기관에 문의할 수 있습니다.</p>
+  <ul>
+    <li>개인정보분쟁조정위원회: 1833-6972, <a href="https://www.kopico.go.kr" rel="noopener noreferrer">www.kopico.go.kr</a></li>
+    <li>개인정보침해신고센터: 118, <a href="https://privacy.kisa.or.kr" rel="noopener noreferrer">privacy.kisa.or.kr</a></li>
+    <li>대검찰청: 1301, <a href="https://www.spo.go.kr" rel="noopener noreferrer">www.spo.go.kr</a></li>
+    <li>경찰청: 182, <a href="https://ecrm.police.go.kr" rel="noopener noreferrer">ecrm.police.go.kr</a></li>
+  </ul>
+
+  <h2>12. 방침의 변경</h2>
+  <p>이 방침이 바뀌면 이 페이지에 고치고 위의 시행일을 바꿉니다. 앱이 보내는 정보가 바뀌면 App Store 업데이트 설명에도 알립니다.</p>
+
+  <footer><a href="../support/">지원</a> · <a href="../../privacy/">English</a> · <a href="../../">GroovSide</a></footer>
+</main>
+</body>
+</html>
