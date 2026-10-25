@@ -32,6 +32,14 @@
 
 ---
 
+## 🚀 Projects
+
+- **[GroovSide](https://zinu.kim/groovside)** — a macOS menu-bar app that turns whatever is playing in Apple Music or Spotify into a spinning record on your desktop, behind your icons. The cover becomes the label and the needle follows the song. No accounts, no tracking. *(macOS 14+, App Store coming soon)*
+- **[zipge](https://github.com/soysaucecrab/zipge)** — on-device semantic search for static sites; Korean search runs entirely in the browser, zero server cost.
+- **[sideways](https://github.com/soysaucecrab/sideways)** — a SOCKS5 proxy that shares an iPhone's cellular data with a Mac over USB.
+
+---
+
 ## 📊 GitHub Stats
 
 <div align="center">
