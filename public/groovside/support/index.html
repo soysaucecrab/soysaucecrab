@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support · GroovSide</title>
+<meta name="description" content="Help for GroovSide, the record player for your Mac's desktop.">
+<meta name="color-scheme" content="light dark">
+<style>
+  :root { --bg: #fbfaf7; --fg: #1d1c1a; --muted: #6b6862; --line: #e6e2da; --accent: #c4542b; --code: #f1eee8; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #141412; --fg: #ecebe7; --muted: #a29f98; --line: #2c2b28; --accent: #e57a4f; --code: #22211f; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
+  main { max-width: 680px; margin: 0 auto; padding: 48px 20px 80px; }
+  .app { font-weight: 700; letter-spacing: -0.01em; color: var(--accent); text-decoration: none; }
+  h1 { font-size: 2rem; line-height: 1.2; margin: 8px 0 20px; letter-spacing: -0.02em; }
+  h2 { font-size: 1.15rem; margin: 36px 0 8px; }
+  h3 { font-size: 1rem; margin: 24px 0 4px; }
+  a { color: var(--accent); }
+  code, pre { background: var(--code); border-radius: 6px; font-size: 0.9em; }
+  code { padding: 1px 6px; }
+  pre { padding: 12px 14px; overflow-x: auto; }
+  .contact { padding: 16px 18px; border: 1px solid var(--line); border-radius: 12px; }
+  footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<main>
+  <a class="app" href="../">GroovSide</a>
+  <h1>Support</h1>
+
+  <p class="contact">Questions, bugs or ideas? Email <a href="mailto:support@zinu.kim">support@zinu.kim</a>. I'm one developer, and I usually reply within a few days.</p>
+
+  <h2>Requirements</h2>
+  <p>macOS 14 Sonoma or later, on Apple Silicon or Intel. Apple Music (built into macOS) or Spotify.</p>
+
+  <h2>Getting started</h2>
+  <p>Open GroovSide and a turntable appears on your desktop, behind your icons. GroovSide lives in the menu bar (the record icon) and has no Dock icon. Play a song in Music or Spotify. The first time, macOS asks to let GroovSide read from Music or Spotify. Click <strong>OK</strong>.</p>
+
+  <h2>Common questions</h2>
+
+  <h3>I don't see the turntable</h3>
+  <p>It sits on the desktop, under your windows. Hide or move your windows, or click <strong>Show Desktop</strong> in the welcome note. Check that <strong>Show on Desktop</strong> is ticked in the menu bar menu, and that your display is turned on in <strong>Settings → Displays</strong>.</p>
+
+  <h3>The song doesn't show up</h3>
+  <p>Open <strong>Settings → Players</strong>. If it says <em>Not Allowed</em>, click <strong>Open Automation Settings…</strong> and turn on Music or Spotify under GroovSide. If GroovSide isn't in that list, quit GroovSide, run this in Terminal, then open GroovSide again and play a song:</p>
+  <pre><code>tccutil reset AppleEvents kim.zinu.groovside</code></pre>
+
+  <h3>Does GroovSide control my music?</h3>
+  <p>No. It only reads what's playing. It never changes playback and never opens Music or Spotify by itself.</p>
+
+  <h3>Why isn't an album split into sides?</h3>
+  <p>For songs that aren't in your library, GroovSide looks the album up in Apple's iTunes catalog to find its track list. If it can't find a matching edition, the record still plays, just without sides.</p>
+
+  <h3>Fast-forward and rewind don't move the record in Spotify</h3>
+  <p>That works with Apple Music only. Spotify doesn't report fast-forward or rewind.</p>
+
+  <h3>How do I start it when I log in?</h3>
+  <p>Turn on <strong>Open at Login</strong> in <strong>Settings → General</strong>.</p>
+
+  <h3>How do I remove it?</h3>
+  <p>Quit GroovSide from the menu bar and move it from Applications to the Trash. To remove its settings and saved records too, delete <code>~/Library/Containers/kim.zinu.groovside</code>.</p>
+
+  <h3>Refunds</h3>
+  <p>Purchases are handled by Apple. You can request a refund at <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>.</p>
+
+  <footer><a href="../privacy/">Privacy Policy</a> · <a href="../">GroovSide</a></footer>
+</main>
+</body>
+</html>
