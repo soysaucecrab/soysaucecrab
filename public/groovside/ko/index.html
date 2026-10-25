@@ -126,6 +126,22 @@
   .tracks .no { font: 600 .95rem/1.5 ui-monospace, "SF Mono", Menlo, monospace; color: var(--orange); padding-top: 1px; }
   .tracks b { font-weight: 650; letter-spacing: -.01em; }
   .tracks span.d { color: var(--muted); display: block; font-size: .98rem; }
+
+  /* record crate gallery */
+  .crate { display: grid; gap: 28px 22px; grid-template-columns: 1fr; margin-top: 28px; }
+  @media (min-width: 760px) { .crate { grid-template-columns: repeat(3, 1fr); } .crate figure:first-child { grid-column: 1 / -1; } }
+  .crate figure { margin: 0; }
+  .crate + .note { margin-top: 28px; }
+  .crate .sleeve { border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,.06); transition: transform .35s ease, box-shadow .35s ease; }
+  .crate figure:hover .sleeve { transform: translateY(-4px); box-shadow: 0 40px 70px -32px rgba(46, 91, 72, .55); }
+  @media (prefers-reduced-motion: reduce) { .crate .sleeve { transition: none; } .crate figure:hover .sleeve { transform: none; } }
+  .crate img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+  .crate figure:first-child img { aspect-ratio: 16 / 9; }
+  .crate figcaption { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; margin-top: 14px; font-weight: 400; }
+  .crate .no { grid-row: span 2; font: 600 .85rem/1.6 ui-monospace, "SF Mono", Menlo, monospace; color: var(--orange); }
+  .crate .t { font-weight: 650; letter-spacing: -.01em; }
+  .crate .t i { font-style: normal; color: var(--muted); font-weight: 400; }
+  .crate .s { color: var(--muted); font-size: .9rem; }
   .final { text-align: center; padding: 80px 0 40px; }
   .final img { width: 88px; height: 88px; margin: 0 auto 10px; }
   footer { border-top: 1px solid var(--line); padding: 24px 0 48px; color: var(--muted); font-size: .92rem; display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
@@ -182,7 +198,7 @@
             <li>가끔은 돌아가는 판 위를 달려요</li>
           </ul>
         </div>
-        <div class="frame"><img src="/groovside/assets/closeup.webp" loading="lazy" width="1575" height="624" alt="바늘과 노브 근접, 그리고 춤추고 환호하고 손 흔들고 책 읽고 조는 작은 손님들"></div>
+        <div class="frame"><img src="/groovside/assets/visitors.webp" loading="lazy" width="1200" height="750" alt="늦은 오후의 책상 위: 하트를 띄운 두 손님과 턴테이블 옆을 지나가는 사람들"></div>
       </div>
     </section>
 
@@ -213,12 +229,8 @@
 
     <section aria-labelledby="g-title">
       <h2 id="g-title">다른 장면들</h2>
-      <div class="shots" tabindex="0" aria-label="스크린샷, 옆으로 넘겨 보기">
-        <img src="/groovside/assets/shot-1-hero.webp" loading="lazy" alt="분홍과 초록 장면, 크림색 판과 턴테이블 주위의 손님들">
-        <img src="/groovside/assets/shot-2-crowd.webp" loading="lazy" alt="노을 장면, 남색 턴테이블과 모여드는 손님들">
-        <img src="/groovside/assets/shot-3-night.webp" loading="lazy" alt="밤 장면, 청록색 컬러 바이닐">
-        <img src="/groovside/assets/shot-4-dawn.webp" loading="lazy" alt="보라색 컬러 바이닐, 왼쪽의 판과 오른쪽의 곡 정보">
-      </div>
+      <p class="sub">앱에 들어 있는 미리보기 앨범 상자에서 꺼낸 판 네 장.</p>
+      <div class="crate"><figure><div class="sleeve"><img src="/groovside/assets/shot-3-night.webp" loading="lazy" width="1600" height="1000" alt="밤 장면, 청록색 컬러 바이닐"></div><figcaption><span class="no">LP 01</span><span class="t">Side B Summer <i>· Ocean Label</i></span><span class="s">밤, 청록색 컬러 바이닐</span></figcaption></figure><figure><div class="sleeve"><img src="/groovside/assets/shot-4-dawn.webp" loading="lazy" width="1600" height="1000" alt="보라색 컬러 바이닐, 왼쪽의 판과 오른쪽의 곡 정보"></div><figcaption><span class="no">LP 02</span><span class="t">Lavender Tape <i>· Salt Bread Club</i></span><span class="s">보라색 바이닐, 왼쪽에 놓은 판</span></figcaption></figure><figure><div class="sleeve"><img src="/groovside/assets/shot-2-crowd.webp" loading="lazy" width="1600" height="1000" alt="노을 장면, 남색 턴테이블과 모여드는 손님들"></div><figcaption><span class="no">LP 03</span><span class="t">Midnight Groove Line <i>· The Spindles</i></span><span class="s">늦은 오후, 책상 위로 모여드는 사람들</span></figcaption></figure><figure><div class="sleeve"><img src="/groovside/assets/shot-1-hero.webp" loading="lazy" width="1600" height="1000" alt="분홍과 초록 장면, 크림색 판과 턴테이블 주위의 손님들"></div><figcaption><span class="no">LP 04</span><span class="t">Roller Rink Road <i>· The Pink Platters</i></span><span class="s">크림색 판, 턴테이블 주위의 손님들</span></figcaption></figure></div>
       <p class="note">보이는 앨범은 모두 앱에 들어 있는 미리보기 앨범입니다.</p>
     </section>
 

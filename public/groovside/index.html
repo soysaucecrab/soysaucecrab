@@ -126,6 +126,22 @@
   .tracks .no { font: 600 .95rem/1.5 ui-monospace, "SF Mono", Menlo, monospace; color: var(--orange); padding-top: 1px; }
   .tracks b { font-weight: 650; letter-spacing: -.01em; }
   .tracks span.d { color: var(--muted); display: block; font-size: .98rem; }
+
+  /* record crate gallery */
+  .crate { display: grid; gap: 28px 22px; grid-template-columns: 1fr; margin-top: 28px; }
+  @media (min-width: 760px) { .crate { grid-template-columns: repeat(3, 1fr); } .crate figure:first-child { grid-column: 1 / -1; } }
+  .crate figure { margin: 0; }
+  .crate + .note { margin-top: 28px; }
+  .crate .sleeve { border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,.06); transition: transform .35s ease, box-shadow .35s ease; }
+  .crate figure:hover .sleeve { transform: translateY(-4px); box-shadow: 0 40px 70px -32px rgba(46, 91, 72, .55); }
+  @media (prefers-reduced-motion: reduce) { .crate .sleeve { transition: none; } .crate figure:hover .sleeve { transform: none; } }
+  .crate img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+  .crate figure:first-child img { aspect-ratio: 16 / 9; }
+  .crate figcaption { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; margin-top: 14px; font-weight: 400; }
+  .crate .no { grid-row: span 2; font: 600 .85rem/1.6 ui-monospace, "SF Mono", Menlo, monospace; color: var(--orange); }
+  .crate .t { font-weight: 650; letter-spacing: -.01em; }
+  .crate .t i { font-style: normal; color: var(--muted); font-weight: 400; }
+  .crate .s { color: var(--muted); font-size: .9rem; }
   .final { text-align: center; padding: 80px 0 40px; }
   .final img { width: 88px; height: 88px; margin: 0 auto 10px; }
   footer { border-top: 1px solid var(--line); padding: 24px 0 48px; color: var(--muted); font-size: .92rem; display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
@@ -182,7 +198,7 @@
             <li>Sometimes they run on the spinning record</li>
           </ul>
         </div>
-        <div class="frame"><img src="/groovside/assets/closeup.webp" loading="lazy" width="1575" height="624" alt="Close-up of the needle and knobs, and small visitors dancing, cheering, waving, reading and dozing"></div>
+        <div class="frame"><img src="/groovside/assets/visitors.webp" loading="lazy" width="1200" height="750" alt="Late afternoon on the desk: two visitors share a heart while others wander by the turntable"></div>
       </div>
     </section>
 
@@ -213,13 +229,9 @@
 
     <section aria-labelledby="g-title">
       <h2 id="g-title">More scenes</h2>
-      <div class="shots" tabindex="0" aria-label="Screenshots, scroll sideways">
-        <img src="/groovside/assets/shot-1-hero.webp" loading="lazy" alt="Pink and green scene with a cream record and visitors around the turntable">
-        <img src="/groovside/assets/shot-2-crowd.webp" loading="lazy" alt="Sunset scene with a navy turntable and visitors gathering">
-        <img src="/groovside/assets/shot-3-night.webp" loading="lazy" alt="Night scene with a teal colored vinyl record">
-        <img src="/groovside/assets/shot-4-dawn.webp" loading="lazy" alt="Purple colored vinyl with the record on the left and song details on the right">
-      </div>
-      <p class="note">All albums shown are the app's built-in preview albums.</p>
+      <p class="sub">Four records from the preview crate that comes with the app.</p>
+      <div class="crate"><figure><div class="sleeve"><img src="/groovside/assets/shot-3-night.webp" loading="lazy" width="1600" height="1000" alt="Night scene with a teal colored vinyl record"></div><figcaption><span class="no">LP 01</span><span class="t">Side B Summer <i>· Ocean Label</i></span><span class="s">Night, on teal colored vinyl</span></figcaption></figure><figure><div class="sleeve"><img src="/groovside/assets/shot-4-dawn.webp" loading="lazy" width="1600" height="1000" alt="Purple colored vinyl with the record on the left and song details on the right"></div><figcaption><span class="no">LP 02</span><span class="t">Lavender Tape <i>· Salt Bread Club</i></span><span class="s">Purple vinyl, record on the left</span></figcaption></figure><figure><div class="sleeve"><img src="/groovside/assets/shot-2-crowd.webp" loading="lazy" width="1600" height="1000" alt="Sunset scene with a navy turntable and visitors gathering"></div><figcaption><span class="no">LP 03</span><span class="t">Midnight Groove Line <i>· The Spindles</i></span><span class="s">Late afternoon, people gathering on the desk</span></figcaption></figure><figure><div class="sleeve"><img src="/groovside/assets/shot-1-hero.webp" loading="lazy" width="1600" height="1000" alt="Pink and green scene with a cream record and visitors around the turntable"></div><figcaption><span class="no">LP 04</span><span class="t">Roller Rink Road <i>· The Pink Platters</i></span><span class="s">Cream record, a few visitors around the turntable</span></figcaption></figure></div>
+      <p class="note">All albums shown are the app’s built-in preview albums.</p>
     </section>
 
     <section class="final" aria-labelledby="end-title">
