@@ -3,37 +3,263 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GroovSide</title>
-<meta name="description" content="A record player for your Mac's desktop. Whatever you play in Apple Music or Spotify spins as a record behind your icons.">
+<title>GroovSide — Now playing, on a turntable</title>
+<meta name="description" content="GroovSide turns whatever you play in Apple Music or Spotify into a record spinning on your Mac's desktop, right behind your icons.">
 <meta name="color-scheme" content="light dark">
+<link rel="icon" type="image/png" sizes="32x32" href="/groovside/assets/icon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="/groovside/assets/icon-64.png">
+<link rel="apple-touch-icon" href="/groovside/assets/apple-touch-icon.png">
+<link rel="alternate" hreflang="en" href="https://zinu.kim/groovside/">
+<link rel="alternate" hreflang="ko" href="https://zinu.kim/groovside/ko/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="GroovSide — Now playing, on a turntable">
+<meta property="og:description" content="Whatever you play in Apple Music or Spotify spins as a record on your Mac's desktop.">
+<meta property="og:image" content="https://zinu.kim/groovside/assets/og.jpg">
+<meta property="og:url" content="https://zinu.kim/groovside/">
+<meta name="twitter:card" content="summary_large_image">
 <style>
-  :root { --bg: #fbfaf7; --fg: #1d1c1a; --muted: #6b6862; --line: #e6e2da; --accent: #c4542b; }
-  @media (prefers-color-scheme: dark) { :root { --bg: #141412; --fg: #ecebe7; --muted: #a29f98; --line: #2c2b28; --accent: #e57a4f; } }
+  :root {
+    --bg: #f6ebec; --paper: #fbf6f4; --ink: #1f2a25; --muted: #5f6b65; --line: #e3d3d5;
+    --green: #2e5b48; --green-ink: #f6ebec; --orange: #e8593a; --card: #fffaf8; --shadow: 0 30px 60px -30px rgba(46, 91, 72, .45);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #111613; --paper: #161d19; --ink: #ecebe5; --muted: #a5aea8; --line: #2a332e; --green: #3f7a60; --green-ink: #f6ebec; --orange: #f07a58; --card: #1a221e; --shadow: 0 30px 60px -30px rgba(0, 0, 0, .7); }
+  }
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--fg); font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
-  main { max-width: 680px; margin: 0 auto; padding: 72px 20px 80px; }
-  h1 { font-size: 2.6rem; line-height: 1.1; margin: 0 0 8px; letter-spacing: -0.03em; }
-  .sub { font-size: 1.25rem; color: var(--muted); margin: 0 0 28px; }
-  a { color: var(--accent); }
-  .button { display: inline-block; padding: 12px 20px; border-radius: 12px; background: var(--fg); color: var(--bg); text-decoration: none; font-weight: 600; }
-  ul { padding-left: 1.2em; }
-  footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.9rem; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0; color: var(--ink); background: var(--bg);
+    font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before { /* paper grain, like the app */
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100; opacity: .07;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+  a { color: inherit; }
+  a:focus-visible, video:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 6px; }
+  img, video { display: block; max-width: 100%; height: auto; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+
+  /* top bar */
+  .top { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; text-decoration: none; letter-spacing: -.01em; }
+  .brand img { width: 32px; height: 32px; }
+  .top nav { display: flex; gap: 18px; font-size: .95rem; color: var(--muted); }
+  .top nav a { text-decoration: none; }
+  .top nav a:hover { color: var(--ink); }
+
+  /* hero */
+  .hero { display: grid; grid-template-columns: 1fr; gap: 36px; padding: 32px 0 24px; text-align: center; }
+  .hero .icon { width: 128px; height: 128px; margin: 0 auto; filter: drop-shadow(0 18px 24px rgba(46, 91, 72, .25)); }
+  .hero h1 { font-size: clamp(2.6rem, 7vw, 4.4rem); line-height: 1.02; letter-spacing: -.04em; margin: 12px 0 6px; }
+  .hero .tag { font-size: clamp(1.2rem, 2.6vw, 1.55rem); color: var(--green); font-weight: 600; margin: 0; letter-spacing: -.01em; }
+  @media (prefers-color-scheme: dark) { .hero .tag { color: #8cc3a8; } }
+  .hero .lede { max-width: 620px; margin: 18px auto 0; color: var(--muted); font-size: 1.08rem; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; align-items: center; margin-top: 26px; }
+  .badge { display: inline-flex; align-items: center; gap: 10px; padding: 13px 22px; border-radius: 14px; background: var(--ink); color: var(--paper); font-weight: 600; text-decoration: none; }
+  .badge svg { width: 18px; height: 18px; fill: currentColor; }
+  .meta { color: var(--muted); font-size: .95rem; }
+
+  /* desktop frame */
+  .screen { position: relative; margin: 8px auto 0; max-width: 1040px; border-radius: 18px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,.08); background: #e9d9db; }
+  .menubar { display: flex; align-items: center; gap: 14px; height: 28px; padding: 0 14px; font: 600 12px/28px -apple-system, system-ui, sans-serif; color: #1f2a25; background: rgba(255,255,255,.55); backdrop-filter: blur(8px); }
+  .menubar .dots { display: flex; gap: 6px; }
+  .menubar .dots i { width: 10px; height: 10px; border-radius: 50%; background: #c9b7ba; display: block; }
+  .menubar .right { margin-left: auto; display: flex; align-items: center; gap: 12px; font-weight: 500; }
+  .menubar .rec { width: 14px; height: 14px; border-radius: 50%; border: 2px solid #1f2a25; position: relative; }
+  .menubar .rec::after { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: #1f2a25; }
+  .screen video, .screen .poster { width: 100%; aspect-ratio: 1280 / 832; object-fit: cover; }
+  .desk-icons { position: absolute; right: 16px; top: 44px; display: grid; gap: 14px; justify-items: center; }
+  .desk-icons span { width: 46px; height: 38px; border-radius: 6px; background: linear-gradient(#7fb0e6, #5b8fd0); box-shadow: 0 2px 4px rgba(0,0,0,.2); position: relative; }
+  .desk-icons span::after { content: attr(data-name); position: absolute; top: 42px; left: 50%; transform: translateX(-50%); white-space: nowrap; font: 600 10px/1 system-ui, sans-serif; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.6); }
+  .caption { text-align: center; color: var(--muted); font-size: .92rem; margin: 14px 0 0; }
+
+  /* sections */
+  section { padding: 72px 0 8px; }
+  .kicker { color: var(--orange); font-weight: 700; font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 8px; }
+  h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.12; letter-spacing: -.03em; margin: 0 0 14px; }
+  .sub { color: var(--muted); max-width: 640px; margin: 0; font-size: 1.05rem; }
+
+  .grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 32px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 22px 22px 20px; }
+  .card .ico { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--green); color: var(--green-ink); margin-bottom: 14px; }
+  .card .ico svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .card h3 { margin: 0 0 6px; font-size: 1.08rem; letter-spacing: -.01em; }
+  .card p { margin: 0; color: var(--muted); font-size: .97rem; }
+
+  .split { display: grid; grid-template-columns: 1fr; gap: 28px; align-items: center; }
+  @media (min-width: 860px) { .split { grid-template-columns: 5fr 7fr; } .split.rev { grid-template-columns: 7fr 5fr; } .split.rev .text { order: 2; } }
+  .frame { border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,.06); }
+  .bullets { margin: 18px 0 0; padding: 0; list-style: none; color: var(--muted); }
+  .bullets li { padding-left: 22px; position: relative; margin: 6px 0; }
+  .bullets li::before { content: ""; position: absolute; left: 4px; top: .62em; width: 8px; height: 8px; border-radius: 50%; background: var(--orange); }
+
+  .times { display: grid; gap: 14px; grid-template-columns: repeat(2, 1fr); margin-top: 32px; }
+  @media (min-width: 860px) { .times { grid-template-columns: repeat(4, 1fr); } }
+  .times figure, .colors figure { margin: 0; }
+  .times img, .colors img { border-radius: 14px; box-shadow: var(--shadow); aspect-ratio: 16 / 10; object-fit: cover; width: 100%; }
+  figcaption { margin-top: 10px; font-weight: 600; font-size: .95rem; }
+  figcaption span { display: block; font-weight: 400; color: var(--muted); font-size: .88rem; }
+  .colors { display: grid; gap: 14px; grid-template-columns: 1fr; margin-top: 32px; }
+  @media (min-width: 700px) { .colors { grid-template-columns: repeat(3, 1fr); } }
+
+  .shots { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 28px 2px 22px; margin-top: 4px; }
+  .shots img { flex: 0 0 auto; width: min(84%, 680px); max-width: none; scroll-snap-align: center; border-radius: 14px; box-shadow: var(--shadow); aspect-ratio: 16 / 10; object-fit: cover; }
+  @media (max-width: 440px) { .top nav .opt { display: none; } }
+
+  .privacy { background: var(--green); color: var(--green-ink); border-radius: 24px; padding: 40px 28px; margin-top: 72px; display: grid; gap: 18px; }
+  @media (min-width: 860px) { .privacy { grid-template-columns: 1fr 1fr; padding: 48px; } }
+  .privacy h2 { color: inherit; }
+  .privacy p { margin: 0; opacity: .88; }
+  .privacy a { font-weight: 600; }
+
+  .final { text-align: center; padding: 80px 0 40px; }
+  .final img { width: 88px; height: 88px; margin: 0 auto 10px; }
+  footer { border-top: 1px solid var(--line); padding: 24px 0 48px; color: var(--muted); font-size: .92rem; display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
+  footer nav { display: flex; flex-wrap: wrap; gap: 16px; }
+  footer a { text-decoration: none; }
+  footer a:hover { color: var(--ink); }
+  .note { color: var(--muted); font-size: .85rem; margin-top: 10px; }
 </style>
 </head>
 <body>
-<main>
-  <h1>GroovSide</h1>
-  <p class="sub">Now playing, on a turntable.</p>
-  <p>Whatever you play in Apple Music or Spotify spins as a record on your Mac's desktop, right behind your icons. The cover becomes the label, the needle follows the song, and the longer you listen, the more little visitors drop by.</p>
-  <p><span class="button">Coming soon to the Mac App Store</span></p>
-  <!-- After release: <a class="button" href="https://apps.apple.com/app/idXXXXXXXXXX">Download on the Mac App Store</a> -->
-  <ul>
-    <li>Albums split into LP sides, with records turned over and swapped</li>
-    <li>Light from a window that follows the time of day</li>
-    <li>No accounts, no analytics, no tracking</li>
-  </ul>
-  <p>Requires macOS 14 or later.</p>
-  <footer><a href="support/">Support</a> · <a href="privacy/">Privacy Policy</a> · © 2026 zinu kim</footer>
-</main>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="/groovside/"><img src="/groovside/assets/icon-64.png" alt="" width="32" height="32">GroovSide</a>
+    <nav aria-label="Pages"><a class="opt" href="#features">Features</a><a href="/groovside/support/">Support</a><a href="/groovside/ko/" hreflang="ko" lang="ko">한국어</a></nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="title" style="padding-top:24px">
+      <div>
+        <img class="icon" src="/groovside/assets/icon-256.png" width="128" height="128" alt="GroovSide app icon">
+        <h1 id="title">GroovSide</h1>
+        <p class="tag">Now playing, on a turntable.</p>
+        <p class="lede">Whatever you play in Apple Music or Spotify spins as a record on your Mac's desktop, right behind your icons. The cover becomes the label, the needle follows the song, and the longer you listen, the more little visitors drop by.</p>
+        <div class="cta">
+          <span class="badge" aria-label="Coming soon to the Mac App Store"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.6 1.3-2.6s-2.5-1-2.5-3.8zM14.2 5.8c.6-.8 1.1-1.8 1-2.8-.9 0-2 .6-2.6 1.4-.6.7-1.1 1.7-1 2.7 1 .1 2-.5 2.6-1.3z"/></svg>Coming soon to the Mac App Store</span>
+          <span class="meta">$4.99 · macOS 14 or later</span>
+        </div>
+      </div>
+
+      <figure style="margin:0">
+        <div class="screen">
+          <div class="menubar" aria-hidden="true"><span class="dots"><i></i><i></i><i></i></span><span>Finder</span><span style="font-weight:500">File</span><span style="font-weight:500">Edit</span><span class="right"><span class="rec"></span><span>Mon 9:41 AM</span></span></div>
+          <video id="hero" autoplay muted loop playsinline preload="metadata" poster="/groovside/assets/hero-poster.webp" aria-label="A record spinning on the desktop while small visitors walk around the turntable">
+            <source src="/groovside/assets/hero.mp4" type="video/mp4">
+          </video>
+          <div class="desk-icons" aria-hidden="true"><span data-name="Projects"></span><span data-name="Notes"></span></div>
+        </div>
+        <figcaption class="caption">Shown with the built-in preview albums.</figcaption>
+      </figure>
+    </section>
+
+    <section id="features" aria-labelledby="f-title">
+      <p class="kicker">Plays like a real record</p>
+      <h2 id="f-title">Every album gets its own record.</h2>
+      <p class="sub">The cover becomes the label and the whole scene takes on its colors. The tonearm follows the song and draws a line in the groove as it plays.</p>
+      <div class="grid">
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 3a9 9 0 0 1 9 9"/></svg></div><h3>Real LP sides</h3><p>Albums are split into sides of up to six songs. When a side ends, the record is lifted and turned over, or swapped for the next one.</p></div>
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/><path d="M3 12h2M19 12h2"/></svg></div><h3>7-inch singles</h3><p>Singles spin on a smaller record with a bigger label, so a short song doesn't sweep across a whole LP.</p></div>
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><path d="M11 7 5 12l6 5V7zM19 7l-6 5 6 5V7z"/></svg></div><h3>Rewind it like a DJ</h3><p>Fast-forward or rewind in Apple Music and the record speeds up or turns backwards, with an optional spinback sound.</p></div>
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><path d="M4 14a8 8 0 0 1 16 0"/><path d="M12 14l3-4"/><path d="M4 18h16"/></svg></div><h3>Knobs that mean it</h3><p>The volume knob follows your Mac's volume, and side lamps show which side is playing.</p></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="v-title">
+      <div class="split">
+        <div class="text">
+          <p class="kicker">Company while you listen</p>
+          <h2 id="v-title">The longer you listen, the more friends drop by.</h2>
+          <p class="sub">Little visitors show up one by one, up to six at a time. When the music stops, they wave and head home.</p>
+          <ul class="bullets">
+            <li>Dance, headbang and breakdance to the beat</li>
+            <li>Read, doze off, take phone calls, play tag</li>
+            <li>Sometimes they run on the spinning record</li>
+          </ul>
+        </div>
+        <div class="frame"><img src="/groovside/assets/closeup.webp" loading="lazy" width="1575" height="624" alt="Close-up of the needle and knobs, and small visitors dancing, cheering, waving, reading and dozing"></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="l-title">
+      <p class="kicker">Light that follows your day</p>
+      <h2 id="l-title">Morning, noon, sunset, night.</h2>
+      <p class="sub">Sunlight through a window moves across the desk with your Mac's clock, and the whole scene shifts its mood.</p>
+      <div class="times">
+        <figure><img src="/groovside/assets/time-dawn.webp" loading="lazy" alt="The turntable in soft peach morning light"><figcaption>Morning<span>A peach glow</span></figcaption></figure>
+        <figure><img src="/groovside/assets/time-noon.webp" loading="lazy" alt="The turntable in bright noon light"><figcaption>Noon<span>Clear and bright</span></figcaption></figure>
+        <figure><img src="/groovside/assets/time-sunset.webp" loading="lazy" alt="The turntable in orange sunset light"><figcaption>Sunset<span>Long orange light</span></figcaption></figure>
+        <figure><img src="/groovside/assets/time-night.webp" loading="lazy" alt="The turntable in deep blue night"><figcaption>Night<span>Quiet and blue</span></figcaption></figure>
+      </div>
+    </section>
+
+    <section aria-labelledby="c-title">
+      <p class="kicker">Make it yours</p>
+      <h2 id="c-title">Colored vinyl, your colors.</h2>
+      <p class="sub">Let the album pick the colors, press it on colored vinyl, or choose your own for the record, background, line, text and tonearm. Put the record on the left, center or right.</p>
+      <div class="colors">
+        <figure><img src="/groovside/assets/color-vinyl.webp" loading="lazy" alt="A teal colored vinyl record"><figcaption>Colored vinyl<span>In the album's own color</span></figcaption></figure>
+        <figure><img src="/groovside/assets/color-black.webp" loading="lazy" alt="A black record with a gold tonearm"><figcaption>Your colors<span>Black record, gold tonearm</span></figcaption></figure>
+        <figure><img src="/groovside/assets/color-left.webp" loading="lazy" alt="The turntable placed on the left of the screen"><figcaption>Left, center or right<span>Wherever your icons aren't</span></figcaption></figure>
+      </div>
+    </section>
+
+    <section aria-labelledby="s-title">
+      <p class="kicker">Stays out of your way</p>
+      <h2 id="s-title">Lives on your desktop, not in your way.</h2>
+      <div class="grid">
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18"/></svg></div><h3>Menu bar only</h3><p>No Dock icon. Your desktop icons stay on top and clicks go straight through.</p></div>
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="12" height="9" rx="1.5"/><rect x="10" y="10" width="12" height="9" rx="1.5"/></svg></div><h3>Every display</h3><p>Works on all your screens and steers clear of the menu bar and Dock.</p></div>
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><path d="M13 3 5 14h6l-1 7 8-11h-6l1-7z"/></svg></div><h3>Light on battery</h3><p>Stops drawing when your screen is locked, asleep or covered, and runs at 30 fps on battery.</p></div>
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg></div><h3>Soft record sounds</h3><p>Needle drop, motor and a gentle crackle in the groove. Off by default.</p></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="g-title">
+      <p class="kicker">Gallery</p>
+      <h2 id="g-title">A different scene for every album.</h2>
+      <div class="shots" tabindex="0" aria-label="Screenshots, scroll sideways">
+        <img src="/groovside/assets/shot-1-hero.webp" loading="lazy" alt="Pink and green scene with a cream record and visitors around the turntable">
+        <img src="/groovside/assets/shot-2-crowd.webp" loading="lazy" alt="Sunset scene with a navy turntable and visitors gathering">
+        <img src="/groovside/assets/shot-3-night.webp" loading="lazy" alt="Night scene with a teal colored vinyl record">
+        <img src="/groovside/assets/shot-4-dawn.webp" loading="lazy" alt="Purple colored vinyl with the record on the left and song details on the right">
+      </div>
+      <p class="note">All albums shown are the app's built-in preview albums.</p>
+    </section>
+
+    <div class="privacy" role="region" aria-labelledby="p-title">
+      <div><h2 id="p-title">Private by design.</h2></div>
+      <div>
+        <p>No accounts, no analytics, no tracking. GroovSide only reads what's playing. It never changes your music and never opens Music or Spotify by itself. <a href="/groovside/privacy/">Read the privacy policy</a>.</p>
+      </div>
+    </div>
+
+    <section class="final" aria-labelledby="end-title">
+      <img src="/groovside/assets/icon-256.png" width="88" height="88" alt="">
+      <h2 id="end-title">Put a record on.</h2>
+      <div class="cta"><span class="badge">Coming soon to the Mac App Store</span></div>
+      <p class="meta" style="margin-top:14px">Works with Apple Music (built into macOS) and Spotify.</p>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2026 zinu kim</span>
+    <nav aria-label="Footer"><a href="/groovside/support/">Support</a><a href="/groovside/privacy/">Privacy Policy</a><a href="/groovside/ko/" hreflang="ko" lang="ko">한국어</a><a href="mailto:support@zinu.kim">support@zinu.kim</a></nav>
+  </footer>
+</div>
+<script>
+  // Respect reduced motion: show the still frame instead of the looping clip.
+  (function () {
+    var v = document.getElementById('hero');
+    if (!v || !window.matchMedia) return;
+    var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    function apply() { if (mq.matches) { v.removeAttribute('autoplay'); v.pause(); } else { v.play && v.play().catch(function () {}); } }
+    apply();
+    if (mq.addEventListener) mq.addEventListener('change', apply);
+  })();
+</script>
 </body>
 </html>
