@@ -13,9 +13,10 @@ const statusOrder = { active: 0, shipped: 1, archived: 2 } as const;
 const news = (await getCollection('news'))
   .sort((a, b) => +b.data.date - +a.data.date)
   .slice(0, 3);
-const projects = (await getCollection('projects'))
-  .sort((a, b) => statusOrder[a.data.status] - statusOrder[b.data.status] || +b.data.date - +a.data.date)
-  .slice(0, 4);
+const sortProj = (a, b) => statusOrder[a.data.status] - statusOrder[b.data.status] || +b.data.date - +a.data.date;
+const allProjects = await getCollection('projects');
+const apps = allProjects.filter((p) => p.data.kind === 'app').sort(sortProj);
+const projects = allProjects.filter((p) => p.data.kind !== 'app').sort(sortProj).slice(0, 4);
 
 const secondary = t(lang, 'nameSecondary');
 const hasCV = existsSync('public/cv.pdf');
@@ -41,6 +42,18 @@ const hasCV = existsSync('public/cv.pdf');
     </p>
     <div class="nbody"><NewsList items={news} lang={lang} /></div>
   </section>
+
+  {apps.length > 0 && (
+  <section class="node">
+    <p class="nlabel">
+      <span class="sl">~/</span><a class="nm" href={pathFor(lang, 'projects')}>apps</a>
+      <span class="more"><a href={pathFor(lang, 'projects')}>{t(lang, 'seeAll')}</a></span>
+    </p>
+    <div class="nbody"><div class="projs">
+      {apps.map((p) => <Project project={p} lang={lang} inlineStatus={true} />)}
+    </div></div>
+  </section>
+  )}
 
   <section class="node">
     <p class="nlabel">

@@ -2,6 +2,7 @@
 name: GroovSide
 date: 2026-10-25
 status: active
+kind: app
 tags: [macOS, Swift]
 blurb:
   en: "A macOS menu-bar app: whatever you play in Apple Music or Spotify spins as a record on your desktop, behind your icons — the cover becomes the label and the needle follows the song. No accounts, no tracking."

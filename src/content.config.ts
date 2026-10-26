@@ -17,6 +17,7 @@ const projects = defineCollection({
     name: z.string(),
     date: z.coerce.date(),
     status: z.enum(['active', 'shipped', 'archived']),
+    kind: z.enum(['app', 'project']).default('project'),
     tags: z.array(z.string()),
     blurb: bilingual,
     links: z.object({

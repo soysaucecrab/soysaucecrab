@@ -3,6 +3,15 @@
 개인 사이트 v1 명세. CLAUDE.md의 규칙을 전제로 하며, 여기에는 확정된
 결정과 구현 범위만 적는다.
 
+## v1.2 Apps/Projects 분리 + 논문 (2026-10-26)
+
+- 프로젝트에 `kind: app | project` 필드 추가. 실배포/판매한 앱(GroovSide
+  등)은 홈과 `/projects`에서 **Apps** 그룹으로 먼저, 오픈소스/사이드 작업은
+  **Projects**(status별)로 분리 표시.
+- 논문: NeurIPS 2026 ODI(On-Device Intelligence) 워크숍 1건 추가 예정.
+  정확한 제목·저자 순서·venue·링크·상태는 소유자 확인 후 반영한다
+  (CLAUDE.md: 논문 데이터 날조 금지, 미확인 상태 렌더 금지).
+
 ## v1 구현 확정 (2026-09-01, Astro)
 
 - **디자인 방향**: 간장게장(soysaucecrab) 아이덴티티 = 터미널/파일트리
