@@ -126,11 +126,24 @@
   @media (min-width: 860px) { .side-head { flex-direction: column; align-items: flex-start; } }
   .side h2 { margin: 0; }
   .side .label { color: var(--muted); margin: 6px 0 0; font: italic 400 1.1rem/1.3 var(--serif); }
-  .center-label { /* a record's center label, one per side */
-    flex: 0 0 auto; width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center;
+  .center-label { /* a little record, one per side; the inner .lp spins while you're on that side (script below) */
+    flex: 0 0 auto; position: relative; width: 72px; height: 72px; border-radius: 50%;
     font: 600 1.5rem/1 var(--serif); color: #f6ebec;
-    background: radial-gradient(circle, var(--bg) 0 4%, transparent 4.6%), radial-gradient(circle, #2e5b48 0 56%, transparent 57%), repeating-radial-gradient(circle, var(--vinyl) 0 1.5px, var(--vinyl-2) 1.5px 2.5px);
-    box-shadow: 0 10px 20px -12px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,.08);
+    box-shadow: 0 10px 20px -12px rgba(0,0,0,.6);
+  }
+  .center-label .lp {
+    position: absolute; inset: 0; border-radius: 50%; display: grid; place-items: center;
+    background:
+      radial-gradient(circle, var(--bg) 0 4%, transparent 4.6%),
+      radial-gradient(circle at 67% 41%, var(--orange) 0 3.6%, transparent 4.4%),
+      linear-gradient(rgba(246,235,236,.5), rgba(246,235,236,.5)) 50% 69% / 24% 1.5px no-repeat,
+      radial-gradient(circle, #2e5b48 0 56%, transparent 57%),
+      repeating-radial-gradient(circle, var(--vinyl) 0 1.5px, var(--vinyl-2) 1.5px 2.5px);
+  }
+  .center-label::after { /* the shine stays put while the record turns under it */
+    content: ""; position: absolute; inset: 0; border-radius: 50%; pointer-events: none;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+    background: conic-gradient(from 30deg, transparent, rgba(255,255,255,.12) 9%, transparent 20%, transparent 50%, rgba(255,255,255,.08) 59%, transparent 70%);
   }
   .center-label span { transform: translateY(-10px); font-size: 1.05rem; }
   @media (min-width: 860px) { .center-label { width: 96px; height: 96px; margin-bottom: 10px; } .center-label span { transform: translateY(-14px); font-size: 1.35rem; } }
@@ -198,6 +211,71 @@
   footer nav { display: flex; flex-wrap: wrap; gap: 8px 16px; }
   footer a { text-decoration: none; }
   footer a:hover { color: var(--ink); text-decoration: underline; }
+
+  /* who drops by: spotlight a visitor in the still, and the row that matches */
+  .visitors { position: relative; }
+  .visitors .spot {
+    position: absolute; left: 50%; top: 50%; width: 0; height: 0; border-radius: 50%; pointer-events: none; opacity: 0;
+    box-shadow: 0 0 14px 200vmax rgba(16, 21, 19, .58);
+    transition: opacity .35s ease, left .6s cubic-bezier(.16, .8, .22, 1), top .6s cubic-bezier(.16, .8, .22, 1), width .6s cubic-bezier(.16, .8, .22, 1), height .6s cubic-bezier(.16, .8, .22, 1);
+  }
+  .visitors.dim .spot { opacity: 1; }
+  .visitors .who {
+    position: absolute; left: calc(var(--x) - var(--w) / 2); top: calc(var(--y) - var(--h) / 2); width: var(--w); height: var(--h);
+    margin: 0; padding: 0; border: 0; border-radius: 50%; background: none; appearance: none; cursor: pointer; -webkit-tap-highlight-color: transparent;
+  }
+  .visitors .who:focus-visible { border-radius: 50%; outline-offset: 0; }
+  .visitors .cap {
+    position: absolute; left: 14px; bottom: 12px; max-width: calc(100% - 28px); padding: 4px 11px; border-radius: 999px; pointer-events: none;
+    background: rgba(255,255,255,.86); color: #1f2a25; font: 600 .85rem/1.5 var(--sans); backdrop-filter: blur(6px);
+    opacity: 0; transform: translateY(4px); transition: opacity .25s ease, transform .4s cubic-bezier(.16, .8, .22, 1);
+  }
+  .visitors .cap.on { opacity: 1; transform: none; }
+  .credits [data-v] { cursor: default; border-radius: 4px; }
+  .credits [data-v].on { background: linear-gradient(90deg, rgba(232, 89, 58, .13), rgba(232, 89, 58, 0) 80%); }
+  .credits [data-v].on dt { color: var(--orange-ink); }
+  .credits [data-v]:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { .visitors .spot { transition: opacity .2s ease; } .visitors .cap { transition: opacity .2s ease; transform: none; } }
+
+  /* time of day: hovering a mark previews that hour; the slider stays where it was */
+  .daylight.peek .stagebox img { transition: opacity .45s ease; }
+  .daylight .marks button:hover { color: var(--ink); }
+  @media (prefers-reduced-motion: reduce) { .daylight.peek .stagebox img { transition: none; } }
+
+  /* the crate: the record peeks out of the top of its sleeve */
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .crate figure { position: relative; }
+    .crate .sleeve { position: relative; z-index: 1; }
+    .crate figure::before {
+      content: ""; position: absolute; z-index: 0; top: 10px; right: 7%; width: 34%; aspect-ratio: 1; border-radius: 50%;
+      background:
+        radial-gradient(circle, transparent 0 46%, rgba(255,255,255,.1) 46.4% 47.2%, transparent 47.6% 61%, rgba(0,0,0,.08) 61.4% 62.2%, transparent 62.6% 80%, rgba(255,255,255,.1) 80.4% 81.2%, transparent 81.6%),
+        repeating-radial-gradient(circle, var(--rec, var(--vinyl)) 0 2px, var(--rec-2, var(--vinyl-2)) 2px 3px);
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.07);
+      transition: transform .9s cubic-bezier(.16, .8, .22, 1);
+    }
+    .crate figure:first-child::before { width: 20%; right: 9%; }
+    .crate figure:hover::before { transform: translateY(-40px); }
+    .crate figure:nth-child(1) { --rec: #3e7677; --rec-2: #356b6c; }
+    .crate figure:nth-child(2) { --rec: #8b5b8f; --rec-2: #7f5083; }
+    .crate figure:nth-child(3) { --rec: #f0c8a9; --rec-2: #e8bd9c; }
+    .crate figure:nth-child(4) { --rec: #f1e6e2; --rec-2: #e8dbd6; }
+  }
+
+  /* run-out groove: a tiny record follows the pointer and spins */
+  .mini-rec { display: none; }
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .mini-rec {
+      display: block; position: fixed; left: 0; top: 0; z-index: 50; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 50%;
+      pointer-events: none; opacity: 0; transition: opacity .3s ease; box-shadow: 0 6px 12px -6px rgba(0,0,0,.6);
+      background:
+        radial-gradient(circle, var(--bg) 0 6%, transparent 7.5%),
+        radial-gradient(circle at 63% 37%, #f6ebec 0 6%, transparent 7.5%),
+        radial-gradient(circle, var(--orange) 0 33%, transparent 34.5%),
+        repeating-radial-gradient(circle, var(--vinyl) 0 1px, var(--vinyl-2) 1px 2px);
+    }
+    .mini-rec.on { opacity: 1; }
+  }
 </style>
 </head>
 <body>
@@ -237,7 +315,7 @@
     </section>
 
     <section id="features" aria-labelledby="f-title">
-      <div class="side"><div class="side-head"><div class="center-label" aria-hidden="true"><span>A</span></div><div><h2 id="f-title">Side A</h2><p class="label">On the record</p></div></div><ol class="tracks"><li><span class="no">A1</span><div><b>Every album gets its own record</b><span class="d">The cover becomes the label, and the room takes on its colors. The tonearm follows the song and leaves a line in the groove.</span></div></li><li><span class="no">A2</span><div><b>Real LP sides</b><span class="d">Up to six songs a side. When a side ends, the record is lifted and turned over, or swapped for the next one.</span></div></li><li><span class="no">A3</span><div><b>7-inch singles</b><span class="d">A short song gets a small record with a big label, not a whole LP.</span></div></li><li><span class="no">A4</span><div><b>Rewind like a DJ</b><span class="d">Fast-forward or rewind in Apple Music and the record goes with it. A spinback sound if you want one.</span></div></li><li><span class="no">A5</span><div><b>Knobs that work</b><span class="d">The volume knob follows your Mac’s volume. Side lamps show which side is on.</span></div></li><li><span class="no">A6</span><div><b>One record per station</b><span class="d">Live radio in Apple Music can play on a single record for the whole station, with the station’s logo as the label.</span></div></li></ol></div>
+      <div class="side"><div class="side-head"><div class="center-label" aria-hidden="true"><div class="lp"><span>A</span></div></div><div><h2 id="f-title">Side A</h2><p class="label">On the record</p></div></div><ol class="tracks"><li><span class="no">A1</span><div><b>Every album gets its own record</b><span class="d">The cover becomes the label, and the room takes on its colors. The tonearm follows the song and leaves a line in the groove.</span></div></li><li><span class="no">A2</span><div><b>Real LP sides</b><span class="d">Up to six songs a side. When a side ends, the record is lifted and turned over, or swapped for the next one.</span></div></li><li><span class="no">A3</span><div><b>7-inch singles</b><span class="d">A short song gets a small record with a big label, not a whole LP.</span></div></li><li><span class="no">A4</span><div><b>Rewind like a DJ</b><span class="d">Fast-forward or rewind in Apple Music and the record goes with it. A spinback sound if you want one.</span></div></li><li><span class="no">A5</span><div><b>Knobs that work</b><span class="d">The volume knob follows your Mac’s volume. Side lamps show which side is on.</span></div></li><li><span class="no">A6</span><div><b>One record per station</b><span class="d">Live radio in Apple Music can play on a single record for the whole station, with the station’s logo as the label.</span></div></li></ol></div>
     </section>
 
     <section aria-labelledby="v-title">
@@ -246,12 +324,12 @@
           <h2 id="v-title">Who drops by</h2>
           <p class="sub">Little visitors show up one by one, up to six at a time. When the music stops, they wave and head home.</p>
           <dl class="credits">
-            <div><dt>To the beat</dt><dd>Dancing, headbanging, breakdancing</dd></div>
-            <div><dt>Taking it easy</dt><dd>Reading, dozing off, phone calls, a game of tag</dd></div>
-            <div><dt>Now and then</dt><dd>Running on the spinning record</dd></div>
+            <div data-v="beat" tabindex="0"><dt>To the beat</dt><dd>Dancing, headbanging, breakdancing</dd></div>
+            <div data-v="easy" tabindex="0"><dt>Taking it easy</dt><dd>Reading, dozing off, phone calls, playing together</dd></div>
+            <div data-v="now" tabindex="0"><dt>Now and then</dt><dd>Running on the spinning record</dd></div>
           </dl>
         </div>
-        <div class="frame"><img src="assets/visitors.webp" loading="lazy" width="1200" height="750" alt="Late afternoon on the desk: two visitors share a heart while others wander by the turntable"></div>
+        <div class="frame visitors" data-none="Not in this photo"><img src="assets/visitors.webp" loading="lazy" width="1200" height="750" alt="Late afternoon on the desk: two visitors share a heart while others wander by the turntable"><div class="spot" aria-hidden="true"></div><button type="button" class="who" data-v="easy" data-cap="Playing together" aria-label="Two visitors holding hands under a heart, playing together" style="--x:64.8%;--y:63%;--w:11%;--h:26%"></button><button type="button" class="who" data-v="walk" data-cap="Walking by, headphones on" aria-label="A visitor in headphones, walking by" style="--x:53.9%;--y:80.5%;--w:7%;--h:19%"></button><button type="button" class="who" data-v="walk" data-cap="Out for a walk" aria-label="A visitor out for a walk" style="--x:6.2%;--y:60.3%;--w:6.5%;--h:16%"></button><button type="button" class="who" data-v="stand" data-cap="Standing around" aria-label="A visitor standing around" style="--x:11%;--y:12%;--w:6.5%;--h:17%"></button><button type="button" class="who" data-v="stand" data-cap="Standing, looking this way" aria-label="A visitor standing, looking this way" style="--x:94.3%;--y:88.4%;--w:7%;--h:19%"></button><span class="cap" aria-hidden="true"></span></div>
       </div>
     </section>
 
@@ -272,7 +350,7 @@
     </section>
 
     <section aria-labelledby="s-title">
-      <div class="side"><div class="side-head"><div class="center-label" aria-hidden="true"><span>B</span></div><div><h2 id="s-title">Side B</h2><p class="label">Around your desktop</p></div></div><ol class="tracks"><li><span class="no">B1</span><div><b>Menu bar only</b><span class="d">No Dock icon. Your icons stay on top, and clicks go straight through to the desktop.</span></div></li><li><span class="no">B2</span><div><b>Every display</b><span class="d">Plays on all your screens and keeps clear of the menu bar and Dock.</span></div></li><li><span class="no">B3</span><div><b>Easy on battery</b><span class="d">Stops drawing when the screen is locked, asleep or covered. 30 fps on battery.</span></div></li><li><span class="no">B4</span><div><b>Record sounds</b><span class="d">Needle drop, motor hum, a little crackle. Off until you turn it on.</span></div></li><li><span class="no">B5</span><div><b>No accounts, no tracking</b><span class="d">It only reads what’s playing. It never changes your music or opens Music or Spotify by itself. <a href="privacy/">Privacy policy</a>.</span></div></li></ol></div>
+      <div class="side"><div class="side-head"><div class="center-label" aria-hidden="true"><div class="lp"><span>B</span></div></div><div><h2 id="s-title">Side B</h2><p class="label">Around your desktop</p></div></div><ol class="tracks"><li><span class="no">B1</span><div><b>Menu bar only</b><span class="d">No Dock icon. Your icons stay on top, and clicks go straight through to the desktop.</span></div></li><li><span class="no">B2</span><div><b>Every display</b><span class="d">Plays on all your screens and keeps clear of the menu bar and Dock.</span></div></li><li><span class="no">B3</span><div><b>Easy on battery</b><span class="d">Stops drawing when the screen is locked, asleep or covered. 30 fps on battery.</span></div></li><li><span class="no">B4</span><div><b>Record sounds</b><span class="d">Needle drop, motor hum, a little crackle. Off until you turn it on.</span></div></li><li><span class="no">B5</span><div><b>No accounts, no tracking</b><span class="d">It only reads what’s playing. It never changes your music or opens Music or Spotify by itself. <a href="privacy/">Privacy policy</a>.</span></div></li></ol></div>
     </section>
 
     <section aria-labelledby="g-title">
@@ -283,6 +361,7 @@
     </section>
 
     <section class="final" aria-labelledby="end-title">
+      <div class="mini-rec" aria-hidden="true"></div>
       <img src="assets/icon-256.png" width="84" height="84" alt="">
       <h2 id="end-title">Put a record on.</h2>
       <div class="cta"><span class="badge">Coming soon to the Mac App Store</span></div>
@@ -318,11 +397,128 @@
       btns.forEach(function (b, i) { b.setAttribute('aria-pressed', i === n ? 'true' : 'false'); });
       clock.textContent = clocks[n]; range.setAttribute('aria-valuetext', names[n]);
     }
-    range.addEventListener('input', function () { show(parseFloat(range.value)); });
+    range.addEventListener('input', function () { box.classList.remove('peek'); show(parseFloat(range.value)); });
     btns.forEach(function (b) { b.addEventListener('click', function () { range.value = b.dataset.v; show(+b.dataset.v); }); });
+    // Hover (or tab to) a mark to preview that hour; leaving puts back what the slider shows.
+    function peek(i) { box.classList.add('peek'); imgs.forEach(function (im, j) { im.style.opacity = j === i ? 1 : 0; }); clock.textContent = clocks[i]; }
+    function unpeek() { if (box.classList.contains('peek')) show(parseFloat(range.value)); }
+    btns.forEach(function (b, i) {
+      b.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') peek(i); });
+      b.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') unpeek(); });
+      b.addEventListener('focus', function () { if (b.matches(':focus-visible')) peek(i); });
+      b.addEventListener('blur', unpeek);
+    });
     var h = new Date().getHours(), start = h < 6 || h >= 20 ? 3 : h < 10 ? 0 : h < 16 ? 1 : 2;
     imgs.forEach(function (im) { im.loading = 'eager'; });
     range.value = start; show(start);
+  })();
+
+  // Side A / B: the little record spins while the pointer or focus is on its side.
+  // It speeds up and slows down smoothly (playbackRate eases to 0) and stops where it is, never snapping back.
+  (function () {
+    var mm = window.matchMedia ? function (q) { return window.matchMedia(q); } : function () { return { matches: false }; };
+    var reduce = mm('(prefers-reduced-motion: reduce)'), canHover = mm('(hover: hover)');
+    document.querySelectorAll('.side').forEach(function (side) {
+      var badge = side.querySelector('.center-label'), lp = badge && badge.querySelector('.lp');
+      if (!lp || !lp.animate) return;
+      var anim = null, rate = 0, target = 0, raf = 0, last = 0, over = false, focus = false, tapped = false, intro = false, lastType = 'mouse';
+      function tick(now) {
+        var dt = Math.max(0, Math.min(0.05, (now - last) / 1000)); last = now;
+        rate += (target - rate) * (1 - Math.exp(-(target > rate ? 3 : 2.6) * dt));
+        if (Math.abs(target - rate) < 0.004) rate = target;
+        anim.playbackRate = rate;
+        if (rate === 0 && target === 0) { anim.pause(); raf = 0; return; }
+        raf = requestAnimationFrame(tick);
+      }
+      function update() {
+        target = (over || focus || tapped || intro) && !reduce.matches ? 1 : 0;
+        if (!anim) {
+          if (!target) return;
+          anim = lp.animate([{ transform: 'rotate(0turn)' }, { transform: 'rotate(1turn)' }], { duration: 1800, iterations: Infinity });
+          anim.playbackRate = 0;
+        }
+        if (reduce.matches) { if (raf) cancelAnimationFrame(raf); raf = 0; rate = 0; anim.pause(); return; }
+        if (target && anim.playState !== 'running') anim.play();
+        if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); }
+      }
+      side.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') { over = true; update(); } });
+      side.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') { over = false; update(); } });
+      side.addEventListener('focusin', function () { focus = true; update(); });
+      side.addEventListener('focusout', function (e) { if (!side.contains(e.relatedTarget)) { focus = false; update(); } });
+      // Touch: tap the record to start or stop it, and each record gives one turn as it scrolls into view.
+      badge.addEventListener('pointerdown', function (e) { lastType = e.pointerType; });
+      badge.addEventListener('click', function () { if (lastType !== 'mouse') { tapped = !tapped; update(); } });
+      if (!canHover.matches && 'IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (es) {
+          if (!es[0].isIntersecting) return;
+          io.disconnect(); intro = true; update();
+          setTimeout(function () { intro = false; update(); }, 2200);
+        }, { threshold: 0.9 });
+        io.observe(badge);
+      }
+    });
+  })();
+
+  // Who drops by: hover, focus or tap a row to spotlight the visitors doing it, or a visitor to light up its row.
+  (function () {
+    var box = document.querySelector('.visitors'); if (!box) return;
+    var spot = box.querySelector('.spot'), cap = box.querySelector('.cap');
+    var whos = [].slice.call(box.querySelectorAll('.who')), rows = [].slice.call(document.querySelectorAll('.credits [data-v]'));
+    var pinned = null, lastType = 'mouse';
+    function num(el, k) { return parseFloat(el.style.getPropertyValue('--' + k)); }
+    function show(t) {
+      var key = t ? t.dataset.v : null, isWho = !!t && t.classList.contains('who');
+      var figs = !t ? [] : isWho ? [t] : whos.filter(function (w) { return w.dataset.v === key; });
+      rows.forEach(function (r) { r.classList.toggle('on', !!key && r.dataset.v === key); });
+      if (figs.length) {
+        var l = 100, tp = 100, r = 0, b = 0;
+        figs.forEach(function (f) {
+          var x = num(f, 'x'), y = num(f, 'y'), w = num(f, 'w') * 1.45, h = num(f, 'h') * 1.25;
+          l = Math.min(l, x - w / 2); r = Math.max(r, x + w / 2); tp = Math.min(tp, y - h / 2); b = Math.max(b, y + h / 2);
+        });
+        var was = box.classList.contains('dim');
+        if (!was) spot.style.transition = 'none'; // appear in place, then glide between visitors
+        spot.style.left = l + '%'; spot.style.top = tp + '%'; spot.style.width = (r - l) + '%'; spot.style.height = (b - tp) + '%';
+        if (!was) { void spot.offsetWidth; spot.style.transition = ''; }
+        box.classList.add('dim');
+      } else box.classList.remove('dim');
+      var text = !t ? '' : isWho ? t.dataset.cap : figs.length ? figs.map(function (f) { return f.dataset.cap; }).join(' · ') : box.dataset.none;
+      if (text) cap.textContent = text;
+      cap.classList.toggle('on', !!text);
+    }
+    whos.concat(rows).forEach(function (el) {
+      el.addEventListener('pointerdown', function (e) { lastType = e.pointerType; });
+      el.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') show(el); });
+      el.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') show(pinned); });
+      el.addEventListener('focus', function () { show(el); });
+      el.addEventListener('blur', function () { show(pinned); });
+      el.addEventListener('click', function (e) { if (e.detail && lastType !== 'mouse') { pinned = pinned === el ? null : el; show(pinned); } });
+    });
+    document.addEventListener('pointerdown', function (e) {
+      if (pinned && !box.contains(e.target) && !(e.target.closest && e.target.closest('.credits'))) { pinned = null; show(null); }
+    });
+  })();
+
+  // Run-out groove: a tiny record trails the pointer and spins, then coasts to a stop when you leave.
+  (function () {
+    var fin = document.querySelector('.final'), rec = document.querySelector('.mini-rec');
+    if (!fin || !rec || !window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)').matches) return;
+    var x = 0, y = 0, tx = 0, ty = 0, a = 0, spin = 0, on = false, raf = 0, last = 0;
+    function tick(now) {
+      var dt = Math.max(0, Math.min(0.05, (now - last) / 1000)); last = now;
+      var f = 1 - Math.exp(-14 * dt); x += (tx - x) * f; y += (ty - y) * f;
+      spin += ((on ? 1 : 0) - spin) * (1 - Math.exp(-3 * dt)); a = (a + spin * 200 * dt) % 360;
+      rec.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) rotate(' + a.toFixed(1) + 'deg)';
+      if (!on && spin < 0.01) { raf = 0; return; }
+      raf = requestAnimationFrame(tick);
+    }
+    fin.addEventListener('pointermove', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      tx = e.clientX + 18; ty = e.clientY + 20;
+      if (!on) { if (!raf) { x = tx; y = ty; } on = true; rec.classList.add('on'); }
+      if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); }
+    });
+    fin.addEventListener('pointerleave', function () { on = false; rec.classList.remove('on'); });
   })();
 </script>
 </body>
