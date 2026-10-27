@@ -6,9 +6,9 @@
 <title>GroovSide — Now playing, on a turntable</title>
 <meta name="description" content="GroovSide turns whatever you play in Apple Music or Spotify into a record spinning on your Mac's desktop, right behind your icons.">
 <meta name="color-scheme" content="light dark">
-<link rel="icon" type="image/png" sizes="32x32" href="/groovside/assets/icon-32.png">
-<link rel="icon" type="image/png" sizes="64x64" href="/groovside/assets/icon-64.png">
-<link rel="apple-touch-icon" href="/groovside/assets/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/icon-64.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="alternate" hreflang="en" href="https://zinu.kim/groovside/">
 <link rel="alternate" hreflang="ko" href="https://zinu.kim/groovside/ko/">
 <meta property="og:type" content="website">
@@ -17,181 +17,212 @@
 <meta property="og:image" content="https://zinu.kim/groovside/assets/og.jpg">
 <meta property="og:url" content="https://zinu.kim/groovside/">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..700,50;1,9..144,400..600,50&display=swap">
 <style>
   :root {
-    --bg: #f6ebec; --paper: #fbf6f4; --ink: #1f2a25; --muted: #5f6b65; --line: #e3d3d5;
-    --green: #2e5b48; --green-ink: #f6ebec; --orange: #e8593a; --card: #fffaf8; --shadow: 0 30px 60px -30px rgba(46, 91, 72, .45);
+    --bg: #f6ebec; --ink: #1f2a25; --muted: #5f6b65; --line: #e1cfd1; --rule: #1f2a25;
+    --green: #2e5b48; --green-soft: #2e5b48; --orange: #e8593a; --orange-ink: #b4412a; --paper: #fbf6f4;
+    --shadow: 0 34px 70px -34px rgba(46, 91, 72, .5);
+    --vinyl: #1b1d1b; --vinyl-2: #262926;
+    --serif: "Fraunces", "Iowan Old Style", Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, monospace;
   }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #111613; --paper: #161d19; --ink: #ecebe5; --muted: #a5aea8; --line: #2a332e; --green: #3f7a60; --green-ink: #f6ebec; --orange: #f07a58; --card: #1a221e; --shadow: 0 30px 60px -30px rgba(0, 0, 0, .7); }
+    :root { --bg: #121714; --ink: #ecebe5; --muted: #a5aea8; --line: #2a332e; --rule: #ecebe5; --green-soft: #8cc3a8; --orange-ink: #f07a58; --paper: #161d19; --shadow: 0 34px 70px -34px rgba(0, 0, 0, .8); --vinyl: #0b0d0c; --vinyl-2: #181b19; }
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   body {
-    margin: 0; color: var(--ink); background: var(--bg);
-    font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-    -webkit-font-smoothing: antialiased;
+    margin: 0; color: var(--ink); background: var(--bg); overflow-x: clip;
+    font: 17px/1.6 var(--sans); -webkit-font-smoothing: antialiased;
   }
   body::before { /* paper grain, like the app */
-    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100; opacity: .07;
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100; opacity: .08;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   }
-  a { color: inherit; }
-  a:focus-visible, video:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 6px; }
+  a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:focus-visible, video:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 6px; }
   img, video { display: block; max-width: 100%; height: auto; }
-  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+  h1, h2, .serif { font-family: var(--serif); font-optical-sizing: auto; font-weight: 600; }
 
   /* top bar */
-  .top { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; }
-  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; text-decoration: none; letter-spacing: -.01em; }
-  .brand img { width: 32px; height: 32px; }
-  .top nav { display: flex; gap: 18px; font-size: .95rem; color: var(--muted); }
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 0; }
+  .brand { display: flex; align-items: center; gap: 10px; font: 600 1.15rem/1 var(--serif); text-decoration: none; }
+  .brand img { width: 30px; height: 30px; }
+  .top nav { display: flex; gap: 20px; font-size: .95rem; color: var(--muted); }
   .top nav a { text-decoration: none; }
-  .top nav a:hover { color: var(--ink); }
+  .top nav a:hover { color: var(--ink); text-decoration: underline; }
+  @media (max-width: 440px) { .top nav { gap: 14px; } .top nav .opt { display: none; } }
 
   /* hero */
-  .hero { display: grid; grid-template-columns: 1fr; gap: 36px; padding: 32px 0 24px; text-align: center; }
-  .hero .icon { width: 128px; height: 128px; margin: 0 auto; filter: drop-shadow(0 18px 24px rgba(46, 91, 72, .25)); }
-  .hero h1 { font-size: clamp(2.6rem, 7vw, 4.4rem); line-height: 1.02; letter-spacing: -.04em; margin: 12px 0 6px; }
-  .hero .tag { font-size: clamp(1.2rem, 2.6vw, 1.55rem); color: var(--green); font-weight: 600; margin: 0; letter-spacing: -.01em; }
-  @media (prefers-color-scheme: dark) { .hero .tag { color: #8cc3a8; } }
-  .hero .lede { max-width: 620px; margin: 18px auto 0; color: var(--muted); font-size: 1.08rem; }
-  .cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; align-items: center; margin-top: 26px; }
-  .badge { display: inline-flex; align-items: center; gap: 10px; padding: 13px 22px; border-radius: 14px; background: var(--ink); color: var(--paper); font-weight: 600; text-decoration: none; }
+  .hero { padding: 40px 0 0; }
+  .hero-text { display: grid; gap: 18px 56px; align-items: end; }
+  @media (min-width: 900px) { .hero-text { grid-template-columns: 1.05fr 1fr; } }
+  .hero h1 { font-size: clamp(3.4rem, 10.5vw, 7.6rem); line-height: .9; letter-spacing: -.035em; margin: 0; font-weight: 650; }
+  .hero .tag { font: italic 500 clamp(1.35rem, 2.8vw, 1.9rem)/1.2 var(--serif); color: var(--green-soft); margin: 14px 0 0; letter-spacing: -.01em; }
+  .hero .lede { margin: 0; color: var(--muted); font-size: 1.08rem; max-width: 34em; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: center; margin-top: 22px; }
+  .badge { display: inline-flex; align-items: center; gap: 10px; padding: 13px 22px; border-radius: 999px; background: var(--ink); color: var(--bg); font-weight: 600; }
   .badge svg { width: 18px; height: 18px; fill: currentColor; }
   .meta { color: var(--muted); font-size: .95rem; }
 
-  /* desktop frame */
-  .screen { position: relative; margin: 8px auto 0; max-width: 1040px; border-radius: 18px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,.08); background: #e9d9db; }
+  /* the screen is the sleeve, the record slides out of it */
+  .stage { position: relative; margin: 52px 0 0; }
+  .screen { position: relative; z-index: 1; width: 100%; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,.08); background: #e9d9db; }
+  .disc { display: none; }
+  @media (min-width: 900px) {
+    .screen { width: 82%; }
+    .disc {
+      display: block; position: absolute; z-index: 0; width: 44%; aspect-ratio: 1; left: 56%; top: 50%; margin-top: -22%;
+      border-radius: 50%; box-shadow: 0 30px 60px -28px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,255,255,.06);
+      background:
+        radial-gradient(circle, var(--bg) 0 1.3%, transparent 1.45%),
+        radial-gradient(circle at 57% 43%, var(--orange) 0 2.2%, transparent 2.4%),
+        radial-gradient(circle, transparent 0 4%, rgba(255,255,255,.18) 4.2% 4.6%, transparent 4.8%),
+        radial-gradient(circle, #2e5b48 0 16.5%, transparent 16.8%),
+        radial-gradient(circle, transparent 0 63.4%, var(--orange) 63.6% 64.1%, transparent 64.3%),
+        radial-gradient(circle, transparent 0 41%, rgba(255,255,255,.07) 41.3% 42.1%, transparent 42.4% 52%, rgba(255,255,255,.07) 52.3% 53.1%, transparent 53.4% 69%, rgba(255,255,255,.07) 69.3% 70%, transparent 70.3%),
+        conic-gradient(from 30deg, transparent, rgba(255,255,255,.11) 9%, transparent 20%, transparent 50%, rgba(255,255,255,.08) 59%, transparent 70%),
+        repeating-radial-gradient(circle, var(--vinyl) 0 2px, var(--vinyl-2) 2px 3px);
+      animation: slide-out 2.2s cubic-bezier(.16, .8, .22, 1) .35s both;
+    }
+  }
+  @keyframes slide-out { from { transform: translateX(-46%) rotate(-150deg); } to { transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .disc { animation: none; } }
   .menubar { display: flex; align-items: center; gap: 14px; height: 28px; padding: 0 14px; font: 600 12px/28px -apple-system, system-ui, sans-serif; color: #1f2a25; background: rgba(255,255,255,.55); backdrop-filter: blur(8px); }
   .menubar .dots { display: flex; gap: 6px; }
   .menubar .dots i { width: 10px; height: 10px; border-radius: 50%; background: #c9b7ba; display: block; }
   .menubar .right { margin-left: auto; display: flex; align-items: center; gap: 12px; font-weight: 500; }
   .menubar .rec { width: 14px; height: 14px; border-radius: 50%; border: 2px solid #1f2a25; position: relative; }
   .menubar .rec::after { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: #1f2a25; }
-  .screen video, .screen .poster { width: 100%; aspect-ratio: 1280 / 832; object-fit: cover; }
+  @media (max-width: 520px) { .menubar .opt { display: none; } }
+  .screen video { width: 100%; aspect-ratio: 1280 / 832; object-fit: cover; }
   .desk-icons { position: absolute; right: 16px; top: 44px; display: grid; gap: 14px; justify-items: center; }
   .desk-icons span { width: 46px; height: 38px; border-radius: 6px; background: linear-gradient(#7fb0e6, #5b8fd0); box-shadow: 0 2px 4px rgba(0,0,0,.2); position: relative; }
   .desk-icons span::after { content: attr(data-name); position: absolute; top: 42px; left: 50%; transform: translateX(-50%); white-space: nowrap; font: 600 10px/1 system-ui, sans-serif; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.6); }
-  .caption { text-align: center; color: var(--muted); font-size: .92rem; margin: 14px 0 0; }
+  @media (max-width: 600px) { .desk-icons { display: none; } }
+  .caption { color: var(--muted); font-size: .9rem; margin: 14px 0 0; }
 
   /* sections */
-  section { padding: 72px 0 8px; }
-  .kicker { color: var(--orange); font-weight: 700; font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 8px; }
-  h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.12; letter-spacing: -.03em; margin: 0 0 14px; }
+  section { padding: 96px 0 0; }
+  h2 { font-size: clamp(2rem, 4.6vw, 3rem); line-height: 1.05; letter-spacing: -.025em; margin: 0 0 14px; }
   .sub { color: var(--muted); max-width: 640px; margin: 0; font-size: 1.05rem; }
 
-  .grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 32px; }
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 22px 22px 20px; }
-  .card .ico { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--green); color: var(--green-ink); margin-bottom: 14px; }
-  .card .ico svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-  .card h3 { margin: 0 0 6px; font-size: 1.08rem; letter-spacing: -.01em; }
-  .card p { margin: 0; color: var(--muted); font-size: .97rem; }
-
-  .split { display: grid; grid-template-columns: 1fr; gap: 28px; align-items: center; }
-  @media (min-width: 860px) { .split { grid-template-columns: 5fr 7fr; } .split.rev { grid-template-columns: 7fr 5fr; } .split.rev .text { order: 2; } }
-  .frame { border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,.06); }
-  .bullets { margin: 18px 0 0; padding: 0; list-style: none; color: var(--muted); }
-  .bullets li { padding-left: 22px; position: relative; margin: 6px 0; }
-  .bullets li::before { content: ""; position: absolute; left: 4px; top: .62em; width: 8px; height: 8px; border-radius: 50%; background: var(--orange); }
-
-  .times { display: grid; gap: 14px; grid-template-columns: repeat(2, 1fr); margin-top: 32px; }
-  @media (min-width: 860px) { .times { grid-template-columns: repeat(4, 1fr); } }
-  .times figure, .colors figure { margin: 0; }
-  .times img, .colors img { border-radius: 14px; box-shadow: var(--shadow); aspect-ratio: 16 / 10; object-fit: cover; width: 100%; }
-  figcaption { margin-top: 10px; font-weight: 600; font-size: .95rem; }
-  figcaption span { display: block; font-weight: 400; color: var(--muted); font-size: .88rem; }
-  .colors { display: grid; gap: 14px; grid-template-columns: 1fr; margin-top: 32px; }
-  @media (min-width: 700px) { .colors { grid-template-columns: repeat(3, 1fr); } }
-
-  .shots { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 28px 2px 22px; margin-top: 4px; }
-  .shots img { flex: 0 0 auto; width: min(84%, 680px); max-width: none; scroll-snap-align: center; border-radius: 14px; box-shadow: var(--shadow); aspect-ratio: 16 / 10; object-fit: cover; }
-  @media (max-width: 440px) { .top nav .opt { display: none; } }
-
-  .privacy { background: var(--green); color: var(--green-ink); border-radius: 24px; padding: 40px 28px; margin-top: 72px; display: grid; gap: 18px; }
-  @media (min-width: 860px) { .privacy { grid-template-columns: 1fr 1fr; padding: 48px; } }
-  .privacy h2 { color: inherit; }
-  .privacy p { margin: 0; opacity: .88; }
-  .privacy a { font-weight: 600; }
-
-
   /* liner notes tracklist */
-  .side { display: grid; grid-template-columns: 1fr; gap: 6px 48px; margin-top: 8px; }
-  @media (min-width: 860px) { .side { grid-template-columns: 220px 1fr; } }
+  .side { display: grid; grid-template-columns: 1fr; gap: 18px 56px; }
+  @media (min-width: 860px) { .side { grid-template-columns: 250px 1fr; } }
+  .side-head { display: flex; align-items: center; gap: 18px; }
+  @media (min-width: 860px) { .side-head { flex-direction: column; align-items: flex-start; } }
   .side h2 { margin: 0; }
-  .side .label { color: var(--muted); margin: 4px 0 0; font-size: 1rem; }
-  .tracks { list-style: none; margin: 0; padding: 0; border-top: 1.5px solid var(--ink); }
-  .tracks li { display: grid; grid-template-columns: 44px 1fr; gap: 4px 12px; padding: 16px 0 15px; border-bottom: 1px solid var(--line); }
-  .tracks .no { font: 600 .95rem/1.5 ui-monospace, "SF Mono", Menlo, monospace; color: var(--orange); padding-top: 1px; }
-  .tracks b { font-weight: 650; letter-spacing: -.01em; }
-  .tracks span.d { color: var(--muted); display: block; font-size: .98rem; }
+  .side .label { color: var(--muted); margin: 6px 0 0; font: italic 400 1.1rem/1.3 var(--serif); }
+  .center-label { /* a record's center label, one per side */
+    flex: 0 0 auto; width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center;
+    font: 600 1.5rem/1 var(--serif); color: #f6ebec;
+    background: radial-gradient(circle, var(--bg) 0 4%, transparent 4.6%), radial-gradient(circle, #2e5b48 0 56%, transparent 57%), repeating-radial-gradient(circle, var(--vinyl) 0 1.5px, var(--vinyl-2) 1.5px 2.5px);
+    box-shadow: 0 10px 20px -12px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,.08);
+  }
+  .center-label span { transform: translateY(-10px); font-size: 1.05rem; }
+  @media (min-width: 860px) { .center-label { width: 96px; height: 96px; margin-bottom: 10px; } .center-label span { transform: translateY(-14px); font-size: 1.35rem; } }
+  .tracks { list-style: none; margin: 0; padding: 0; border-top: 1.5px solid var(--rule); }
+  .tracks li { display: grid; grid-template-columns: 44px 1fr; gap: 4px 12px; padding: 17px 0 16px; border-bottom: 1px solid var(--line); }
+  .tracks .no { font: 600 .95rem/1.5 var(--mono); color: var(--orange-ink); padding-top: 2px; }
+  .tracks b { font: 600 1.15rem/1.35 var(--serif); letter-spacing: -.005em; }
+  .tracks span.d { color: var(--muted); display: block; font-size: .98rem; margin-top: 2px; }
 
-  /* record crate gallery */
-  .crate { display: grid; gap: 28px 22px; grid-template-columns: 1fr; margin-top: 28px; }
-  @media (min-width: 760px) { .crate { grid-template-columns: repeat(3, 1fr); } .crate figure:first-child { grid-column: 1 / -1; } }
-  .crate figure { margin: 0; }
-  .crate + .note { margin-top: 28px; }
-  .crate .sleeve { border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,.06); transition: transform .35s ease, box-shadow .35s ease; }
-  .crate figure:hover .sleeve { transform: translateY(-4px); box-shadow: 0 40px 70px -32px rgba(46, 91, 72, .55); }
-  @media (prefers-reduced-motion: reduce) { .crate .sleeve { transition: none; } .crate figure:hover .sleeve { transform: none; } }
-  .crate img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
-  .crate figure:first-child img { aspect-ratio: 16 / 9; }
-  .crate figcaption { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; margin-top: 14px; font-weight: 400; }
-  .crate .no { grid-row: span 2; font: 600 .85rem/1.6 ui-monospace, "SF Mono", Menlo, monospace; color: var(--orange); }
-  .crate .t { font-weight: 650; letter-spacing: -.01em; }
-  .crate .t i { font-style: normal; color: var(--muted); font-weight: 400; }
-  .crate .s { color: var(--muted); font-size: .9rem; }
+  /* visitors */
+  .split { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: center; }
+  @media (min-width: 860px) { .split { grid-template-columns: 5fr 7fr; gap: 56px; } }
+  .frame { border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,.06); }
+  .credits { margin: 26px 0 0; padding: 0; border-top: 1px solid var(--line); }
+  .credits div { display: grid; grid-template-columns: 1fr; gap: 0 18px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  @media (min-width: 480px) { .credits div { grid-template-columns: 140px 1fr; } }
+  .credits dt { font: italic 400 1.02rem/1.5 var(--serif); color: var(--muted); }
+  .credits dd { margin: 0; }
 
   /* time-of-day slider */
-  .daylight { margin-top: 28px; }
-  .daylight .stage { position: relative; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,.06); aspect-ratio: 1000 / 650; background: #d9c9c4; }
-  .daylight .stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
-  .daylight .stage img.on { opacity: 1; }
-  .daylight .clock { position: absolute; left: 14px; bottom: 12px; padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,.72); color: #1f2a25; font: 600 .85rem/1.5 ui-monospace, "SF Mono", Menlo, monospace; backdrop-filter: blur(6px); }
+  .daylight { margin-top: 32px; }
+  .daylight .stagebox { position: relative; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,.06); aspect-ratio: 1000 / 650; background: #d9c9c4; }
+  .daylight .stagebox img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
+  .daylight .stagebox img.on { opacity: 1; }
+  .daylight .clock { position: absolute; left: 14px; bottom: 12px; padding: 4px 11px; border-radius: 999px; background: rgba(255,255,255,.78); color: #1f2a25; font: 600 .85rem/1.5 var(--mono); backdrop-filter: blur(6px); }
   .daylight input[type=range] { width: 100%; margin: 22px 0 6px; accent-color: var(--orange); height: 28px; cursor: pointer; }
-  .daylight .marks { position: relative; height: 30px; margin: 0 9px; }
-  .daylight .marks button { position: absolute; top: 0; transform: translateX(-50%); appearance: none; border: 0; background: none; padding: 4px 2px; font: inherit; font-size: .95rem; color: var(--muted); cursor: pointer; white-space: nowrap; }
+  .daylight .marks { position: relative; height: 34px; margin: 0 9px; }
+  .daylight .marks button { position: absolute; top: 0; transform: translateX(-50%); appearance: none; border: 0; background: none; padding: 4px 2px; font: italic 400 1.05rem/1.3 var(--serif); color: var(--muted); cursor: pointer; white-space: nowrap; }
   .daylight .marks button:nth-child(1) { left: 0; transform: translateX(-9px); }
   .daylight .marks button:nth-child(2) { left: 33.333%; }
   .daylight .marks button:nth-child(3) { left: 66.667%; }
   .daylight .marks button:nth-child(4) { left: 100%; transform: translateX(calc(-100% + 9px)); }
-  .daylight .marks button[aria-pressed="true"] { color: var(--ink); font-weight: 650; }
-  .daylight .marks button:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; border-radius: 6px; }
-  .final { text-align: center; padding: 80px 0 40px; }
-  .final img { width: 88px; height: 88px; margin: 0 auto 10px; }
+  .daylight .marks button[aria-pressed="true"] { color: var(--ink); font-weight: 600; }
+
+  /* colors */
+  .colors { display: grid; gap: 28px 18px; grid-template-columns: 1fr; margin-top: 32px; }
+  @media (min-width: 700px) { .colors { grid-template-columns: repeat(3, 1fr); } }
+  .colors figure { margin: 0; }
+  .colors img { border-radius: 14px; box-shadow: var(--shadow); aspect-ratio: 16 / 10; object-fit: cover; width: 100%; }
+  .colors figcaption { margin-top: 12px; font: 600 1.08rem/1.35 var(--serif); }
+  .colors figcaption span { display: block; font: 400 .9rem/1.5 var(--sans); color: var(--muted); margin-top: 2px; }
+
+  /* record crate gallery */
+  .crate { display: grid; gap: 30px 22px; grid-template-columns: 1fr; margin-top: 32px; }
+  @media (min-width: 760px) { .crate { grid-template-columns: repeat(3, 1fr); } .crate figure:first-child { grid-column: 1 / -1; } }
+  .crate figure { margin: 0; }
+  .crate .sleeve { border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,.06); transition: transform .35s ease, box-shadow .35s ease; }
+  .crate figure:hover .sleeve { transform: translateY(-4px); box-shadow: 0 44px 74px -34px rgba(46, 91, 72, .6); }
+  @media (prefers-reduced-motion: reduce) { .crate .sleeve { transition: none; } .crate figure:hover .sleeve { transform: none; } }
+  .crate img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+  .crate figure:first-child img { aspect-ratio: 16 / 9; }
+  .crate figcaption { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; margin-top: 14px; }
+  .crate .no { grid-row: span 2; font: 600 .85rem/1.9 var(--mono); color: var(--orange-ink); }
+  .crate .t { font: 600 1.08rem/1.4 var(--serif); }
+  .crate .t i { font-style: italic; font-weight: 400; color: var(--muted); }
+  .crate .s { color: var(--muted); font-size: .9rem; }
+  .note { color: var(--muted); font-size: .85rem; margin-top: 28px; }
+
+  /* run-out groove */
+  .final { text-align: center; padding: 120px 0 64px; }
+  .final img { width: 84px; height: 84px; margin: 0 auto 18px; }
+  .final h2 { font-size: clamp(2.6rem, 7vw, 4.6rem); font-style: italic; font-weight: 500; letter-spacing: -.012em; word-spacing: .06em; margin-bottom: 10px; }
+  .final .cta { justify-content: center; }
   footer { border-top: 1px solid var(--line); padding: 24px 0 48px; color: var(--muted); font-size: .92rem; display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
-  footer nav { display: flex; flex-wrap: wrap; gap: 16px; }
+  footer nav { display: flex; flex-wrap: wrap; gap: 8px 16px; }
   footer a { text-decoration: none; }
-  footer a:hover { color: var(--ink); }
-  .note { color: var(--muted); font-size: .85rem; margin-top: 10px; }
+  footer a:hover { color: var(--ink); text-decoration: underline; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="top">
-    <a class="brand" href="/groovside/"><img src="/groovside/assets/icon-64.png" alt="" width="32" height="32">GroovSide</a>
-    <nav aria-label="Pages"><a class="opt" href="#features">Features</a><a href="/groovside/support/">Support</a><a href="/groovside/ko/" hreflang="ko" lang="ko">한국어</a></nav>
+    <a class="brand" href="./"><img src="assets/icon-64.png" alt="" width="30" height="30">GroovSide</a>
+    <nav aria-label="Pages"><a class="opt" href="#features">Tracklist</a><a href="support/">Support</a><a href="ko/" hreflang="ko" lang="ko">한국어</a></nav>
   </header>
 
   <main>
-    <section class="hero" aria-labelledby="title" style="padding-top:24px">
-      <div>
-        <img class="icon" src="/groovside/assets/icon-256.png" width="128" height="128" alt="GroovSide app icon">
-        <h1 id="title">GroovSide</h1>
-        <p class="tag">Now playing, on a turntable.</p>
-        <p class="lede">Whatever you play in Apple Music or Spotify spins as a record on your Mac's desktop, right behind your icons. The cover becomes the label, the needle follows the song, and the longer you listen, the more little visitors drop by.</p>
-        <div class="cta">
-          <span class="badge" aria-label="Coming soon to the Mac App Store"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.6 1.3-2.6s-2.5-1-2.5-3.8zM14.2 5.8c.6-.8 1.1-1.8 1-2.8-.9 0-2 .6-2.6 1.4-.6.7-1.1 1.7-1 2.7 1 .1 2-.5 2.6-1.3z"/></svg>Coming soon to the Mac App Store</span>
-          <span class="meta">$4.99 · macOS 14 or later</span>
+    <section class="hero" aria-labelledby="title">
+      <div class="hero-text">
+        <div>
+          <h1 id="title">GroovSide</h1>
+          <p class="tag">Now playing, on a turntable.</p>
+        </div>
+        <div>
+          <p class="lede">Whatever you play in Apple Music or Spotify spins as a record on your Mac's desktop, right behind your icons. The cover becomes the label, the needle follows the song, and the longer you listen, the more little visitors drop by.</p>
+          <div class="cta">
+            <span class="badge" aria-label="Coming soon to the Mac App Store"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.6 1.3-2.6s-2.5-1-2.5-3.8zM14.2 5.8c.6-.8 1.1-1.8 1-2.8-.9 0-2 .6-2.6 1.4-.6.7-1.1 1.7-1 2.7 1 .1 2-.5 2.6-1.3z"/></svg>Coming soon to the Mac App Store</span>
+            <span class="meta">$4.99 · macOS 14 or later</span>
+          </div>
         </div>
       </div>
 
-      <figure style="margin:0">
+      <figure class="stage" style="margin-bottom:0">
+        <div class="disc" aria-hidden="true"></div>
         <div class="screen">
-          <div class="menubar" aria-hidden="true"><span class="dots"><i></i><i></i><i></i></span><span>Finder</span><span style="font-weight:500">File</span><span style="font-weight:500">Edit</span><span class="right"><span class="rec"></span><span>Mon 9:41 AM</span></span></div>
-          <video id="hero" autoplay muted loop playsinline preload="metadata" poster="/groovside/assets/hero-poster.webp" aria-label="A record spinning on the desktop while small visitors walk around the turntable">
-            <source src="/groovside/assets/hero.mp4" type="video/mp4">
+          <div class="menubar" aria-hidden="true"><span class="dots"><i></i><i></i><i></i></span><span>Finder</span><span class="opt" style="font-weight:500">File</span><span class="opt" style="font-weight:500">Edit</span><span class="right"><span class="rec"></span><span>Mon 9:41 AM</span></span></div>
+          <video id="hero" autoplay muted loop playsinline preload="metadata" poster="assets/hero-poster.webp" aria-label="A record spinning on the desktop while small visitors walk around the turntable">
+            <source src="assets/hero.mp4" type="video/mp4">
           </video>
           <div class="desk-icons" aria-hidden="true"><span data-name="Projects"></span><span data-name="Notes"></span></div>
         </div>
@@ -200,7 +231,7 @@
     </section>
 
     <section id="features" aria-labelledby="f-title">
-      <div class="side"><div><h2 id="f-title">Side A</h2><p class="label">On the record</p></div><ol class="tracks"><li><span class="no">A1</span><div><b>Every album gets its own record</b><span class="d">The cover becomes the label, and the room takes on its colors. The tonearm follows the song and leaves a line in the groove.</span></div></li><li><span class="no">A2</span><div><b>Real LP sides</b><span class="d">Up to six songs a side. When a side ends, the record is lifted and turned over, or swapped for the next one.</span></div></li><li><span class="no">A3</span><div><b>7-inch singles</b><span class="d">A short song gets a small record with a big label, not a whole LP.</span></div></li><li><span class="no">A4</span><div><b>Rewind like a DJ</b><span class="d">Fast-forward or rewind in Apple Music and the record goes with it. A spinback sound if you want one.</span></div></li><li><span class="no">A5</span><div><b>Knobs that work</b><span class="d">The volume knob follows your Mac’s volume. Side lamps show which side is on.</span></div></li></ol></div>
+      <div class="side"><div class="side-head"><div class="center-label" aria-hidden="true"><span>A</span></div><div><h2 id="f-title">Side A</h2><p class="label">On the record</p></div></div><ol class="tracks"><li><span class="no">A1</span><div><b>Every album gets its own record</b><span class="d">The cover becomes the label, and the room takes on its colors. The tonearm follows the song and leaves a line in the groove.</span></div></li><li><span class="no">A2</span><div><b>Real LP sides</b><span class="d">Up to six songs a side. When a side ends, the record is lifted and turned over, or swapped for the next one.</span></div></li><li><span class="no">A3</span><div><b>7-inch singles</b><span class="d">A short song gets a small record with a big label, not a whole LP.</span></div></li><li><span class="no">A4</span><div><b>Rewind like a DJ</b><span class="d">Fast-forward or rewind in Apple Music and the record goes with it. A spinback sound if you want one.</span></div></li><li><span class="no">A5</span><div><b>Knobs that work</b><span class="d">The volume knob follows your Mac’s volume. Side lamps show which side is on.</span></div></li><li><span class="no">A6</span><div><b>One record per station</b><span class="d">Live radio in Apple Music can play on a single record for the whole station, with the station’s logo as the label.</span></div></li></ol></div>
     </section>
 
     <section aria-labelledby="v-title">
@@ -208,54 +239,54 @@
         <div class="text">
           <h2 id="v-title">Who drops by</h2>
           <p class="sub">Little visitors show up one by one, up to six at a time. When the music stops, they wave and head home.</p>
-          <ul class="bullets">
-            <li>Dance, headbang and breakdance to the beat</li>
-            <li>Read, doze off, take phone calls, play tag</li>
-            <li>Sometimes they run on the spinning record</li>
-          </ul>
+          <dl class="credits">
+            <div><dt>To the beat</dt><dd>Dancing, headbanging, breakdancing</dd></div>
+            <div><dt>Taking it easy</dt><dd>Reading, dozing off, phone calls, a game of tag</dd></div>
+            <div><dt>Now and then</dt><dd>Running on the spinning record</dd></div>
+          </dl>
         </div>
-        <div class="frame"><img src="/groovside/assets/visitors.webp" loading="lazy" width="1200" height="750" alt="Late afternoon on the desk: two visitors share a heart while others wander by the turntable"></div>
+        <div class="frame"><img src="assets/visitors.webp" loading="lazy" width="1200" height="750" alt="Late afternoon on the desk: two visitors share a heart while others wander by the turntable"></div>
       </div>
     </section>
 
     <section aria-labelledby="l-title">
       <h2 id="l-title">Time of day</h2>
       <p class="sub">Sunlight through a window moves across the desk with your Mac's clock, and the whole scene shifts its mood.</p>
-      <div class="daylight" data-clock='7:30 AM|1:00 PM|6:30 PM|10:00 PM' data-names='Morning|Noon|Sunset|Night'><div class="stage"><img src="/groovside/assets/time-dawn.webp" alt="The turntable in soft peach morning light" class="on" width="1000" height="650"><img src="/groovside/assets/time-noon.webp" alt="The turntable in bright noon light" loading="lazy" width="1000" height="650"><img src="/groovside/assets/time-sunset.webp" alt="The turntable in orange sunset light" loading="lazy" width="1000" height="650"><img src="/groovside/assets/time-night.webp" alt="The turntable in deep blue night" loading="lazy" width="1000" height="650"><span class="clock" aria-hidden="true">7:30 AM</span></div><input type="range" min="0" max="3" step="0.01" value="0" aria-label="Time of day" aria-valuetext="Morning" title="Drag to change the time"><div class="marks"><button type="button" data-v="0" aria-pressed="true">Morning</button><button type="button" data-v="1" aria-pressed="false">Noon</button><button type="button" data-v="2" aria-pressed="false">Sunset</button><button type="button" data-v="3" aria-pressed="false">Night</button></div></div>
+      <div class="daylight" data-clock='7:30 AM|1:00 PM|6:30 PM|10:00 PM' data-names='Morning|Noon|Sunset|Night'><div class="stagebox"><img src="assets/time-dawn.webp" alt="The turntable in soft peach morning light" class="on" width="1000" height="650"><img src="assets/time-noon.webp" alt="The turntable in bright noon light" loading="lazy" width="1000" height="650"><img src="assets/time-sunset.webp" alt="The turntable in orange sunset light" loading="lazy" width="1000" height="650"><img src="assets/time-night.webp" alt="The turntable in deep blue night" loading="lazy" width="1000" height="650"><span class="clock" aria-hidden="true">7:30 AM</span></div><input type="range" min="0" max="3" step="0.01" value="0" aria-label="Time of day" aria-valuetext="Morning" title="Drag to change the time"><div class="marks"><button type="button" data-v="0" aria-pressed="true">Morning</button><button type="button" data-v="1" aria-pressed="false">Noon</button><button type="button" data-v="2" aria-pressed="false">Sunset</button><button type="button" data-v="3" aria-pressed="false">Night</button></div></div>
     </section>
 
     <section aria-labelledby="c-title">
       <h2 id="c-title">Your colors</h2>
       <p class="sub">Let the album pick the colors, press it on colored vinyl, or choose your own for the record, background, line, text and tonearm. Put the record on the left, center or right.</p>
       <div class="colors">
-        <figure><img src="/groovside/assets/color-vinyl.webp" loading="lazy" alt="A teal colored vinyl record"><figcaption>Colored vinyl<span>In the album's own color</span></figcaption></figure>
-        <figure><img src="/groovside/assets/color-black.webp" loading="lazy" alt="A black record with a gold tonearm"><figcaption>Your colors<span>Black record, gold tonearm</span></figcaption></figure>
-        <figure><img src="/groovside/assets/color-left.webp" loading="lazy" alt="The turntable placed on the left of the screen"><figcaption>Left, center or right<span>Wherever your icons aren't</span></figcaption></figure>
+        <figure><img src="assets/color-vinyl.webp" loading="lazy" width="1000" height="650" alt="A teal colored vinyl record"><figcaption>Colored vinyl<span>In the album's own color</span></figcaption></figure>
+        <figure><img src="assets/color-black.webp" loading="lazy" width="1000" height="650" alt="A black record with a gold tonearm"><figcaption>Your colors<span>Black record, gold tonearm</span></figcaption></figure>
+        <figure><img src="assets/color-left.webp" loading="lazy" width="1000" height="650" alt="The turntable placed on the left of the screen"><figcaption>Left, center or right<span>Wherever your icons aren't</span></figcaption></figure>
       </div>
     </section>
 
     <section aria-labelledby="s-title">
-      <div class="side"><div><h2 id="s-title">Side B</h2><p class="label">Around your desktop</p></div><ol class="tracks"><li><span class="no">B1</span><div><b>Menu bar only</b><span class="d">No Dock icon. Your icons stay on top, and clicks go straight through to the desktop.</span></div></li><li><span class="no">B2</span><div><b>Every display</b><span class="d">Plays on all your screens and keeps clear of the menu bar and Dock.</span></div></li><li><span class="no">B3</span><div><b>Easy on battery</b><span class="d">Stops drawing when the screen is locked, asleep or covered. 30 fps on battery.</span></div></li><li><span class="no">B4</span><div><b>Record sounds</b><span class="d">Needle drop, motor hum, a little crackle. Off until you turn it on.</span></div></li><li><span class="no">B5</span><div><b>No accounts, no tracking</b><span class="d">It only reads what’s playing. It never changes your music or opens Music or Spotify by itself. <a href="/groovside/privacy/">Privacy policy</a>.</span></div></li></ol></div>
+      <div class="side"><div class="side-head"><div class="center-label" aria-hidden="true"><span>B</span></div><div><h2 id="s-title">Side B</h2><p class="label">Around your desktop</p></div></div><ol class="tracks"><li><span class="no">B1</span><div><b>Menu bar only</b><span class="d">No Dock icon. Your icons stay on top, and clicks go straight through to the desktop.</span></div></li><li><span class="no">B2</span><div><b>Every display</b><span class="d">Plays on all your screens and keeps clear of the menu bar and Dock.</span></div></li><li><span class="no">B3</span><div><b>Easy on battery</b><span class="d">Stops drawing when the screen is locked, asleep or covered. 30 fps on battery.</span></div></li><li><span class="no">B4</span><div><b>Record sounds</b><span class="d">Needle drop, motor hum, a little crackle. Off until you turn it on.</span></div></li><li><span class="no">B5</span><div><b>No accounts, no tracking</b><span class="d">It only reads what’s playing. It never changes your music or opens Music or Spotify by itself. <a href="privacy/">Privacy policy</a>.</span></div></li></ol></div>
     </section>
 
     <section aria-labelledby="g-title">
-      <h2 id="g-title">More scenes</h2>
+      <h2 id="g-title">From the crate</h2>
       <p class="sub">Four records from the preview crate that comes with the app.</p>
-      <div class="crate"><figure><div class="sleeve"><img src="/groovside/assets/shot-3-night.webp" loading="lazy" width="1600" height="1000" alt="Night scene with a teal colored vinyl record"></div><figcaption><span class="no">LP 01</span><span class="t">Side B Summer <i>· Ocean Label</i></span><span class="s">Night, on teal colored vinyl</span></figcaption></figure><figure><div class="sleeve"><img src="/groovside/assets/shot-4-dawn.webp" loading="lazy" width="1600" height="1000" alt="Purple colored vinyl with the record on the left and song details on the right"></div><figcaption><span class="no">LP 02</span><span class="t">Lavender Tape <i>· Salt Bread Club</i></span><span class="s">Purple vinyl, record on the left</span></figcaption></figure><figure><div class="sleeve"><img src="/groovside/assets/shot-2-crowd.webp" loading="lazy" width="1600" height="1000" alt="Sunset scene with a navy turntable and visitors gathering"></div><figcaption><span class="no">LP 03</span><span class="t">Midnight Groove Line <i>· The Spindles</i></span><span class="s">Late afternoon, people gathering on the desk</span></figcaption></figure><figure><div class="sleeve"><img src="/groovside/assets/shot-1-hero.webp" loading="lazy" width="1600" height="1000" alt="Pink and green scene with a cream record and visitors around the turntable"></div><figcaption><span class="no">LP 04</span><span class="t">Roller Rink Road <i>· The Pink Platters</i></span><span class="s">Cream record, a few visitors around the turntable</span></figcaption></figure></div>
+      <div class="crate"><figure><div class="sleeve"><img src="assets/shot-3-night.webp" loading="lazy" width="1600" height="1000" alt="Night scene with a teal colored vinyl record"></div><figcaption><span class="no">LP 01</span><span class="t">Side B Summer <i>· Ocean Label</i></span><span class="s">Night, on teal colored vinyl</span></figcaption></figure><figure><div class="sleeve"><img src="assets/shot-4-dawn.webp" loading="lazy" width="1600" height="1000" alt="Purple colored vinyl with the record on the left and song details on the right"></div><figcaption><span class="no">LP 02</span><span class="t">Lavender Tape <i>· Salt Bread Club</i></span><span class="s">Purple vinyl, record on the left</span></figcaption></figure><figure><div class="sleeve"><img src="assets/shot-2-crowd.webp" loading="lazy" width="1600" height="1000" alt="Sunset scene with a navy turntable and visitors gathering"></div><figcaption><span class="no">LP 03</span><span class="t">Midnight Groove Line <i>· The Spindles</i></span><span class="s">Late afternoon, people gathering on the desk</span></figcaption></figure><figure><div class="sleeve"><img src="assets/shot-1-hero.webp" loading="lazy" width="1600" height="1000" alt="Pink and green scene with a cream record and visitors around the turntable"></div><figcaption><span class="no">LP 04</span><span class="t">Roller Rink Road <i>· The Pink Platters</i></span><span class="s">Cream record, a few visitors around the turntable</span></figcaption></figure></div>
       <p class="note">All albums shown are the app’s built-in preview albums.</p>
     </section>
 
     <section class="final" aria-labelledby="end-title">
-      <img src="/groovside/assets/icon-256.png" width="88" height="88" alt="">
+      <img src="assets/icon-256.png" width="84" height="84" alt="">
       <h2 id="end-title">Put a record on.</h2>
       <div class="cta"><span class="badge">Coming soon to the Mac App Store</span></div>
-      <p class="meta" style="margin-top:14px">Works with Apple Music (built into macOS) and Spotify.</p>
+      <p class="meta" style="margin-top:16px">Works with Apple Music (built into macOS) and Spotify.</p>
     </section>
   </main>
 
   <footer>
     <span>© 2026 zinu kim</span>
-    <nav aria-label="Footer"><a href="/groovside/support/">Support</a><a href="/groovside/privacy/">Privacy Policy</a><a href="/groovside/ko/" hreflang="ko" lang="ko">한국어</a><a href="mailto:support@zinu.kim">support@zinu.kim</a></nav>
+    <nav aria-label="Footer"><a href="support/">Support</a><a href="privacy/">Privacy Policy</a><a href="ko/" hreflang="ko" lang="ko">한국어</a><a href="mailto:support@zinu.kim">support@zinu.kim</a></nav>
   </footer>
 </div>
 <script>
@@ -272,7 +303,7 @@
   // Time-of-day slider: crossfade the four scenes; start at the visitor's own time of day.
   (function () {
     var box = document.querySelector('.daylight'); if (!box) return;
-    var imgs = box.querySelectorAll('.stage img'), range = box.querySelector('input'), btns = box.querySelectorAll('.marks button');
+    var imgs = box.querySelectorAll('.stagebox img'), range = box.querySelector('input'), btns = box.querySelectorAll('.marks button');
     var clock = box.querySelector('.clock'), clocks = box.dataset.clock.split('|'), names = box.dataset.names.split('|');
     function show(v) {
       v = Math.max(0, Math.min(3, v));

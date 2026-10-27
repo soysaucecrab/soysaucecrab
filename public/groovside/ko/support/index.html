@@ -6,13 +6,17 @@
 <title>지원 · GroovSide</title>
 <meta name="description" content="Mac 바탕화면 위의 턴테이블, GroovSide 도움말.">
 <meta name="color-scheme" content="light dark">
-<link rel="icon" type="image/png" sizes="32x32" href="/groovside/assets/icon-32.png">
-<link rel="apple-touch-icon" href="/groovside/assets/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/icon-32.png">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,500..700,50&family=Gowun+Batang:wght@700&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
-  :root { --bg: #fbfaf7; --fg: #1d1c1a; --muted: #6b6862; --line: #e6e2da; --accent: #c4542b; --code: #f1eee8; }
-  @media (prefers-color-scheme: dark) { :root { --bg: #141412; --fg: #ecebe7; --muted: #a29f98; --line: #2c2b28; --accent: #e57a4f; --code: #22211f; } }
+  :root { --bg: #f6ebec; --fg: #1f2a25; --muted: #5f6b65; --line: #e1cfd1; --accent: #b4412a; --code: #eedfe1; --serif: "Fraunces", "Gowun Batang", Georgia, serif; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #121714; --fg: #ecebe5; --muted: #a5aea8; --line: #2a332e; --accent: #f07a58; --code: #1b231f; } }
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.75 -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", system-ui, sans-serif; word-break: keep-all; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.75 "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", system-ui, sans-serif; word-break: keep-all; }
   main { max-width: 680px; margin: 0 auto; padding: 48px 20px 80px; }
   .app { font-weight: 700; color: var(--accent); text-decoration: none; }
   h1 { font-size: 2rem; line-height: 1.25; margin: 8px 0 20px; }
@@ -24,11 +28,17 @@
   pre { padding: 12px 14px; overflow-x: auto; }
   .contact { padding: 16px 18px; border: 1px solid var(--line); border-radius: 12px; }
   footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.9rem; }
+  body::before { content: ""; position: fixed; inset: 0; pointer-events: none; opacity: .07; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+  h1, h2 { font-family: var(--serif); font-optical-sizing: auto; font-weight: 600; }
+  h1 { font-size: 2.5rem; letter-spacing: -0.02em; }
+  h2, h3 { font-family: inherit; font-weight: 700; }
+  .app { font-family: var(--serif); font-weight: 600; font-size: 1.1rem; color: var(--fg); }
+  a:focus-visible { outline: 3px solid #e8593a; outline-offset: 3px; border-radius: 4px; }
 </style>
 </head>
 <body>
 <main>
-  <a class="app" href="../"><img src="/groovside/assets/icon-64.png" alt="" width="28" height="28" style="vertical-align:-7px;margin-right:8px;display:inline-block">GroovSide</a>
+  <a class="app" href="../"><img src="../../assets/icon-64.png" alt="" width="28" height="28" style="vertical-align:-7px;margin-right:8px;display:inline-block">GroovSide</a>
   <h1>지원</h1>
 
   <p class="contact">질문, 버그, 아이디어가 있으면 <a href="mailto:support@zinu.kim">support@zinu.kim</a>으로 보내 주세요. 혼자 만드는 앱이라 보통 며칠 안에 답합니다.</p>
