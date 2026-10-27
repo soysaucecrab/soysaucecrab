@@ -1,0 +1,51 @@
+GroovSide — Press fact sheet
+https://zinu.kim/groovside/press/
+
+FACTS
+Name:          GroovSide
+Developer:     zinu kim (solo developer), based in Korea
+Platform:      macOS 14 or later, Apple silicon and Intel
+Category:      Music
+Price:         $4.99, one-time purchase
+Availability:  Mac App Store, coming soon
+Languages:     App in English. Store listing in English and Korean.
+Works with:    Apple Music (built into macOS) and Spotify
+Privacy:       No accounts, no analytics, no tracking
+Website:       https://zinu.kim/groovside/
+Settings guide: https://zinu.kim/groovside/settings/
+Press contact: support@zinu.kim
+
+ONE LINE
+GroovSide is a Mac menu bar app that shows the song playing in Apple Music or Spotify as a record turning on an illustrated turntable, drawn behind the desktop icons.
+
+SHORT (about 50 words)
+GroovSide shows whatever plays in Apple Music or Spotify as a record turning on a small illustrated turntable behind your Mac's desktop icons. The album cover becomes the label, the tonearm follows the song, and albums are split into LP sides. The longer you listen, the more tiny visitors drop by.
+
+LONG (about 150 words)
+GroovSide turns your Mac's desktop into a small listening room. Whatever plays in Apple Music or Spotify appears as a record on an illustrated turntable behind your icons. The album cover becomes the label, and the scene takes on its colors. The tonearm follows the song and leaves a line in the groove. Albums are split into LP sides that are turned over and swapped like real records, and singles play on a 7-inch record. Live radio in Apple Music can play on one record per station. The longer you listen, the more tiny visitors drop by to dance, read and nap around the turntable, while light from a window follows the time of day. Five presets set the look, motion and visitors in one click. There are no accounts, analytics or tracking. GroovSide is made by zinu kim, a solo student developer in Korea. It is a $4.99 one-time purchase on the Mac App Store, coming soon.
+
+KEY FEATURES
+- Every album gets its own record: the cover becomes the label and the scene takes on its colors.
+- The tonearm follows the song and leaves a line in the groove.
+- Albums are split into LP sides, up to six songs a side. Records are turned over or swapped.
+- Singles play on a smaller 7-inch record.
+- Fast-forward or rewind in Apple Music and the record goes with it.
+- The volume knob follows the Mac's volume. Side lamps show which side is playing.
+- Up to six little visitors drop by to dance, read, doze off and run on the record.
+- Window light follows the time of day, from morning to night.
+- Five presets (Classic, Colorful, Lively, Calm, Minimal) set the look, motion and visitors in one click.
+- Colored vinyl, or your own colors for the record, background, line, text and tonearm.
+- Live radio in Apple Music can play on one record per station.
+- Optional turntable sounds: needle drop, motor, crackle. Off by default.
+- Lives in the menu bar with no Dock icon. Desktop icons stay on top and clicks go through.
+- Works on every display. Stops drawing when the screen is locked, asleep or covered. 30 fps on battery.
+- Only reads what is playing. Never changes your music or opens Music or Spotify by itself.
+
+ABOUT THE DEVELOPER
+GroovSide is made by zinu kim, a solo student developer in Korea. It started from listening to whole albums while working and missing the feeling of putting a record on. Questions and feedback go straight to the developer at support@zinu.kim.
+
+USING THESE ASSETS
+- You may use these assets in coverage of GroovSide.
+- Screenshots and video show the app's built-in preview albums. No real albums or artists appear.
+- Please don't alter the app icon.
+- After release, promo codes for reviewers are available on request: email support@zinu.kim.
