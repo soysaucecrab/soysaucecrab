@@ -77,7 +77,8 @@
   .screen { position: relative; z-index: 1; width: 100%; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,.08); background: #e9d9db; }
   .disc { display: none; }
   @media (min-width: 900px) {
-    .screen { width: 82%; }
+    .screen { width: 82%; margin-left: 9%; transition: transform .9s cubic-bezier(.16, .8, .22, 1); }
+    .stage > .caption { text-align: center; }
     .disc {
       display: block; position: absolute; z-index: 0; width: 44%; aspect-ratio: 1; left: 56%; top: 50%; margin-top: -22%;
       border-radius: 50%; box-shadow: 0 30px 60px -28px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,255,255,.06);
@@ -90,11 +91,16 @@
         radial-gradient(circle, transparent 0 41%, rgba(255,255,255,.07) 41.3% 42.1%, transparent 42.4% 52%, rgba(255,255,255,.07) 52.3% 53.1%, transparent 53.4% 69%, rgba(255,255,255,.07) 69.3% 70%, transparent 70.3%),
         conic-gradient(from 30deg, transparent, rgba(255,255,255,.11) 9%, transparent 20%, transparent 50%, rgba(255,255,255,.08) 59%, transparent 70%),
         repeating-radial-gradient(circle, var(--vinyl) 0 2px, var(--vinyl-2) 2px 3px);
-      animation: slide-out 2.2s cubic-bezier(.16, .8, .22, 1) .35s both;
+      transform: translateX(-46%) rotate(-150deg);
+      transition: transform 1.1s cubic-bezier(.16, .8, .22, 1);
     }
   }
-  @keyframes slide-out { from { transform: translateX(-46%) rotate(-150deg); } to { transform: none; } }
-  @media (prefers-reduced-motion: reduce) { .disc { animation: none; } }
+  /* hover the screen: it steps aside and the record slides out from behind it */
+  @media (min-width: 900px) and (hover: hover) {
+    .stage:hover .screen { transform: translateX(calc(-100% * 9 / 82)); }
+    .stage:hover .disc { transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { .disc, .screen { transition: none; } }
   .menubar { display: flex; align-items: center; gap: 14px; height: 28px; padding: 0 14px; font: 600 12px/28px -apple-system, system-ui, sans-serif; color: #1f2a25; background: rgba(255,255,255,.55); backdrop-filter: blur(8px); }
   .menubar .dots { display: flex; gap: 6px; }
   .menubar .dots i { width: 10px; height: 10px; border-radius: 50%; background: #c9b7ba; display: block; }
