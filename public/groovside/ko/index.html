@@ -215,28 +215,31 @@
 
   /* who drops by: spotlight a visitor in the still, and the row that matches */
   .visitors { position: relative; }
-  .visitors .spot {
-    position: absolute; left: 50%; top: 50%; width: 0; height: 0; border-radius: 50%; pointer-events: none; opacity: 0;
-    box-shadow: 0 0 14px 200vmax rgba(16, 21, 19, .58);
-    transition: opacity .35s ease, left .6s cubic-bezier(.16, .8, .22, 1), top .6s cubic-bezier(.16, .8, .22, 1), width .6s cubic-bezier(.16, .8, .22, 1), height .6s cubic-bezier(.16, .8, .22, 1);
+  .visitors .shot.alt { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity .45s ease; }
+  .visitors .shot.alt.on { opacity: 1; }
+  .visitors .shade { /* dims the still except for a soft hole around each visitor in the spotlight (holes set by the script) */
+    position: absolute; inset: 0; pointer-events: none; opacity: 0; background: rgba(16, 21, 19, .58);
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-composite: source-in; mask-composite: intersect;
+    transition: opacity .35s ease;
   }
-  .visitors.dim .spot { opacity: 1; }
+  .visitors.dim .shade { opacity: 1; }
+  .visitors .mark { display: none; }
   .visitors .who {
     position: absolute; left: calc(var(--x) - var(--w) / 2); top: calc(var(--y) - var(--h) / 2); width: var(--w); height: var(--h);
     margin: 0; padding: 0; border: 0; border-radius: 50%; background: none; appearance: none; cursor: pointer; -webkit-tap-highlight-color: transparent;
   }
   .visitors .who:focus-visible { border-radius: 50%; outline-offset: 0; }
   .visitors .cap {
-    position: absolute; left: 14px; bottom: 12px; max-width: calc(100% - 28px); padding: 4px 11px; border-radius: 999px; pointer-events: none;
+    position: absolute; left: 14px; top: 12px; max-width: calc(100% - 28px); padding: 4px 11px; border-radius: 999px; pointer-events: none;
     background: rgba(255,255,255,.86); color: #1f2a25; font: 600 .85rem/1.5 var(--sans); backdrop-filter: blur(6px);
-    opacity: 0; transform: translateY(4px); transition: opacity .25s ease, transform .4s cubic-bezier(.16, .8, .22, 1);
+    opacity: 0; transform: translateY(-4px); transition: opacity .25s ease, transform .4s cubic-bezier(.16, .8, .22, 1);
   }
   .visitors .cap.on { opacity: 1; transform: none; }
   .credits [data-v] { cursor: default; border-radius: 4px; }
   .credits [data-v].on { background: linear-gradient(90deg, rgba(232, 89, 58, .13), rgba(232, 89, 58, 0) 80%); }
   .credits [data-v].on dt { color: var(--orange-ink); }
   .credits [data-v]:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
-  @media (prefers-reduced-motion: reduce) { .visitors .spot { transition: opacity .2s ease; } .visitors .cap { transition: opacity .2s ease; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .visitors .shot.alt, .visitors .shade { transition: none; } .visitors .cap { transition: opacity .2s ease; transform: none; } }
 
   /* time of day: hovering a mark previews that hour; the slider stays where it was */
   .daylight.peek .stagebox img { transition: opacity .45s ease; }
@@ -330,12 +333,12 @@
           <h2 id="v-title">모여드는 사람들</h2>
           <p class="sub">음악을 오래 들을수록 작은 사람들이 한 명씩, 최대 6명까지 모여듭니다. 음악을 멈추면 손을 흔들고 떠납니다.</p>
           <dl class="credits">
-            <div data-v="beat" tabindex="0"><dt>박자에 맞춰</dt><dd>춤, 헤드뱅잉, 브레이크댄스</dd></div>
-            <div data-v="easy" tabindex="0"><dt>느긋하게</dt><dd>책 읽기, 꾸벅꾸벅 졸기, 통화, 함께 놀기</dd></div>
+            <div data-v="beat" data-shot="beat" tabindex="0"><dt>박자에 맞춰</dt><dd>춤, 헤드뱅잉, 브레이크댄스</dd></div>
+            <div data-v="easy" data-shot="easy" tabindex="0"><dt>느긋하게</dt><dd>책 읽기, 꾸벅꾸벅 졸기, 통화, 술래잡기</dd></div>
             <div data-v="now" tabindex="0"><dt>가끔은</dt><dd>돌아가는 판 위에서 달리기</dd></div>
           </dl>
         </div>
-        <div class="frame visitors" data-none="이 사진에는 없습니다"><img src="../assets/visitors.webp" loading="lazy" width="1200" height="750" alt="늦은 오후의 책상 위: 하트를 띄운 두 사람과 턴테이블 옆을 지나가는 사람들"><div class="spot" aria-hidden="true"></div><button type="button" class="who" data-v="easy" data-cap="함께 놀기" aria-label="하트를 띄우고 손을 잡은 두 사람: 함께 놀기" style="--x:64.8%;--y:63%;--w:11%;--h:26%"></button><button type="button" class="who" data-v="walk" data-cap="헤드폰을 쓰고 산책" aria-label="헤드폰을 쓰고 걸어가는 사람" style="--x:53.9%;--y:80.5%;--w:7%;--h:19%"></button><button type="button" class="who" data-v="walk" data-cap="산책" aria-label="걸어가는 사람" style="--x:6.2%;--y:60.3%;--w:6.5%;--h:16%"></button><button type="button" class="who" data-v="stand" data-cap="잠시 서 있기" aria-label="서 있는 사람" style="--x:11%;--y:12%;--w:6.5%;--h:17%"></button><button type="button" class="who" data-v="stand" data-cap="이쪽을 보고 서 있기" aria-label="이쪽을 보고 서 있는 사람" style="--x:94.3%;--y:88.4%;--w:7%;--h:19%"></button><span class="cap" aria-hidden="true"></span></div>
+        <div class="frame visitors"><img class="shot" src="../assets/visitors-mix.webp" loading="lazy" width="1200" height="750" alt="늦은 오후의 턴테이블 앞: 돌아가는 판 위에서 달리는 사람과 춤추고, 헤드뱅잉하고, 책을 읽고, 졸고, 통화하는 사람들"><img class="shot alt" data-shot="beat" src="../assets/visitors-beat.webp" loading="lazy" width="1200" height="750" alt="" aria-hidden="true"><img class="shot alt" data-shot="easy" src="../assets/visitors-easy.webp" loading="lazy" width="1200" height="750" alt="" aria-hidden="true"><div class="shade" aria-hidden="true"></div><button type="button" class="who" data-v="now" data-cap="판 위에서 달리기" aria-label="돌아가는 판 위에서 달리는 사람" style="--x:91%;--y:38%;--w:8%;--h:21%"></button><button type="button" class="who" data-v="beat" data-cap="춤추기" aria-label="한 팔을 들고 춤추는 사람" style="--x:83.3%;--y:71.5%;--w:7%;--h:22%"></button><button type="button" class="who" data-v="beat" data-cap="헤드뱅잉" aria-label="헤드뱅잉하는 사람" style="--x:32.8%;--y:85%;--w:7%;--h:20%"></button><button type="button" class="who" data-v="easy" data-cap="책 읽기" aria-label="앉아서 책을 읽는 사람" style="--x:7.7%;--y:58%;--w:8.5%;--h:18%"></button><button type="button" class="who" data-v="easy" data-cap="꾸벅꾸벅 졸기" aria-label="앉아서 꾸벅꾸벅 조는 사람" style="--x:19%;--y:64%;--w:7%;--h:15%"></button><button type="button" class="who" data-v="easy" data-cap="통화" aria-label="통화하는 사람" style="--x:43.2%;--y:80.5%;--w:7%;--h:21%"></button><span class="mark" data-shot="beat" data-v="beat" data-cap="춤추기" style="--x:83.3%;--y:71.5%;--w:7%;--h:22%"></span><span class="mark" data-shot="beat" data-v="beat" data-cap="춤추기" style="--x:43.2%;--y:79.5%;--w:7%;--h:23%"></span><span class="mark" data-shot="beat" data-v="beat" data-cap="헤드뱅잉" style="--x:32.8%;--y:85%;--w:7%;--h:20%"></span><span class="mark" data-shot="beat" data-v="beat" data-cap="브레이크댄스" style="--x:19%;--y:63%;--w:6.5%;--h:18%"></span><span class="mark" data-shot="easy" data-v="easy" data-cap="책 읽기" style="--x:7.7%;--y:58%;--w:8.5%;--h:18%"></span><span class="mark" data-shot="easy" data-v="easy" data-cap="꾸벅꾸벅 졸기" style="--x:19%;--y:64%;--w:7%;--h:15%"></span><span class="mark" data-shot="easy" data-v="easy" data-cap="통화" style="--x:43.2%;--y:80.5%;--w:7%;--h:21%"></span><span class="mark" data-shot="easy" data-v="easy" data-cap="술래잡기" style="--x:84.1%;--y:72%;--w:11.5%;--h:23%"></span><span class="cap" aria-hidden="true"></span></div>
       </div>
     </section>
 
@@ -430,7 +433,7 @@
       var anim = null, rate = 0, target = 0, raf = 0, last = 0, over = false, focus = false, tapped = false, intro = false, lastType = 'mouse';
       function tick(now) {
         var dt = Math.max(0, Math.min(0.05, (now - last) / 1000)); last = now;
-        rate += (target - rate) * (1 - Math.exp(-(target > rate ? 3 : 2.6) * dt));
+        rate += (target - rate) * (1 - Math.exp(-(target > rate ? 1.8 : 1.4) * dt));
         if (Math.abs(target - rate) < 0.004) rate = target;
         anim.playbackRate = rate;
         if (rate === 0 && target === 0) { anim.pause(); raf = 0; return; }
@@ -440,7 +443,7 @@
         target = (over || focus || tapped || intro) && !reduce.matches ? 1 : 0;
         if (!anim) {
           if (!target) return;
-          anim = lp.animate([{ transform: 'rotate(0turn)' }, { transform: 'rotate(1turn)' }], { duration: 1800, iterations: Infinity });
+          anim = lp.animate([{ transform: 'rotate(0turn)' }, { transform: 'rotate(1turn)' }], { duration: 5000, iterations: Infinity });   // 5 s a turn: calm
           anim.playbackRate = 0;
         }
         if (reduce.matches) { if (raf) cancelAnimationFrame(raf); raf = 0; rate = 0; anim.pause(); return; }
@@ -458,39 +461,41 @@
         var io = new IntersectionObserver(function (es) {
           if (!es[0].isIntersecting) return;
           io.disconnect(); intro = true; update();
-          setTimeout(function () { intro = false; update(); }, 2200);
+          setTimeout(function () { intro = false; update(); }, 4800);   // about one turn, counting the ease in and out
         }, { threshold: 0.9 });
         io.observe(badge);
       }
     });
   })();
 
-  // Who drops by: hover, focus or tap a row to spotlight the visitors doing it, or a visitor to light up its row.
+  // Who drops by: hover, focus or tap a row to see the visitors doing it (the still changes to a frame where they are
+  // at it, with a spotlight on each), or a visitor in the still to light up its row.
   (function () {
     var box = document.querySelector('.visitors'); if (!box) return;
-    var spot = box.querySelector('.spot'), cap = box.querySelector('.cap');
-    var whos = [].slice.call(box.querySelectorAll('.who')), rows = [].slice.call(document.querySelectorAll('.credits [data-v]'));
+    var shade = box.querySelector('.shade'), cap = box.querySelector('.cap');
+    var whos = [].slice.call(box.querySelectorAll('.who')), marks = [].slice.call(box.querySelectorAll('.mark'));
+    var shots = [].slice.call(box.querySelectorAll('.shot.alt')), rows = [].slice.call(document.querySelectorAll('.credits [data-v]'));
     var pinned = null, lastType = 'mouse';
     function num(el, k) { return parseFloat(el.style.getPropertyValue('--' + k)); }
+    function hole(f) {
+      return 'radial-gradient(ellipse ' + (num(f, 'w') * 0.75).toFixed(2) + '% ' + (num(f, 'h') * 0.66).toFixed(2) + '% at ' + num(f, 'x') + '% ' + num(f, 'y') + '%, transparent 60%, #000 100%)';
+    }
     function show(t) {
       var key = t ? t.dataset.v : null, isWho = !!t && t.classList.contains('who');
-      var figs = !t ? [] : isWho ? [t] : whos.filter(function (w) { return w.dataset.v === key; });
+      var shot = t && !isWho ? t.dataset.shot || '' : '';
+      shots.forEach(function (s) { s.classList.toggle('on', s.dataset.shot === shot); });
+      var pool = shot ? marks.filter(function (m) { return m.dataset.shot === shot; }) : whos;
+      var figs = !t ? [] : isWho ? [t] : pool.filter(function (w) { return w.dataset.v === key; });
       rows.forEach(function (r) { r.classList.toggle('on', !!key && r.dataset.v === key); });
       if (figs.length) {
-        var l = 100, tp = 100, r = 0, b = 0;
-        figs.forEach(function (f) {
-          var x = num(f, 'x'), y = num(f, 'y'), w = num(f, 'w') * 1.45, h = num(f, 'h') * 1.25;
-          l = Math.min(l, x - w / 2); r = Math.max(r, x + w / 2); tp = Math.min(tp, y - h / 2); b = Math.max(b, y + h / 2);
-        });
-        var was = box.classList.contains('dim');
-        if (!was) spot.style.transition = 'none'; // appear in place, then glide between visitors
-        spot.style.left = l + '%'; spot.style.top = tp + '%'; spot.style.width = (r - l) + '%'; spot.style.height = (b - tp) + '%';
-        if (!was) { void spot.offsetWidth; spot.style.transition = ''; }
+        var m = figs.map(hole).join(', ');
+        shade.style.webkitMaskImage = m; shade.style.maskImage = m;
         box.classList.add('dim');
       } else box.classList.remove('dim');
-      var text = !t ? '' : isWho ? t.dataset.cap : figs.length ? figs.map(function (f) { return f.dataset.cap; }).join(' · ') : box.dataset.none;
-      if (text) cap.textContent = text;
-      cap.classList.toggle('on', !!text);
+      var caps = [];
+      figs.forEach(function (f) { if (caps.indexOf(f.dataset.cap) < 0) caps.push(f.dataset.cap); });
+      if (caps.length) cap.textContent = caps.join(' \u00b7 ');
+      cap.classList.toggle('on', !!caps.length);
     }
     whos.concat(rows).forEach(function (el) {
       el.addEventListener('pointerdown', function (e) { lastType = e.pointerType; });
@@ -513,7 +518,7 @@
     function tick(now) {
       var dt = Math.max(0, Math.min(0.05, (now - last) / 1000)); last = now;
       var f = 1 - Math.exp(-14 * dt); x += (tx - x) * f; y += (ty - y) * f;
-      spin += ((on ? 1 : 0) - spin) * (1 - Math.exp(-3 * dt)); a = (a + spin * 200 * dt) % 360;
+      spin += ((on ? 1 : 0) - spin) * (1 - Math.exp(-2 * dt)); a = (a + spin * 90 * dt) % 360;   // 4 s a turn
       rec.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) rotate(' + a.toFixed(1) + 'deg)';
       if (!on && spin < 0.01) { raf = 0; return; }
       raf = requestAnimationFrame(tick);
