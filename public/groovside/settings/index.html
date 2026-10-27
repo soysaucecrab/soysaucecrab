@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Settings — GroovSide</title>
+<meta name="description" content="What every setting in GroovSide does, tab by tab, in a working copy of the app&#x27;s Settings window.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/icon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="../assets/icon-64.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="alternate" hreflang="en" href="https://zinu.kim/groovside/settings/">
+<link rel="alternate" hreflang="ko" href="https://zinu.kim/groovside/ko/settings/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Settings — GroovSide">
+<meta property="og:description" content="Every setting in GroovSide, explained tab by tab.">
+<meta property="og:image" content="https://zinu.kim/groovside/assets/og.jpg">
+<meta property="og:url" content="https://zinu.kim/groovside/settings/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..700,50;1,9..144,400..600,50&display=swap">
+<style>
+  :root {
+    --bg: #f6ebec; --ink: #1f2a25; --muted: #5f6b65; --line: #e1cfd1; --rule: #1f2a25;
+    --green: #2e5b48; --green-soft: #2e5b48; --orange: #e8593a; --orange-ink: #b4412a; --paper: #fbf6f4;
+    --shadow: 0 34px 70px -34px rgba(46, 91, 72, .5);
+    --vinyl: #1b1d1b; --vinyl-2: #262926;
+    --serif: "Fraunces", "Iowan Old Style", Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, monospace;
+    /* the replica follows macOS, not the site palette */
+    --w-bg: #f4f2f2; --w-group: #e9e7e7; --w-sep: rgba(0,0,0,.09); --w-text: #1d1d1f; --w-sub: #77777c; --w-ctl: #ffffff;
+    --w-seg: rgba(0,0,0,.065); --w-seg-on: #ffffff; --w-accent: #0a6cff; --w-tabsel: rgba(0,0,0,.065); --w-off: #dcdadb; --w-edge: rgba(0,0,0,.14);
+    --w-red: #e0352b;
+    --w-chev: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='14' viewBox='0 0 10 14'><path d='M2 5.2 5 2.2l3 3M2 8.8l3 3 3-3' fill='none' stroke='%2346464a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #121714; --ink: #ecebe5; --muted: #a5aea8; --line: #2a332e; --rule: #ecebe5; --green-soft: #8cc3a8; --orange-ink: #f07a58; --paper: #161d19; --shadow: 0 34px 70px -34px rgba(0, 0, 0, .8); --vinyl: #0b0d0c; --vinyl-2: #181b19;
+      --w-bg: #282727; --w-group: #333232; --w-sep: rgba(255,255,255,.09); --w-text: #f2f2f2; --w-sub: #9c9ca1; --w-ctl: #5a5a5d;
+      --w-seg: rgba(255,255,255,.09); --w-seg-on: #66666a; --w-accent: #3a8bff; --w-tabsel: rgba(255,255,255,.1); --w-off: #48484b; --w-edge: rgba(255,255,255,.12);
+      --w-red: #ff5a50;
+      --w-chev: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='14' viewBox='0 0 10 14'><path d='M2 5.2 5 2.2l3 3M2 8.8l3 3 3-3' fill='none' stroke='%23d6d6da' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body { margin: 0; color: var(--ink); background: var(--bg); overflow-x: clip; font: 17px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+  body::before { /* paper grain, like the app */
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100; opacity: .08;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+  a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible, [tabindex]:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 6px; }
+  img { display: block; max-width: 100%; height: auto; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+  h1, h2, .serif { font-family: var(--serif); font-optical-sizing: auto; font-weight: 600; }
+  .vh { position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
+
+  /* top bar (as on the landing page) */
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 0; }
+  .brand { display: flex; align-items: center; gap: 10px; font: 600 1.15rem/1 var(--serif); text-decoration: none; }
+  .brand img { width: 30px; height: 30px; }
+  .top nav { display: flex; gap: 20px; font-size: .95rem; color: var(--muted); }
+  .top nav a { text-decoration: none; }
+  .top nav a:hover, .top nav a[aria-current] { color: var(--ink); }
+  .top nav a:hover { text-decoration: underline; }
+  .top nav a { white-space: nowrap; }
+  @media (max-width: 440px) { .top nav { gap: 14px; } }
+  @media (max-width: 380px) { .top nav { gap: 12px; font-size: .9rem; } }
+
+  .intro { padding: 36px 0 0; max-width: 760px; }
+  .intro h1 { font-size: clamp(3rem, 8vw, 5.6rem); line-height: .95; letter-spacing: -.03em; margin: 0 0 18px; font-weight: 650; }
+  .intro p { color: var(--muted); margin: 0; font-size: 1.08rem; }
+  .intro b { color: var(--ink); font-weight: 600; }
+
+  section.block { padding: 88px 0 0; }
+  section.block h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.05; letter-spacing: -.02em; margin: 0 0 12px; }
+  .sub { color: var(--muted); max-width: 680px; margin: 0; font-size: 1.05rem; }
+  .sub b { color: var(--ink); font-weight: 600; }
+
+  /* the guide: the window, and the notes beside it (below it on narrow screens) */
+  .guide { display: grid; grid-template-columns: minmax(0, 1fr); gap: 36px; margin-top: 44px; align-items: start; }
+  @media (min-width: 1000px) { .guide { grid-template-columns: minmax(0, 600px) minmax(0, 1fr); gap: 60px; } }
+  .webcopy { color: var(--muted); font-size: .88rem; margin: 14px 2px 0; }
+
+  /* ---- the replica of the macOS Settings window ---- */
+  .win {
+    --f: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", system-ui, sans-serif;
+    font: 13px/1.35 var(--f); color: var(--w-text); background: var(--w-bg); word-break: normal;
+    border-radius: 12px; overflow: hidden; box-shadow: 0 0 0 1px var(--w-edge), var(--shadow), 0 18px 40px -20px rgba(0,0,0,.35);
+    max-width: 600px; letter-spacing: -.003em;
+  }
+  .titlebar { position: relative; height: 30px; display: flex; align-items: center; justify-content: center; }
+  .lights { position: absolute; left: 12px; top: 9px; display: flex; gap: 8px; }
+  .lights i { display: block; width: 12px; height: 12px; border-radius: 50%; background: #ff5f57; box-shadow: inset 0 0 0 .5px rgba(0,0,0,.18); }
+  .lights i:nth-child(2) { background: #febc2e; }
+  .lights i:nth-child(3) { background: var(--w-off); }   /* zoom is off: the window can't be resized */
+  .wtitle { font-weight: 700; font-size: 13px; }
+  .toolbar { border-bottom: 1px solid var(--w-sep); padding: 2px 8px 7px; }
+  .tabs { display: flex; justify-content: center; gap: 2px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tabs [role=tab] {
+    flex: 0 0 auto; appearance: none; border: 0; background: none; color: var(--w-sub); font: 11px/1.2 var(--f); cursor: default;
+    display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 6px 3px; min-width: 52px; border-radius: 6px;
+  }
+  .tabs [role=tab] svg { width: 24px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.45; stroke-linecap: round; stroke-linejoin: round; }
+  .tabs [role=tab] svg .f { fill: currentColor; stroke: none; }
+  .tabs [role=tab] svg path.f { stroke: currentColor; stroke-width: .6; }
+  .tabs [role=tab]:hover { color: var(--w-text); }
+  .tabs [role=tab][aria-selected=true] { background: var(--w-tabsel); color: var(--w-accent); }
+  .tabs [role=tab]:focus-visible { outline: 2px solid var(--w-accent); outline-offset: -2px; }
+  @media (max-width: 620px) {
+    .tabs { justify-content: flex-start; -webkit-mask-image: linear-gradient(90deg, transparent, #000 14px, #000 calc(100% - 14px), transparent); mask-image: linear-gradient(90deg, transparent, #000 14px, #000 calc(100% - 14px), transparent); padding: 0 8px; }
+  }
+  .panes { padding: 20px 20px 18px; }
+  @media (max-width: 480px) { .panes { padding: 14px 12px 12px; } }
+  .js .pane:not(.active) { display: none; }
+  .no-js .pane + .pane { margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--w-sep); }
+  .no-js .pane::before { content: attr(data-title); display: block; font-weight: 700; margin-bottom: 10px; }
+  @media (prefers-reduced-motion: no-preference) { .js .pane.active { animation: paneIn .22s ease; } }
+  @keyframes paneIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .grp + .grp { margin-top: 18px; }
+  .ghead { font: 700 13px/1.3 var(--f); margin: 4px 10px 8px; }
+  .box { background: var(--w-group); border-radius: 8px; box-shadow: inset 0 0 0 1px var(--w-sep); padding: 0 10px; }
+  .gfoot { color: var(--w-sub); font-size: 11px; line-height: 1.4; margin: 7px 0 0; text-align: right; }
+  .gfoot.lead { text-align: left; }
+  .row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 14px; min-height: 40px; padding: 7px 0; position: relative; }
+  .box > * + * { border-top: 1px solid var(--w-sep); }
+  .row .lbl { flex: 1 1 auto; min-width: 0; }
+  .row .ctl { margin-left: auto; display: flex; align-items: center; max-width: 100%; }
+  .row.end { justify-content: flex-end; }
+  .row::before { content: ""; position: absolute; inset: 0 -10px; border-radius: 6px; pointer-events: none; opacity: 0; transition: opacity .18s ease;
+    background: linear-gradient(90deg, rgba(232, 89, 58, .16), rgba(232, 89, 58, .05)); box-shadow: inset 3px 0 0 var(--orange); }
+  .row.on::before { opacity: 1; }
+  .cap { margin: 0; padding: 7px 0 8px; color: var(--w-sub); font-size: 11px; line-height: 1.4; }
+  .js .cap[data-when]:not(.show) { display: none; }
+  .val { color: var(--w-sub); }
+  .val.no { color: var(--w-red); }
+  .dim { opacity: .42; }
+  .dim button, .dim input, .dim select { pointer-events: none; }
+
+  .sw { appearance: none; border: 0; padding: 0; width: 32px; height: 19px; border-radius: 10px; background: var(--w-off); position: relative; cursor: default; transition: background .18s ease; box-shadow: inset 0 0 0 .5px rgba(0,0,0,.08); }
+  .sw::after { content: ""; position: absolute; top: 1.5px; left: 1.5px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.3); transition: transform .18s ease; }
+  .sw[aria-checked=true] { background: var(--w-accent); }
+  .sw[aria-checked=true]::after { transform: translateX(13px); }
+  .sw:focus-visible, .seg button:focus-visible, .pop:focus-visible, .mbtn:focus-visible, .well:focus-visible, .slide input:focus-visible { outline: 3px solid color-mix(in srgb, var(--w-accent) 55%, transparent); outline-offset: 1px; border-radius: 6px; }
+
+  .seg { display: inline-flex; background: var(--w-seg); border-radius: 6px; padding: 1px; max-width: 100%; }
+  .seg button { appearance: none; border: 0; background: none; color: var(--w-text); font: 12.5px/1.3 var(--f); padding: 2px 11px; border-radius: 5px; cursor: default; white-space: nowrap; min-width: 52px; position: relative; }
+  .seg button + button:not([aria-pressed=true])::before { content: ""; position: absolute; left: 0; top: 4px; bottom: 4px; width: 1px; background: var(--w-sep); }
+  .seg button[aria-pressed=true] { background: var(--w-seg-on); box-shadow: 0 0 0 .5px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.14); }
+  .seg button[aria-pressed=true] + button::before { display: none; }
+
+  .pop { appearance: none; -webkit-appearance: none; border: 0; background: var(--w-chev) right 2px center / 10px 14px no-repeat; color: var(--w-text);
+    font: 13px/1.3 var(--f); padding: 2px 18px 2px 6px; border-radius: 5px; cursor: default; text-align: right; text-align-last: right; max-width: 100%; }
+  .pop:hover { background-color: var(--w-seg); }
+  .pop option { color: #1d1d1f; background: #fff; text-align: left; }
+  .crow { display: inline-flex; align-items: center; gap: 8px; }
+  .well { -webkit-appearance: none; appearance: none; width: 40px; height: 22px; padding: 2px; border: 0; border-radius: 6px; background: var(--w-ctl); box-shadow: 0 0 0 .5px rgba(0,0,0,.18), 0 1px 1.5px rgba(0,0,0,.12); cursor: default; }
+  .well::-webkit-color-swatch-wrapper { padding: 0; }
+  .well::-webkit-color-swatch { border: 0; border-radius: 4px; }
+  .well::-moz-color-swatch { border: 0; border-radius: 4px; }
+  .well.off { visibility: hidden; }
+
+  .mbtn { appearance: none; border: 0; background: var(--w-ctl); color: var(--w-text); font: 13px/1.3 var(--f); padding: 2px 10px 3px; border-radius: 6px; cursor: default;
+    box-shadow: 0 0 0 .5px rgba(0,0,0,.16), 0 1px 1.5px rgba(0,0,0,.12); }
+  .mbtn:active { filter: brightness(.92); }
+  .mbtn:disabled { opacity: .45; }
+  .slide { display: inline-flex; align-items: center; gap: 6px; color: var(--w-sub); }
+  .slide .spk { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; }
+  .slide .spk .f { fill: currentColor; stroke: currentColor; stroke-width: .5; }
+  .slide input { width: 170px; max-width: 46vw; accent-color: var(--w-accent); margin: 0; height: 20px; }
+
+  /* ---- the notes ---- */
+  .notes-col h2 { font-size: clamp(1.7rem, 3.4vw, 2.3rem); line-height: 1.1; letter-spacing: -.02em; margin: 0 0 6px; }
+  .notes-col h2 .gloss { font: 500 1rem/1 var(--sans); color: var(--muted); letter-spacing: 0; margin-left: 10px; vertical-align: .25em; }
+  .js .notes-tab:not(.active) { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+  .no-js .notes-tab + .notes-tab { margin-top: 48px; }
+  .notes { margin: 18px 0 0; padding: 0; border-top: 1.5px solid var(--rule); }
+  .note { padding: 13px 12px 13px; margin: 0 -12px; border-bottom: 1px solid var(--line); border-radius: 4px; transition: background-color .18s ease; }
+  .note dt { font: 600 1rem/1.4 var(--sans); }
+  .note dd { margin: 3px 0 0; color: var(--muted); font-size: .98rem; }
+  .note dd em { font-style: normal; color: var(--ink); font-weight: 600; }
+  .note.on { background: linear-gradient(90deg, rgba(232, 89, 58, .13), rgba(232, 89, 58, 0) 85%); }
+  .note.on dt { color: var(--orange-ink); }
+  .note:focus-visible { outline-offset: 0; }
+  .presets { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 6px; }
+  .presets li { display: grid; grid-template-columns: 5.6em minmax(0, 1fr); gap: 0 10px; }
+  .presets b { color: var(--ink); font-weight: 600; }
+  @media (prefers-reduced-motion: reduce) { .row::before, .note, .sw, .sw::after { transition: none; } }
+
+  /* the real window */
+  .real { margin: 30px 0 0; max-width: 980px; }
+  .real img { width: 100%; border-radius: 16px; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,.06); }
+  .real figcaption { color: var(--muted); font-size: .9rem; margin-top: 12px; }
+
+  footer { margin-top: 110px; border-top: 1px solid var(--line); padding: 24px 0 48px; color: var(--muted); font-size: .92rem; display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
+  footer nav { display: flex; flex-wrap: wrap; gap: 8px 16px; }
+  footer a { text-decoration: none; }
+  footer a:hover { color: var(--ink); text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="../"><img src="../assets/icon-64.png" alt="" width="30" height="30">GroovSide</a>
+    <nav aria-label="Pages"><a href="./" aria-current="page">Settings</a><a href="../support/">Support</a><a href="../ko/settings/" hreflang="ko" lang="ko">한국어</a></nav>
+  </header>
+
+  <main>
+    <div class="intro">
+      <h1>Settings</h1>
+      <p>What each setting in GroovSide does. In the app, click the record icon in the menu bar and choose <b>Settings…</b> to open it. The window below works the same way: click a tab to see its settings, and point at a row to read what it does.</p>
+    </div>
+
+    <div class="guide">
+      <div class="window-col">
+        <div class="win" lang="en" role="group" aria-label="GroovSide Settings (web copy)"><div class="titlebar"><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span><span class="wtitle">GroovSide Settings</span></div><div class="toolbar"><div class="tabs" role="tablist" aria-label="Settings tabs"><button type="button" role="tab" id="tab-general" aria-controls="pane-general" aria-selected="true" tabindex="0" data-tab="general"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.1 10.0L21.4 10.5L21.4 13.5L19.1 14.0L18.4 15.6L19.7 17.6L17.6 19.7L15.6 18.4L14.0 19.1L13.5 21.4L10.5 21.4L10.0 19.1L8.4 18.4L6.4 19.7L4.3 17.6L5.6 15.6L4.9 14.0L2.6 13.5L2.6 10.5L4.9 10.0L5.6 8.4L4.3 6.4L6.4 4.3L8.4 5.6L10.0 4.9L10.5 2.6L13.5 2.6L14.0 4.9L15.6 5.6L17.6 4.3L19.7 6.4L18.4 8.4Z"/><circle cx="12" cy="12" r="3.1"/></svg><span>General</span></button><button type="button" role="tab" id="tab-displays" aria-controls="pane-displays" aria-selected="false" tabindex="-1" data-tab="displays"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 7.5V4.7c0-.7.5-1.2 1.2-1.2h10.6c.7 0 1.2.5 1.2 1.2v6.6c0 .7-.5 1.2-1.2 1.2h-4.8"/><rect x="2.5" y="7.5" width="13" height="9" rx="1.2"/><path d="M9 16.5v3M6 19.5h6"/></svg><span>Displays</span></button><button type="button" role="tab" id="tab-appearance" aria-controls="pane-appearance" aria-selected="false" tabindex="-1" data-tab="appearance"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.6-.8 1.6-1.6 0-.5-.2-.8-.5-1.2-.3-.4-.5-.7-.5-1.2 0-.9.7-1.6 1.6-1.6H16a5 5 0 0 0 5-5C21 6.6 17 3 12 3z"/><circle cx="7.4" cy="11.6" r="1.25" class="f"/><circle cx="9.4" cy="7.4" r="1.25" class="f"/><circle cx="14" cy="6.7" r="1.25" class="f"/><circle cx="17.2" cy="10" r="1.25" class="f"/></svg><span>Appearance</span></button><button type="button" role="tab" id="tab-effects" aria-controls="pane-effects" aria-selected="false" tabindex="-1" data-tab="effects"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4.5c.5 3.4 2.1 5 5.5 5.5-3.4.5-5 2.1-5.5 5.5-.5-3.4-2.1-5-5.5-5.5 3.4-.5 5-2.1 5.5-5.5z" class="f"/><path d="M17.5 14c.3 1.7 1 2.4 2.7 2.7-1.7.3-2.4 1-2.7 2.7-.3-1.7-1-2.4-2.7-2.7 1.7-.3 2.4-1 2.7-2.7z" class="f"/><path d="M17.8 2.8c.2 1 .6 1.4 1.6 1.6-1 .2-1.4.6-1.6 1.6-.2-1-.6-1.4-1.6-1.6 1-.2 1.4-.6 1.6-1.6z" class="f"/></svg><span>Effects</span></button><button type="button" role="tab" id="tab-characters" aria-controls="pane-characters" aria-selected="false" tabindex="-1" data-tab="characters"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8.6" r="3"/><path d="M3.3 19.2c0-3.1 2.5-5.2 5.7-5.2s5.7 2.1 5.7 5.2z"/><circle cx="16.4" cy="7.6" r="2.6"/><path d="M16.2 13c2.9 0 4.8 1.9 4.8 4.8h-4.2"/></svg><span>Characters</span></button><button type="button" role="tab" id="tab-sound" aria-controls="pane-sound" aria-selected="false" tabindex="-1" data-tab="sound"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.8 9.4h3.1l4.3-3.7v12.6l-4.3-3.7H3.8z"/><path d="M14.6 9.2a4 4 0 0 1 0 5.6M17.2 6.6a7.6 7.6 0 0 1 0 10.8"/></svg><span>Sound</span></button><button type="button" role="tab" id="tab-players" aria-controls="pane-players" aria-selected="false" tabindex="-1" data-tab="players"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.6 16.2V3.8c.6 2.4 4.6 3 4.6 6.3"/><ellipse cx="10.9" cy="16.6" rx="2.9" ry="2.3" transform="rotate(-18 10.9 16.6)" class="f"/></svg><span>Players</span></button><button type="button" role="tab" id="tab-radio" aria-controls="pane-radio" aria-selected="false" tabindex="-1" data-tab="radio"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="1.9" class="f"/><path d="M8.6 8.6a4.8 4.8 0 0 0 0 6.8M15.4 8.6a4.8 4.8 0 0 1 0 6.8M5.7 5.7a8.9 8.9 0 0 0 0 12.6M18.3 5.7a8.9 8.9 0 0 1 0 12.6"/></svg><span>Radio</span></button></div></div><div class="panes"><div class="pane active" role="tabpanel" id="pane-general" aria-labelledby="tab-general" data-title="General"><div class="grp"><div class="box"><div class="row" data-k="enabled"><span class="lbl" id="l-enabled">Show on Desktop</span><div class="ctl"><button type="button" class="sw" role="switch" aria-checked="false" data-bind="enabled" aria-labelledby="l-enabled"></button></div></div><div class="row" data-k="login"><span class="lbl" id="l-login">Open at Login</span><div class="ctl"><button type="button" class="sw" role="switch" aria-checked="false" data-bind="login" aria-labelledby="l-login"></button></div></div></div></div><div class="grp"><div class="box"><div class="row" data-k="fps"><span class="lbl" id="l-fps">Frame Rate</span><div class="ctl"><div class="seg" role="group" aria-labelledby="l-fps" data-bind="fps"><button type="button" data-v="auto" aria-pressed="false">Auto</button><button type="button" data-v="30" aria-pressed="false">30 fps</button><button type="button" data-v="60" aria-pressed="false">60 fps</button></div></div></div><p class="cap" data-k="fps">Auto uses 30 fps on battery and 60 fps when plugged in.</p></div></div><div class="grp"><div class="box"><div class="row" data-k="clear"><span class="lbl" id="l-clear">Lines on the record</span><div class="ctl"><button type="button" class="mbtn">Clear This Record</button></div></div></div></div><div class="grp"><div class="box"><div class="row" data-k="version"><span class="lbl" id="l-version">Version</span><div class="ctl"><span class="val">1.0.0</span></div></div></div></div></div><div class="pane" role="tabpanel" id="pane-displays" aria-labelledby="tab-displays" data-title="Displays"><div class="grp"><div class="box"><div class="row" data-k="d1" data-k2="displays"><span class="lbl" id="l-d1">Built-in Retina Display (Main)</span><div class="ctl"><button type="button" class="sw" role="switch" aria-checked="false" data-bind="d1" aria-labelledby="l-d1"></button></div></div><div class="row" data-k="d2" data-k2="displays"><span class="lbl" id="l-d2">Studio Display</span><div class="ctl"><button type="button" class="sw" role="switch" aria-checked="false" data-bind="d2" aria-labelledby="l-d2"></button></div></div></div><p class="gfoot">Show the record on these displays.</p></div></div><div class="pane" role="tabpanel" id="pane-appearance" aria-labelledby="tab-appearance" data-title="Appearance"><div class="grp"><div class="box"><div class="row" data-k="preset"><span class="lbl" id="l-preset">Preset</span><div class="ctl"><select class="pop" data-preset="preset" aria-labelledby="l-preset"><option value="classic">Classic</option><option value="colorful">Colorful</option><option value="lively">Lively</option><option value="calm">Calm</option><option value="minimal">Minimal</option><option value="custom">Custom</option></select></div></div><p class="cap" data-k="preset" data-preset-detail></p></div><p class="gfoot">Presets change the look only: not sound, displays, radio, record position or colors you picked.</p></div><div class="grp"><div class="box"><div class="row" data-k="position"><span class="lbl" id="l-position">Record Position</span><div class="ctl"><div class="seg" role="group" aria-labelledby="l-position" data-bind="position"><button type="button" data-v="left" aria-pressed="false">Left</button><button type="button" data-v="center" aria-pressed="false">Center</button><button type="button" data-v="right" aria-pressed="false">Right</button></div></div></div><div class="row" data-k="transparent"><span class="lbl" id="l-transparent">Background</span><div class="ctl"><div class="seg" role="group" aria-labelledby="l-transparent" data-bind="transparent"><button type="button" data-v="false" aria-pressed="false">Default</button><button type="button" data-v="true" aria-pressed="false">Transparent</button></div></div></div><div class="row" data-k="singles"><span class="lbl" id="l-singles">Singles</span><div class="ctl"><div class="seg" role="group" aria-labelledby="l-singles" data-bind="singles"><button type="button" data-v="seven" aria-pressed="false">7-inch</button><button type="button" data-v="twelve" aria-pressed="false">12-inch</button></div></div></div><p class="cap" data-k="singles">Singles of up to 3 songs play on a smaller 7-inch record, so the needle moves less.</p></div></div><div class="grp"><h3 class="ghead">Colors</h3><div class="box"><div class="row" data-k="c-record"><span class="lbl" id="l-c-record">Record</span><div class="ctl"><span class="crow"><select class="pop" data-color="record" aria-labelledby="l-c-record"><option value="auto">Album</option><option value="vinyl">Colored Vinyl</option><option value="contrast">Contrast Vinyl</option><option value="custom">Custom</option></select><input type="color" class="well" data-hex="record" aria-label="Record color" tabindex="-1"></span></div></div><div class="row" data-k="c-bg"><span class="lbl" id="l-c-bg">Background</span><div class="ctl"><span class="crow"><select class="pop" data-color="bg" aria-labelledby="l-c-bg"><option value="auto">Album</option><option value="custom">Custom</option></select><input type="color" class="well" data-hex="bg" aria-label="Background color" tabindex="-1"></span></div></div><div class="row" data-k="c-line"><span class="lbl" id="l-c-line">Line</span><div class="ctl"><span class="crow"><select class="pop" data-color="line" aria-labelledby="l-c-line"><option value="auto">Album</option><option value="contrast">Contrast</option><option value="custom">Custom</option></select><input type="color" class="well" data-hex="line" aria-label="Line color" tabindex="-1"></span></div></div><div class="row" data-k="c-text"><span class="lbl" id="l-c-text">Text</span><div class="ctl"><span class="crow"><select class="pop" data-color="text" aria-labelledby="l-c-text"><option value="auto">Album</option><option value="custom">Custom</option></select><input type="color" class="well" data-hex="text" aria-label="Text color" tabindex="-1"></span></div></div><div class="row" data-k="c-arm"><span class="lbl" id="l-c-arm">Tonearm</span><div class="ctl"><span class="crow"><select class="pop" data-color="arm" aria-labelledby="l-c-arm"><option value="auto">Default</option><option value="custom">Custom</option></select><input type="color" class="well" data-hex="arm" aria-label="Tonearm color" tabindex="-1"></span></div></div><div class="row" data-k="c-armbase"><span class="lbl" id="l-c-armbase">Arm Base</span><div class="ctl"><span class="crow"><select class="pop" data-color="armBase" aria-labelledby="l-c-armbase"><option value="auto">Default</option><option value="custom">Custom</option></select><input type="color" class="well" data-hex="armBase" aria-label="Arm Base color" tabindex="-1"></span></div></div><div class="row" data-k="c-rest"><span class="lbl" id="l-c-rest">Arm Rest</span><div class="ctl"><span class="crow"><select class="pop" data-color="rest" aria-labelledby="l-c-rest"><option value="auto">Default</option><option value="custom">Custom</option></select><input type="color" class="well" data-hex="rest" aria-label="Arm Rest color" tabindex="-1"></span></div></div><div class="row" data-k="c-spindle"><span class="lbl" id="l-c-spindle">Spindle</span><div class="ctl"><span class="crow"><select class="pop" data-color="spindle" aria-labelledby="l-c-spindle"><option value="auto">Default</option><option value="custom">Custom</option></select><input type="color" class="well" data-hex="spindle" aria-label="Spindle color" tabindex="-1"></span></div></div><div class="row" data-k="c-knob"><span class="lbl" id="l-c-knob">Knobs</span><div class="ctl"><span class="crow"><select class="pop" data-color="knob" aria-labelledby="l-c-knob"><option value="auto">Default</option><option value="custom">Custom</option></select><input type="color" class="well" data-hex="knob" aria-label="Knobs color" tabindex="-1"></span></div></div><div class="row end" data-k="reset-colors"><button type="button" class="mbtn" data-reset="colors">Reset Colors</button></div></div><p class="gfoot lead">Album colors come from the cover. Colored Vinyl paints the record in the album&#x27;s main color, Contrast Vinyl in the opposite color. Custom colors stay the same for every album.</p></div></div><div class="pane" role="tabpanel" id="pane-effects" aria-labelledby="tab-effects" data-title="Effects"><div class="grp"><div class="box"><div class="row" data-k="windowLight"><span class="lbl" id="l-windowLight">Window Light</span><div class="ctl"><button type="button" class="sw" role="switch" aria-checked="false" data-bind="windowLight" aria-labelledby="l-windowLight"></button></div></div><p class="cap" data-k="windowLight">Light through a window follows the time of day.</p></div></div><div class="grp"><div class="box"><div class="row" data-k="trail"><span class="lbl" id="l-trail">Trail</span><div class="ctl"><div class="seg" role="group" aria-labelledby="l-trail" data-bind="trail"><button type="button" data-v="keep" aria-pressed="false">Keep</button><button type="button" data-v="afterglow" aria-pressed="false">Afterglow</button></div></div></div><div class="row" data-k="grain"><span class="lbl" id="l-grain">Grain</span><div class="ctl"><div class="seg" role="group" aria-labelledby="l-grain" data-bind="grain"><button type="button" data-v="off" aria-pressed="false">Off</button><button type="button" data-v="low" aria-pressed="false">Low</button><button type="button" data-v="normal" aria-pressed="false">Normal</button><button type="button" data-v="high" aria-pressed="false">High</button></div></div></div></div></div><div class="grp"><div class="box"><div class="row" data-k="sideChange"><span class="lbl" id="l-sideChange">Side Change</span><div class="ctl"><select class="pop" data-bind="sideChange" aria-labelledby="l-sideChange"><option value="turn">Lift &amp; Turn</option><option value="swap">Swap Record</option><option value="needle">Needle Only</option></select></div></div><p class="cap" data-k="sideChange">How the record moves when the next song is on the other side of the same record.</p><div class="row" data-k="albumChange"><span class="lbl" id="l-albumChange">Album Change</span><div class="ctl"><select class="pop" data-bind="albumChange" aria-labelledby="l-albumChange"><option value="swap">Swap Record</option><option value="slide">Slide Over</option></select></div></div><p class="cap" data-k="albumChange">How the record changes when the next song is from another album. Slide Over slides the old record out to the left and brings the new one in from the left, over it.</p><div class="row" data-k="colorTiming"><span class="lbl" id="l-colorTiming">Color Change</span><div class="ctl"><select class="pop" data-bind="colorTiming" aria-labelledby="l-colorTiming"><option value="record">With Record</option><option value="land">On Landing</option></select></div></div><p class="cap" data-k="colorTiming">When the scene starts turning to the new album&#x27;s colors: as the new record comes in, or once it settles onto the platter.</p></div></div></div><div class="pane" role="tabpanel" id="pane-characters" aria-labelledby="tab-characters" data-title="Characters"><div class="grp"><h3 class="ghead">Rider</h3><div class="box"><div class="row" data-k="riderPose"><span class="lbl" id="l-riderPose">Pose</span><div class="ctl"><select class="pop" data-bind="riderPose" aria-labelledby="l-riderPose"><option value="auto">Auto</option><option value="sit">Sit</option><option value="lean">Lean Back</option><option value="cross">Cross-Legged</option><option value="hug">Hug Knees</option></select></div></div></div><p class="gfoot lead">The little one on the needle. On Auto the pose sometimes changes when a new song starts.</p></div><div class="grp"><h3 class="ghead">Rider Colors</h3><div class="box"><div class="row" data-k="c-shirt"><span class="lbl" id="l-c-shirt">Shirt</span><div class="ctl"><span class="crow"><select class="pop" data-color="shirt" aria-labelledby="l-c-shirt"><option value="auto">Album</option><option value="custom">Custom</option></select><input type="color" class="well" data-hex="shirt" aria-label="Shirt color" tabindex="-1"></span></div></div><div class="row" data-k="c-pants"><span class="lbl" id="l-c-pants">Pants</span><div class="ctl"><span class="crow"><select class="pop" data-color="pants" aria-labelledby="l-c-pants"><option value="auto">Album</option><option value="custom">Custom</option></select><input type="color" class="well" data-hex="pants" aria-label="Pants color" tabindex="-1"></span></div></div><div class="row" data-k="c-hat"><span class="lbl" id="l-c-hat">Hat</span><div class="ctl"><span class="crow"><select class="pop" data-color="hat" aria-labelledby="l-c-hat"><option value="auto">Default</option><option value="custom">Custom</option></select><input type="color" class="well" data-hex="hat" aria-label="Hat color" tabindex="-1"></span></div></div><div class="row end" data-k="reset-rider"><button type="button" class="mbtn" data-reset="rider">Reset Colors</button></div></div></div><div class="grp"><h3 class="ghead">Crowd</h3><div class="box"><div class="row" data-k="crowd"><span class="lbl" id="l-crowd">Crowd</span><div class="ctl"><button type="button" class="sw" role="switch" aria-checked="false" data-bind="crowd" aria-labelledby="l-crowd"></button></div></div><div class="row" data-k="crowdPace" data-off="crowd"><span class="lbl" id="l-crowdPace">Crowd Pace</span><div class="ctl"><div class="seg" role="group" aria-labelledby="l-crowdPace" data-bind="crowdPace"><button type="button" data-v="1" aria-pressed="false">1×</button><button type="button" data-v="2" aria-pressed="false">2×</button><button type="button" data-v="5" aria-pressed="false">5×</button><button type="button" data-v="10" aria-pressed="false">10×</button></div></div></div></div><p class="gfoot lead">The longer the music plays, the more friends drop by. When the music stops they head home one by one. Crowd Pace makes them come and go faster.</p></div></div><div class="pane" role="tabpanel" id="pane-sound" aria-labelledby="tab-sound" data-title="Sound"><div class="grp"><div class="box"><div class="row" data-k="sound"><span class="lbl" id="l-sound">Record Sounds</span><div class="ctl"><button type="button" class="sw" role="switch" aria-checked="false" data-bind="sound" aria-labelledby="l-sound"></button></div></div><div class="row" data-k="soundVolume" data-off="sound"><span class="lbl" id="l-soundVolume">Volume</span><div class="ctl"><span class="slide"><svg viewBox="0 0 24 24" aria-hidden="true" class="spk"><path d="M5 9.4h3.1l4.3-3.7v12.6l-4.3-3.7H5z" class="f"/></svg><input type="range" min="0" max="1" step="0.01" data-bind="soundVolume" aria-labelledby="l-soundVolume"><svg viewBox="0 0 24 24" aria-hidden="true" class="spk"><path d="M2.8 9.4h3.1l4.3-3.7v12.6l-4.3-3.7H2.8z" class="f"/><path d="M13.2 9.6a3.4 3.4 0 0 1 0 4.8M15.6 7.4a6.6 6.6 0 0 1 0 9.2M18 5.2a9.8 9.8 0 0 1 0 13.6"/></svg></span></div></div></div><p class="gfoot lead">Quiet record player sounds over your music. Played on the main display only, and paused when the screen is locked or covered.</p></div><div class="grp"><div class="box"><div class="row" data-k="soundNeedle" data-off="sound"><span class="lbl" id="l-soundNeedle">Needle &amp; Record</span><div class="ctl"><button type="button" class="sw" role="switch" aria-checked="false" data-bind="soundNeedle" aria-labelledby="l-soundNeedle"></button></div></div><p class="cap" data-k="soundNeedle" data-off="sound">The needle touching down and lifting off, a record lifted, slid and set down.</p><div class="row" data-k="soundMotor" data-off="sound"><span class="lbl" id="l-soundMotor">Motor</span><div class="ctl"><button type="button" class="sw" role="switch" aria-checked="false" data-bind="soundMotor" aria-labelledby="l-soundMotor"></button></div></div><p class="cap" data-k="soundMotor" data-off="sound">The platter spinning up and winding down.</p><div class="row" data-k="soundNoise" data-off="sound"><span class="lbl" id="l-soundNoise">Surface Noise</span><div class="ctl"><button type="button" class="sw" role="switch" aria-checked="false" data-bind="soundNoise" aria-labelledby="l-soundNoise"></button></div></div><p class="cap" data-k="soundNoise" data-off="sound">A soft hiss and crackle while the needle is in the groove.</p><div class="row" data-k="soundRewind" data-off="sound"><span class="lbl" id="l-soundRewind">Rewind</span><div class="ctl"><button type="button" class="sw" role="switch" aria-checked="false" data-bind="soundRewind" aria-labelledby="l-soundRewind"></button></div></div><div class="row" data-k="soundRewindVolume" data-off="sound soundRewind" data-k2="soundRewind"><span class="lbl" id="l-soundRewindVolume">Rewind Volume</span><div class="ctl"><span class="slide"><svg viewBox="0 0 24 24" aria-hidden="true" class="spk"><path d="M5 9.4h3.1l4.3-3.7v12.6l-4.3-3.7H5z" class="f"/></svg><input type="range" min="0" max="1.5" step="0.01" data-bind="soundRewindVolume" aria-labelledby="l-soundRewindVolume"><svg viewBox="0 0 24 24" aria-hidden="true" class="spk"><path d="M2.8 9.4h3.1l4.3-3.7v12.6l-4.3-3.7H2.8z" class="f"/><path d="M13.2 9.6a3.4 3.4 0 0 1 0 4.8M15.6 7.4a6.6 6.6 0 0 1 0 9.2M18 5.2a9.8 9.8 0 0 1 0 13.6"/></svg></span></div></div><p class="cap" data-k="soundRewind" data-off="sound">A DJ spinback while you rewind a song in Music. Its volume is set apart from the other sounds.</p><div class="row" data-k="soundForward" data-off="sound"><span class="lbl" id="l-soundForward">Fast Forward</span><div class="ctl"><button type="button" class="sw" role="switch" aria-checked="false" data-bind="soundForward" aria-labelledby="l-soundForward"></button></div></div><div class="row" data-k="soundForwardVolume" data-off="sound soundForward" data-k2="soundForward"><span class="lbl" id="l-soundForwardVolume">Fast Forward Volume</span><div class="ctl"><span class="slide"><svg viewBox="0 0 24 24" aria-hidden="true" class="spk"><path d="M5 9.4h3.1l4.3-3.7v12.6l-4.3-3.7H5z" class="f"/></svg><input type="range" min="0" max="1.5" step="0.01" data-bind="soundForwardVolume" aria-labelledby="l-soundForwardVolume"><svg viewBox="0 0 24 24" aria-hidden="true" class="spk"><path d="M2.8 9.4h3.1l4.3-3.7v12.6l-4.3-3.7H2.8z" class="f"/><path d="M13.2 9.6a3.4 3.4 0 0 1 0 4.8M15.6 7.4a6.6 6.6 0 0 1 0 9.2M18 5.2a9.8 9.8 0 0 1 0 13.6"/></svg></span></div></div><p class="cap" data-k="soundForward" data-off="sound">The same spin, a little brighter, while you fast-forward a song in Music.</p></div></div><div class="grp"><div class="box"><div class="row end" data-k="testSound"><button type="button" class="mbtn" data-test>Play Test Sound</button></div></div></div></div><div class="pane" role="tabpanel" id="pane-players" aria-labelledby="tab-players" data-title="Players"><div class="grp"><div class="box"><div class="row" data-k="music" data-k2="permission"><span class="lbl" id="l-music">Music</span><div class="ctl"><span class="val">Allowed</span></div></div><div class="row" data-k="spotify" data-k2="permission"><span class="lbl" id="l-spotify">Spotify</span><div class="ctl"><span class="val">Allowed</span></div></div></div><p class="gfoot">GroovSide needs permission to read what Music or Spotify is playing.</p></div><div class="grp"><div class="box"><div class="row" data-k="automation"><button type="button" class="mbtn">Open Automation Settings…</button></div></div></div></div><div class="pane" role="tabpanel" id="pane-radio" aria-labelledby="tab-radio" data-title="Radio"><div class="grp"><div class="box"><div class="row" data-k="radio"><span class="lbl" id="l-radio">Record</span><div class="ctl"><div class="seg" role="group" aria-labelledby="l-radio" data-bind="radio"><button type="button" data-v="songs" aria-pressed="false">Each Song</button><button type="button" data-v="station" aria-pressed="false">Station</button></div></div></div><p class="cap" data-k="radio" data-when="radio=songs">Each song plays on its own album&#x27;s record.</p><p class="cap" data-k="radio" data-when="radio=station">One record for the station. Each song plays on the next band, and the record turns over when a side is full.</p><div class="row" data-k="radioLabel"><span class="lbl" id="l-radioLabel">Label</span><div class="ctl"><div class="seg" role="group" aria-labelledby="l-radioLabel" data-bind="radioLabel"><button type="button" data-v="music" aria-pressed="false">From Music</button><button type="button" data-v="logo" aria-pressed="false">Station Logo</button></div></div></div><p class="cap" data-k="radioLabel" data-when="radioLabel=music">The label is the picture Music gives for the song: usually its cover, sometimes the station&#x27;s logo.</p><p class="cap" data-k="radioLabel" data-when="radioLabel=logo">The label is always the station&#x27;s logo.</p></div><p class="gfoot">For live radio stations in Music.</p></div></div></div></div>
+        <p class="webcopy">A web copy of the Settings window. Changing things here doesn’t change the app.</p>
+      </div>
+      <div class="notes-col" aria-label="What each setting does" role="region">
+        <section class="notes-tab active" id="notes-general" data-tab="general" aria-labelledby="nh-general"><h2 id="nh-general"><span lang="en">General</span></h2><dl class="notes"><div class="note" data-k="enabled" tabindex="0"><dt lang="en">Show on Desktop</dt><dd>Shows or hides the turntable. The same switch is in the menu bar menu.</dd></div><div class="note" data-k="login" tabindex="0"><dt lang="en">Open at Login</dt><dd>Opens GroovSide when you log in to your Mac. If macOS asks for approval, Login Items in System Settings opens.</dd></div><div class="note" data-k="fps" tabindex="0"><dt lang="en">Frame Rate</dt><dd>How many times a second the scene is drawn. Auto uses 30 fps on battery and 60 fps when plugged in. 30 fps uses less power.</dd></div><div class="note" data-k="clear" tabindex="0"><dt lang="en">Clear This Record</dt><dd>Erases the lines the needle has drawn on the record that is playing now. Other records keep theirs.</dd></div><div class="note" data-k="version" tabindex="0"><dt lang="en">Version</dt><dd>The version you have. The App Store keeps it up to date.</dd></div></dl></section><section class="notes-tab" id="notes-displays" data-tab="displays" aria-labelledby="nh-displays"><h2 id="nh-displays"><span lang="en">Displays</span></h2><dl class="notes"><div class="note" data-k="displays" tabindex="-1"><dt lang="en">Your displays</dt><dd>Each connected display gets its own switch. A display you turn off stays off, even after you unplug it and plug it back in. <em>(Main)</em> marks the display with the menu bar. The names here are examples; you’ll see your own.</dd></div></dl></section><section class="notes-tab" id="notes-appearance" data-tab="appearance" aria-labelledby="nh-appearance"><h2 id="nh-appearance"><span lang="en">Appearance</span></h2><dl class="notes"><div class="note" data-k="preset" tabindex="-1"><dt lang="en">Preset</dt><dd>Five ready-made looks. A preset sets the background, the effects, the visitors, and the vinyl and line styles in one go. It leaves sound, displays, radio, record position and your custom colors alone. Change one of those settings yourself and it shows <em>Custom</em>.<ul class="presets"><li><b>Classic</b> The way it comes: album colors, window light, a fading trail and visitors.</li><li><b>Colorful</b> Colored vinyl with a contrasting line that stays, and records that slide over.</li><li><b>Lively</b> Colored vinyl, a busier crowd, records that slide over and lines that stay.</li><li><b>Calm</b> No visitors, lighter grain, and only the needle moves between sides.</li><li><b>Minimal</b> Just the turntable on your own desktop: no background, light, grain or visitors.</li></ul></dd></div><div class="note" data-k="position" tabindex="-1"><dt lang="en">Record Position</dt><dd>Puts the turntable on the left, in the center or on the right of the screen. On the left, the song details move to the top right.</dd></div><div class="note" data-k="transparent" tabindex="-1"><dt lang="en">Background</dt><dd><em>Default</em> draws the room, the desk and the turntable’s base. <em>Transparent</em> draws only the record, tonearm, knobs and song details over your own desktop picture, without window light or visitors.</dd></div><div class="note" data-k="singles" tabindex="-1"><dt lang="en">Singles</dt><dd><em>7-inch</em> plays singles of up to 3 songs on a smaller record, so the needle moves less. <em>12-inch</em> plays them on a full-size LP. A record already on the turntable keeps its size.</dd></div><div class="note" data-k="c-record" tabindex="-1"><dt lang="en">Record</dt><dd>The record’s color. <em>Album</em> takes it from the cover, <em>Colored Vinyl</em> uses the album’s main color and <em>Contrast Vinyl</em> the opposite color. <em>Custom</em> shows a color well and keeps one color for every album.</dd></div><div class="note" data-k="c-bg" tabindex="-1"><dt lang="en">Background</dt><dd>The color around the turntable. The song details switch between light and dark text to stay readable.</dd></div><div class="note" data-k="c-line" tabindex="-1"><dt lang="en">Line</dt><dd>The line the needle leaves on the record. <em>Album</em> uses the cover’s accent color, <em>Contrast</em> its opposite. Lines already drawn keep their color.</dd></div><div class="note" data-k="c-text" tabindex="-1"><dt lang="en">Text</dt><dd>The color of the song details.</dd></div><div class="note" data-k="c-arm" tabindex="-1"><dt lang="en">Tonearm</dt><dd>The arm, counterweight, headshell and needle. <em>Default</em> is metal.</dd></div><div class="note" data-k="c-armbase" tabindex="-1"><dt lang="en">Arm Base</dt><dd>The round plate under the tonearm.</dd></div><div class="note" data-k="c-rest" tabindex="-1"><dt lang="en">Arm Rest</dt><dd>The rest the needle sits on when it isn’t playing.</dd></div><div class="note" data-k="c-spindle" tabindex="-1"><dt lang="en">Spindle</dt><dd>The pin in the middle of the record.</dd></div><div class="note" data-k="c-knob" tabindex="-1"><dt lang="en">Knobs</dt><dd>The volume and speed knobs.</dd></div><div class="note" data-k="reset-colors" tabindex="-1"><dt lang="en">Reset Colors</dt><dd>Puts every color in this group back to its default. It’s dimmed when nothing has changed.</dd></div></dl></section><section class="notes-tab" id="notes-effects" data-tab="effects" aria-labelledby="nh-effects"><h2 id="nh-effects"><span lang="en">Effects</span></h2><dl class="notes"><div class="note" data-k="windowLight" tabindex="-1"><dt lang="en">Window Light</dt><dd>Sunlight through a four-pane window falls across the desk and follows your Mac’s clock: peach at dawn, orange at sunset, deep blue at night. Not shown with a transparent background.</dd></div><div class="note" data-k="trail" tabindex="-1"><dt lang="en">Trail</dt><dd><em>Keep</em> leaves the needle’s line on the record, so each record builds up its own drawing. <em>Afterglow</em> shows only a short tail that fades behind the needle. The full line is still saved, so switching back to Keep brings it back.</dd></div><div class="note" data-k="grain" tabindex="-1"><dt lang="en">Grain</dt><dd>How strong the paper-like grain over the scene is.</dd></div><div class="note" data-k="sideChange" tabindex="-1"><dt lang="en">Side Change</dt><dd>When the next song is on the other side of the same record. <em>Lift &amp; Turn</em> lifts the record, gives it a half turn while the new side fades in, and sets it down. <em>Swap Record</em> changes it the way a new album does. <em>Needle Only</em> leaves the record and moves just the needle.</dd></div><div class="note" data-k="albumChange" tabindex="-1"><dt lang="en">Album Change</dt><dd>When the next song is from another album. <em>Swap Record</em> lifts the old record off to the right and brings the new one in from the left. <em>Slide Over</em> slides the old record out to the upper left and glides the new one in over it.</dd></div><div class="note" data-k="colorTiming" tabindex="-1"><dt lang="en">Color Change</dt><dd>When the scene starts blending to the new album’s colors. <em>With Record</em>: as the new record comes in. <em>On Landing</em>: once it settles onto the platter.</dd></div></dl></section><section class="notes-tab" id="notes-characters" data-tab="characters" aria-labelledby="nh-characters"><h2 id="nh-characters"><span lang="en">Characters</span></h2><dl class="notes"><div class="note" data-k="riderPose" tabindex="-1"><dt lang="en">Pose</dt><dd>The little rider on the needle: <em>Sit</em>, <em>Lean Back</em>, <em>Cross-Legged</em> or <em>Hug Knees</em>. <em>Auto</em> sometimes picks a new pose when a new song starts.</dd></div><div class="note" data-k="c-shirt" tabindex="-1"><dt lang="en">Shirt</dt><dd><em>Album</em> uses the cover’s accent color.</dd></div><div class="note" data-k="c-pants" tabindex="-1"><dt lang="en">Pants</dt><dd><em>Album</em> matches the turntable’s base.</dd></div><div class="note" data-k="c-hat" tabindex="-1"><dt lang="en">Hat</dt><dd><em>Default</em> is white.</dd></div><div class="note" data-k="reset-rider" tabindex="-1"><dt lang="en">Reset Colors</dt><dd>Puts the rider’s colors back to the defaults.</dd></div><div class="note" data-k="crowd" tabindex="-1"><dt lang="en">Crowd</dt><dd>Little visitors drop by the longer you listen: the first after a few minutes, up to six at a time. Each stays a while, and when the music stops they wave and head home one by one. Not shown with a transparent background.</dd></div><div class="note" data-k="crowdPace" tabindex="-1"><dt lang="en">Crowd Pace</dt><dd>Makes visitors come and go 2, 5 or 10 times faster, and speeds up their walking and moves. Dancing still follows the music.</dd></div></dl></section><section class="notes-tab" id="notes-sound" data-tab="sound" aria-labelledby="nh-sound"><h2 id="nh-sound"><span lang="en">Sound</span></h2><dl class="notes"><div class="note" data-k="sound" tabindex="-1"><dt lang="en">Record Sounds</dt><dd>Soft turntable sounds, made on the fly and played over your music. Off until you turn it on. Only the main display plays them, and they stop while the screen is locked or asleep.</dd></div><div class="note" data-k="soundVolume" tabindex="-1"><dt lang="en">Volume</dt><dd>How loud all of these sounds are.</dd></div><div class="note" data-k="soundNeedle" tabindex="-1"><dt lang="en">Needle &amp; Record</dt><dd>The needle touching down and lifting off, and a record being lifted, slid and set down.</dd></div><div class="note" data-k="soundMotor" tabindex="-1"><dt lang="en">Motor</dt><dd>The platter spinning up when you play and winding down when you pause.</dd></div><div class="note" data-k="soundNoise" tabindex="-1"><dt lang="en">Surface Noise</dt><dd>A soft hiss and crackle while the needle is in the groove and music is playing.</dd></div><div class="note" data-k="soundRewind" tabindex="-1"><dt lang="en">Rewind · Rewind Volume</dt><dd>A DJ spinback while you rewind in Apple Music, with its own volume, up to 1.5 times.</dd></div><div class="note" data-k="soundForward" tabindex="-1"><dt lang="en">Fast Forward · Fast Forward Volume</dt><dd>The same spin, a little brighter, while you fast-forward in Apple Music, with its own volume. Spotify doesn’t report rewind or fast-forward, so these stay quiet there.</dd></div><div class="note" data-k="testSound" tabindex="-1"><dt lang="en">Play Test Sound</dt><dd>Plays the needle drop once, even when Record Sounds is off.</dd></div></dl></section><section class="notes-tab" id="notes-players" data-tab="players" aria-labelledby="nh-players"><h2 id="nh-players"><span lang="en">Players</span></h2><dl class="notes"><div class="note" data-k="permission" tabindex="-1"><dt lang="en">Music · Spotify</dt><dd>Whether GroovSide may read what each app is playing. macOS asks the first time you play a song. If you declined, it says <em>Not Allowed</em> in red. GroovSide only reads; it never controls your music or opens either app.</dd></div><div class="note" data-k="automation" tabindex="-1"><dt lang="en">Open Automation Settings…</dt><dd>Opens Privacy &amp; Security ▸ Automation in System Settings. Turn on Music or Spotify under GroovSide there.</dd></div></dl></section><section class="notes-tab" id="notes-radio" data-tab="radio" aria-labelledby="nh-radio"><h2 id="nh-radio"><span lang="en">Radio</span></h2><dl class="notes"><div class="note" data-k="radio" tabindex="-1"><dt lang="en">Record</dt><dd>For live radio stations in Apple Music. <em>Each Song</em> puts every song on its own album’s record. <em>Station</em> keeps one record per station: each song plays on the next band, and the record turns over when a side is full.</dd></div><div class="note" data-k="radioLabel" tabindex="-1"><dt lang="en">Label</dt><dd><em>From Music</em> uses the picture Music gives for the song: usually its cover, sometimes the station’s logo. <em>Station Logo</em> always shows the station’s logo.</dd></div></dl></section>
+      </div>
+    </div>
+
+    <section class="block" aria-labelledby="real-title">
+      <h2 id="real-title">In the app</h2>
+      <figure class="real">
+        <img src="../assets/settings-appearance.webp" loading="lazy" width="1400" height="908" alt="The GroovSide Settings window on the Appearance tab with the Colorful preset, next to a pink colored vinyl record with a contrasting blue line">
+        <figcaption>The real Settings window, on the Appearance tab with the Colorful preset.</figcaption>
+      </figure>
+    </section>
+
+    <section class="block" aria-labelledby="menu-title">
+      <h2 id="menu-title">From the menu bar</h2>
+      <p class="sub">Click the record icon in the menu bar for the song that’s playing, <b>Show on Desktop</b>, <b>Clear This Record</b>, <b>Settings…</b> and <b>Quit</b>. When Music and Spotify are both open, <b>Player</b> lets you choose which one the record shows. If GroovSide isn’t allowed to read a player, <b>Allow Control of Music…</b> appears too.</p>
+      <p class="sub" style="margin-top:14px">Still stuck? See <a href="../support/">Support</a>.</p>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2026 zinu kim</span>
+    <nav aria-label="Footer"><a href="../">GroovSide</a><a href="../support/">Support</a><a href="../privacy/">Privacy Policy</a><a href="../ko/settings/" hreflang="ko" lang="ko">한국어</a><a href="mailto:support@zinu.kim">support@zinu.kim</a></nav>
+  </footer>
+</div>
+<script>
+(function () {
+  var root = document.documentElement;
+  root.classList.remove('no-js'); root.classList.add('js');
+  var win = document.querySelector('.win');
+  var tabs = [].slice.call(win.querySelectorAll('[role=tab]'));
+  var panes = [].slice.call(win.querySelectorAll('[role=tabpanel]'));
+  var notes = [].slice.call(document.querySelectorAll('.notes-tab'));
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  // ---- tabs (ARIA tablist with arrow keys; the URL hash picks a tab) ----
+  function select(name, focus, fromHash) {
+    var i = tabs.findIndex(function (t) { return t.dataset.tab === name; });
+    if (i < 0) return false;
+    tabs.forEach(function (t, j) { t.setAttribute('aria-selected', j === i ? 'true' : 'false'); t.tabIndex = j === i ? 0 : -1; });
+    panes.forEach(function (p, j) { p.classList.toggle('active', j === i); p.hidden = j !== i; });
+    notes.forEach(function (n) {
+      var on = n.dataset.tab === name;
+      n.classList.toggle('active', on);
+      n.querySelectorAll('.note').forEach(function (d) { d.tabIndex = on ? 0 : -1; });
+    });
+    clearMarks();
+    if (focus) tabs[i].focus();
+    var strip = tabs[i].parentNode;
+    if (strip.scrollWidth > strip.clientWidth) {
+      var t = tabs[i], left = t.offsetLeft - (strip.clientWidth - t.offsetWidth) / 2;
+      strip.scrollTo({ left: left, behavior: reduce && reduce.matches ? 'auto' : 'smooth' });
+    }
+    if (!fromHash && history.replaceState) history.replaceState(null, '', '#' + name);
+    return true;
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { select(t.dataset.tab); });
+    t.addEventListener('keydown', function (e) {
+      var n = tabs.length, j = null;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') j = (i + 1) % n;
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') j = (i - 1 + n) % n;
+      else if (e.key === 'Home') j = 0;
+      else if (e.key === 'End') j = n - 1;
+      if (j === null) return;
+      e.preventDefault(); select(tabs[j].dataset.tab, true);
+    });
+  });
+  function fromHash(first) {
+    var h = decodeURIComponent(location.hash.slice(1)).toLowerCase();
+    if (!h || !select(h, false, true)) { if (first) select('general', false, true); return; }
+    if (first) {   // bring the window into view if the page opened further up
+      var g = document.querySelector('.guide').getBoundingClientRect();
+      if (g.top > window.innerHeight * 0.45) document.querySelector('.guide').scrollIntoView({ block: 'start' });
+    }
+  }
+  window.addEventListener('hashchange', function () { fromHash(false); });
+
+  // ---- the settings, with the app's defaults (Settings.swift) ----
+  var S = {
+    enabled: true, login: false, fps: 'auto', position: 'right', transparent: false, singles: 'seven',
+    windowLight: true, trail: 'afterglow', grain: 'normal', sideChange: 'turn', albumChange: 'swap', colorTiming: 'record',
+    coloredVinyl: false, vinylStyle: 'match', lineStyle: 'album',
+    riderPose: 'auto', crowd: true, crowdPace: 1,
+    sound: false, soundVolume: 0.5, soundNeedle: true, soundMotor: true, soundNoise: true,
+    soundRewind: true, soundRewindVolume: 1, soundForward: true, soundForwardVolume: 0.8,
+    radio: 'songs', radioLabel: 'music', d1: true, d2: true
+  };
+  // Color slots: '' is the default (album or metal); the hex is where Custom starts (Settings.ColorSlot.presets)
+  var HEX = { record: '', bg: '', line: '', text: '', arm: '', armBase: '', rest: '', spindle: '', knob: '', shirt: '', pants: '', hat: '' };
+  var START = { record: '#1C1B1E', bg: '#F1E9DA', line: '#FFFFFF', text: '#FFFFFF', arm: '#26262A', armBase: '#26262A', rest: '#26262A', spindle: '#26262A', knob: '#26262A', shirt: '#D9483B', pants: '#3D5A80', hat: '#D9483B' };
+  var CLASSIC = { transparent: false, windowLight: true, trail: 'afterglow', grain: 'normal', sideChange: 'turn', albumChange: 'swap', colorTiming: 'record', coloredVinyl: false, vinylStyle: 'match', lineStyle: 'album', crowd: true, crowdPace: 1 };
+  function w(c) { var o = {}; for (var k in CLASSIC) o[k] = CLASSIC[k]; for (k in c) o[k] = c[k]; return o; }
+  var PRESETS = [
+    { id: 'classic', detail: 'The way it comes: album colors, window light, a fading trail and visitors.', values: w({}) },
+    { id: 'colorful', detail: 'Colored vinyl with a contrasting line that stays, and records that slide over.', values: w({ coloredVinyl: true, lineStyle: 'contrast', trail: 'keep', albumChange: 'slide' }) },
+    { id: 'lively', detail: 'Colored vinyl, a busier crowd, records that slide over and lines that stay.', values: w({ coloredVinyl: true, crowdPace: 2, albumChange: 'slide', trail: 'keep', colorTiming: 'land' }) },
+    { id: 'calm', detail: 'No visitors, lighter grain, and only the needle moves between sides.', values: w({ crowd: false, grain: 'low', sideChange: 'needle' }) },
+    { id: 'minimal', detail: 'Just the turntable on your own desktop: no background, light, grain or visitors.', values: w({ transparent: true, crowd: false, windowLight: false, grain: 'off' }) }
+  ];
+  var CUSTOM_DETAIL = 'Your own mix of the settings below. Pick a preset to start from one.';
+  function matching() {
+    return PRESETS.filter(function (p) { for (var k in p.values) if (S[k] !== p.values[k]) return false; return true; })[0] || null;
+  }
+  function parse(key, v) { var d = S[key]; return typeof d === 'boolean' ? v === 'true' : typeof d === 'number' ? +v : v; }
+  function colorChoice(slot) {
+    if (HEX[slot]) return 'custom';
+    if (slot === 'line') return S.lineStyle === 'contrast' ? 'contrast' : 'auto';
+    if (slot === 'record' && S.coloredVinyl) return S.vinylStyle === 'contrast' ? 'contrast' : 'vinyl';
+    return 'auto';
+  }
+  function setColorChoice(slot, v) {   // as ColorRow.choice in SettingsWindow.swift
+    if (slot === 'line') S.lineStyle = v === 'contrast' ? 'contrast' : 'album';
+    if (slot === 'record') { S.coloredVinyl = v === 'vinyl' || v === 'contrast'; if (S.coloredVinyl) S.vinylStyle = v === 'contrast' ? 'contrast' : 'match'; }
+    if (v === 'custom') { if (!HEX[slot]) HEX[slot] = START[slot]; } else HEX[slot] = '';
+  }
+  function colorsChanged() {
+    return S.coloredVinyl || S.lineStyle === 'contrast' || ['record', 'bg', 'line', 'text', 'arm', 'armBase', 'spindle', 'knob', 'rest'].some(function (s) { return HEX[s]; });
+  }
+
+  function render() {
+    win.querySelectorAll('.sw[data-bind]').forEach(function (b) { b.setAttribute('aria-checked', S[b.dataset.bind] ? 'true' : 'false'); });
+    win.querySelectorAll('.seg[data-bind]').forEach(function (g) {
+      var v = String(S[g.dataset.bind]);
+      g.querySelectorAll('button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.v === v ? 'true' : 'false'); });
+    });
+    win.querySelectorAll('select[data-bind]').forEach(function (s) { s.value = String(S[s.dataset.bind]); });
+    win.querySelectorAll('input[type=range][data-bind]').forEach(function (r) { r.value = S[r.dataset.bind]; });
+    win.querySelectorAll('select[data-color]').forEach(function (s) { s.value = colorChoice(s.dataset.color); });
+    win.querySelectorAll('input[data-hex]').forEach(function (c) {
+      var h = HEX[c.dataset.hex];
+      c.classList.toggle('off', !h); c.tabIndex = h ? 0 : -1; c.disabled = !h;
+      if (h) c.value = h.toLowerCase();
+    });
+    var cur = matching(), sel = win.querySelector('select[data-preset]');
+    sel.querySelector('option[value=custom]').hidden = !!cur;
+    sel.querySelector('option[value=custom]').disabled = !!cur;
+    sel.value = cur ? cur.id : 'custom';
+    win.querySelector('[data-preset-detail]').textContent = cur ? cur.detail : CUSTOM_DETAIL;
+    win.querySelector('[data-reset=colors]').disabled = !colorsChanged();
+    win.querySelector('[data-reset=rider]').disabled = !(HEX.shirt || HEX.pants || HEX.hat);
+    win.querySelectorAll('[data-off]').forEach(function (el) {
+      var off = el.dataset.off.split(' ').some(function (k) { return !S[k]; });
+      el.classList.toggle('dim', off);
+      el.querySelectorAll('button, input, select').forEach(function (c) { c.disabled = off; });
+    });
+    win.querySelectorAll('[data-when]').forEach(function (el) {
+      var p = el.dataset.when.split('='); el.classList.toggle('show', String(S[p[0]]) === p[1]);
+    });
+  }
+
+  win.addEventListener('click', function (e) {
+    var t = e.target.closest('button'); if (!t || t.disabled) return;
+    if (t.classList.contains('sw')) { S[t.dataset.bind] = !S[t.dataset.bind]; render(); return; }
+    var g = t.closest('.seg[data-bind]');
+    if (g) { S[g.dataset.bind] = parse(g.dataset.bind, t.dataset.v); render(); return; }
+    if (t.dataset.reset === 'colors') { S.coloredVinyl = false; S.vinylStyle = 'match'; S.lineStyle = 'album'; ['record', 'bg', 'line', 'text', 'arm', 'armBase', 'spindle', 'knob', 'rest'].forEach(function (s) { HEX[s] = ''; }); render(); return; }
+    if (t.dataset.reset === 'rider') { HEX.shirt = HEX.pants = HEX.hat = ''; render(); return; }
+  });
+  win.addEventListener('change', function (e) {
+    var t = e.target;
+    if (t.dataset.preset !== undefined && t.matches('select')) {
+      var p = PRESETS.filter(function (x) { return x.id === t.value; })[0];
+      if (p) for (var k in p.values) S[k] = p.values[k];
+    } else if (t.dataset.color) setColorChoice(t.dataset.color, t.value);
+    else if (t.dataset.bind && t.matches('select')) S[t.dataset.bind] = parse(t.dataset.bind, t.value);
+    render();
+  });
+  win.addEventListener('input', function (e) {
+    var t = e.target;
+    if (t.type === 'range' && t.dataset.bind) S[t.dataset.bind] = +t.value;
+    if (t.dataset.hex) HEX[t.dataset.hex] = t.value.toUpperCase();
+  });
+
+  // ---- point at a row to light up its note, and the other way round ----
+  function key(el) { return el.dataset.k2 || el.dataset.k; }
+  function clearMarks() { document.querySelectorAll('.row.on, .note.on').forEach(function (x) { x.classList.remove('on'); }); }
+  function mark(k) {
+    clearMarks(); if (!k) return;
+    var pane = win.querySelector('.pane.active'), note = document.querySelector('.notes-tab.active');
+    pane.querySelectorAll('.row').forEach(function (r) { if (key(r) === k) r.classList.add('on'); });
+    if (note) note.querySelectorAll('.note').forEach(function (n) { if (n.dataset.k === k) n.classList.add('on'); });
+  }
+  function rowKey(el) {
+    var r = el.closest && el.closest('.row, .cap[data-k]');
+    return r && win.contains(r) ? key(r) : null;
+  }
+  win.addEventListener('pointerover', function (e) { if (e.pointerType === 'mouse') mark(rowKey(e.target)); });
+  win.addEventListener('pointerleave', function () { clearMarks(); });
+  win.addEventListener('focusin', function (e) { if (!e.target.matches('[role=tab]')) mark(rowKey(e.target)); });
+  win.addEventListener('focusout', function (e) { if (!win.contains(e.relatedTarget)) clearMarks(); });
+  document.querySelectorAll('.note').forEach(function (n) {
+    n.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') mark(n.dataset.k); });
+    n.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') clearMarks(); });
+    n.addEventListener('focus', function () { mark(n.dataset.k); });
+    n.addEventListener('blur', clearMarks);
+  });
+
+  render();
+  fromHash(true);
+})();
+</script>
+</body>
+</html>

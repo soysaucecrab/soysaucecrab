@@ -58,7 +58,9 @@
   .top nav { display: flex; gap: 20px; font-size: .95rem; color: var(--muted); }
   .top nav a { text-decoration: none; }
   .top nav a:hover { color: var(--ink); text-decoration: underline; }
+  .top nav a { white-space: nowrap; }
   @media (max-width: 440px) { .top nav { gap: 14px; } .top nav .opt { display: none; } }
+  @media (max-width: 380px) { .top nav { gap: 12px; font-size: .9rem; } }
 
   /* hero */
   .hero { padding: 40px 0 0; }
@@ -291,7 +293,7 @@
 <div class="wrap">
   <header class="top">
     <a class="brand" href="./"><img src="../assets/icon-64.png" alt="" width="30" height="30">GroovSide</a>
-    <nav aria-label="페이지"><a class="opt" href="#features">기능</a><a href="support/">지원</a><a href="../" hreflang="en" lang="en">English</a></nav>
+    <nav aria-label="페이지"><a class="opt" href="#features">기능</a><a href="settings/">설정</a><a href="support/">지원</a><a href="../" hreflang="en" lang="en">English</a></nav>
   </header>
 
   <main>
@@ -351,6 +353,7 @@
     <section aria-labelledby="c-title">
       <h2 id="c-title">원하는 색으로</h2>
       <p class="sub">앨범의 색을 그대로 쓰거나 컬러 바이닐로 바꿀 수 있고, 판·배경·선·글자·톤암의 색을 직접 고를 수도 있습니다. 턴테이블은 화면 왼쪽, 가운데, 오른쪽 중 원하는 곳에 둘 수 있습니다.</p>
+      <p class="sub" style="margin-top:10px"><a href="settings/#appearance">모든 설정을 탭별로 보기</a></p>
       <div class="colors">
         <figure><img src="../assets/color-vinyl.webp" loading="lazy" width="1000" height="650" alt="청록색 컬러 바이닐"><figcaption>컬러 바이닐<span>앨범 색 그대로</span></figcaption></figure>
         <figure><img src="../assets/color-black.webp" loading="lazy" width="1000" height="650" alt="검은 판과 금색 톤암"><figcaption>직접 고른 색<span>검은 판, 금색 톤암</span></figcaption></figure>
@@ -380,7 +383,7 @@
 
   <footer>
     <span>© 2026 zinu kim</span>
-    <nav aria-label="아래 링크"><a href="support/">지원</a><a href="privacy/">개인정보 처리방침</a><a href="../" hreflang="en" lang="en">English</a><a href="mailto:support@zinu.kim">support@zinu.kim</a></nav>
+    <nav aria-label="아래 링크"><a href="settings/">설정</a><a href="support/">지원</a><a href="privacy/">개인정보 처리방침</a><a href="../" hreflang="en" lang="en">English</a><a href="mailto:support@zinu.kim">support@zinu.kim</a></nav>
   </footer>
 </div>
 <script>
