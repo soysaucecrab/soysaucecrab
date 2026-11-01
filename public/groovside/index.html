@@ -128,7 +128,7 @@
   @media (min-width: 860px) { .side-head { flex-direction: column; align-items: flex-start; } }
   .side h2 { margin: 0; }
   .side .label { color: var(--muted); margin: 6px 0 0; font: italic 400 1.1rem/1.3 var(--serif); }
-  .center-label { /* a little record, one per side; the inner .lp spins while you're on that side (script below) */
+  .center-label { /* a little record, one per side */
     flex: 0 0 auto; position: relative; width: 72px; height: 72px; border-radius: 50%;
     font: 600 1.5rem/1 var(--serif); color: #f6ebec;
     box-shadow: 0 10px 20px -12px rgba(0,0,0,.6);
@@ -417,52 +417,6 @@
     var h = new Date().getHours(), start = h < 6 || h >= 20 ? 3 : h < 10 ? 0 : h < 16 ? 1 : 2;
     imgs.forEach(function (im) { im.loading = 'eager'; });
     range.value = start; show(start);
-  })();
-
-  // Side A / B: the little record spins while the pointer or focus is on its side.
-  // It speeds up and slows down smoothly (playbackRate eases to 0) and stops where it is, never snapping back.
-  (function () {
-    var mm = window.matchMedia ? function (q) { return window.matchMedia(q); } : function () { return { matches: false }; };
-    var reduce = mm('(prefers-reduced-motion: reduce)'), canHover = mm('(hover: hover)');
-    document.querySelectorAll('.side').forEach(function (side) {
-      var badge = side.querySelector('.center-label'), lp = badge && badge.querySelector('.lp');
-      if (!lp || !lp.animate) return;
-      var anim = null, rate = 0, target = 0, raf = 0, last = 0, over = false, focus = false, tapped = false, intro = false, lastType = 'mouse';
-      function tick(now) {
-        var dt = Math.max(0, Math.min(0.05, (now - last) / 1000)); last = now;
-        rate += (target - rate) * (1 - Math.exp(-(target > rate ? 1.8 : 1.4) * dt));
-        if (Math.abs(target - rate) < 0.004) rate = target;
-        anim.playbackRate = rate;
-        if (rate === 0 && target === 0) { anim.pause(); raf = 0; return; }
-        raf = requestAnimationFrame(tick);
-      }
-      function update() {
-        target = (over || focus || tapped || intro) && !reduce.matches ? 1 : 0;
-        if (!anim) {
-          if (!target) return;
-          anim = lp.animate([{ transform: 'rotate(0turn)' }, { transform: 'rotate(1turn)' }], { duration: 5000, iterations: Infinity });   // 5 s a turn: calm
-          anim.playbackRate = 0;
-        }
-        if (reduce.matches) { if (raf) cancelAnimationFrame(raf); raf = 0; rate = 0; anim.pause(); return; }
-        if (target && anim.playState !== 'running') anim.play();
-        if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); }
-      }
-      side.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') { over = true; update(); } });
-      side.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') { over = false; update(); } });
-      side.addEventListener('focusin', function () { focus = true; update(); });
-      side.addEventListener('focusout', function (e) { if (!side.contains(e.relatedTarget)) { focus = false; update(); } });
-      // Touch: tap the record to start or stop it, and each record gives one turn as it scrolls into view.
-      badge.addEventListener('pointerdown', function (e) { lastType = e.pointerType; });
-      badge.addEventListener('click', function () { if (lastType !== 'mouse') { tapped = !tapped; update(); } });
-      if (!canHover.matches && 'IntersectionObserver' in window) {
-        var io = new IntersectionObserver(function (es) {
-          if (!es[0].isIntersecting) return;
-          io.disconnect(); intro = true; update();
-          setTimeout(function () { intro = false; update(); }, 4800);   // about one turn, counting the ease in and out
-        }, { threshold: 0.9 });
-        io.observe(badge);
-      }
-    });
   })();
 
   // Who drops by: hover, focus or tap a row to see the visitors doing it (the still changes to a frame where they are
