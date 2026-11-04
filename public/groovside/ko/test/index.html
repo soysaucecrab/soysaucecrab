@@ -178,10 +178,10 @@
   .daylight input[type=range] { width: 100%; margin: 22px 0 6px; accent-color: var(--orange); height: 28px; cursor: pointer; }
   .daylight .marks { position: relative; height: 34px; margin: 0 9px; }
   .daylight .marks button { position: absolute; top: 0; transform: translateX(-50%); appearance: none; border: 0; background: none; padding: 4px 2px; font: italic 400 1.05rem/1.3 var(--serif); color: var(--muted); cursor: pointer; white-space: nowrap; }
-  .daylight .marks button:nth-child(1) { left: 9.375%; }
-  .daylight .marks button:nth-child(2) { left: 43.75%; }
-  .daylight .marks button:nth-child(3) { left: 78.125%; }
-  .daylight .marks button:nth-child(4) { left: 100%; transform: translateX(calc(-100% + 9px)); }
+  .daylight .marks button:nth-child(1) { left: 25%; }
+  .daylight .marks button:nth-child(2) { left: 46.083%; }
+  .daylight .marks button:nth-child(3) { left: 75%; }
+  .daylight .marks button:nth-child(4) { left: 87.667%; }
   .daylight .marks button[aria-pressed="true"] { color: var(--ink); font-weight: 600; }
 
   /* colors */
@@ -348,7 +348,7 @@
     <section aria-labelledby="l-title">
       <h2 id="l-title">시간에 따라 바뀌는 빛</h2>
       <p class="sub">창으로 들어온 햇빛이 Mac 시계를 따라 책상 위를 지나갑니다. 아침과 밤은 색부터 다릅니다.</p>
-      <div class="daylight"><div class="stagebox"><video muted loop playsinline preload="none" poster="../../assets/daylight-poster.jpg" data-base="../../assets/daylight" aria-label="아침부터 밤까지의 턴테이블: 창문 빛이 책상 위를 지나가고 화면의 색이 시간대에 따라 바뀝니다"></video><span class="clock" aria-hidden="true">오전 7:30</span><button type="button" class="pp" aria-label="일시정지"></button></div><input type="range" min="0" max="16" step="0.05" value="1.5" aria-label="시간대" aria-valuetext="오전 7:30" title="끌어서 시간 바꾸기"><div class="marks"><button type="button" data-v="1.5" aria-pressed="true">아침</button><button type="button" data-v="7" aria-pressed="false">낮</button><button type="button" data-v="12.5" aria-pressed="false">노을</button><button type="button" data-v="16" aria-pressed="false">밤</button></div></div>
+      <div class="daylight"><div class="stagebox"><video muted loop playsinline preload="none" poster="../../assets/daylight-poster.jpg" data-base="../../assets/daylight" aria-label="아침부터 밤까지의 턴테이블: 창문 빛이 책상 위를 지나가고 화면의 색이 시간대에 따라 바뀝니다"></video><span class="clock" aria-hidden="true">오전 9:00</span><button type="button" class="pp" aria-label="일시정지"></button></div><input type="range" min="0" max="12" step="0.02" value="3" aria-label="시간대" aria-valuetext="오전 9:00" title="끌어서 시간 바꾸기"><div class="marks"><button type="button" data-v="3" aria-pressed="true">아침</button><button type="button" data-v="5.53" aria-pressed="false">낮</button><button type="button" data-v="9" aria-pressed="false">노을</button><button type="button" data-v="10.52" aria-pressed="false">밤</button></div></div>
     </section>
 
     <section aria-labelledby="c-title">
@@ -398,31 +398,37 @@
     if (mq.addEventListener) mq.addEventListener('change', apply);
   })();
 
-  // Time of day: a 13-second time-lapse from 6 AM to 10 PM. It plays while in view (not with reduced motion);
-  // the slider and the marks move it to an hour and pause it there, the round button plays or pauses.
+  // Time of day: a 12-second loop through one whole day, 5 AM to 5 AM, with no seam. It plays while in view (not with
+  // reduced motion); the slider and the marks move it to an hour and pause it there, the round button plays or pauses.
+  // The clock is uneven, so the night goes by faster: K maps share of the clip → hour (29 = 5 AM the next day).
   (function () {
     var box = document.querySelector('.daylight'); if (!box) return;
     var v = box.querySelector('video'), range = box.querySelector('input'), btns = box.querySelectorAll('.marks button');
     var clock = box.querySelector('.clock'), pp = box.querySelector('.pp'), ko = document.documentElement.lang === 'ko';
-    var H0 = 6, SPAN = 16, LEN = 13;   // the clip runs 6:00 → 22:00 evenly over 13 s
+    var LEN = 12, K = [[0, 5], [0.12, 6.5], [0.75, 18.5], [0.85, 20.5], [1, 29]];
     var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
     var tall = window.matchMedia && matchMedia('(max-width: 600px)').matches;
     var want = !reduce, inView = false, loaded = false, raf = 0;
     if (tall) v.poster = v.dataset.base + '-poster-tall.jpg';
     function len() { return isFinite(v.duration) && v.duration > 0 ? v.duration : LEN; }
-    function offAt(t) { return t >= len() - 0.1 ? SPAN : t / len() * SPAN; }
-    function at(off) { return Math.min(off / SPAN * len(), len() - 0.05); }   // not the very end: the loop would jump back to dawn
+    function lerp(x, a, b) {   // along K, from column a to column b
+      for (var i = 1; i < K.length; i++) if (x <= K[i][a] || i === K.length - 1) { var p = K[i - 1], q = K[i]; return p[b] + (q[b] - p[b]) * (x - p[a]) / (q[a] - p[a]); }
+    }
+    function hourAt(sec) { return lerp(Math.max(0, Math.min(1, sec / LEN)), 0, 1); }
+    function secAt(h) { return lerp(h < 5 ? h + 24 : h, 1, 0) * LEN; }
     function fmt(h) {
       var m = Math.round(h * 12) * 5, hh = Math.floor(m / 60) % 24, mm = ('0' + m % 60).slice(-2), h12 = hh % 12 || 12;
       return ko ? (hh < 12 ? '오전 ' : '오후 ') + h12 + ':' + mm : h12 + ':' + mm + (hh < 12 ? ' AM' : ' PM');
     }
-    function sync(off) {
-      off = Math.max(0, Math.min(SPAN, off));
-      if (document.activeElement !== range) range.value = off;
-      var s = fmt(H0 + off); clock.textContent = s; range.setAttribute('aria-valuetext', s);
-      btns.forEach(function (b) { b.setAttribute('aria-pressed', Math.abs(+b.dataset.v - off) < 0.75 ? 'true' : 'false'); });
+    function sync(sec) {
+      sec = Math.max(0, Math.min(LEN, sec));
+      if (document.activeElement !== range) range.value = sec;
+      var s = fmt(hourAt(sec)); clock.textContent = s; range.setAttribute('aria-valuetext', s);
+      btns.forEach(function (b) { b.setAttribute('aria-pressed', Math.abs(+b.dataset.v - sec) < 0.6 ? 'true' : 'false'); });
     }
-    function tick() { sync(offAt(v.currentTime)); raf = !v.paused ? requestAnimationFrame(tick) : 0; }
+    function now() { return v.currentTime / len() * LEN; }
+    function to(sec) { return Math.min(sec / LEN * len(), len() - 0.05); }
+    function tick() { sync(now()); raf = !v.paused ? requestAnimationFrame(tick) : 0; }
     function setPP() { var p = !want; pp.classList.toggle('paused', p); pp.setAttribute('aria-label', p ? (ko ? '재생' : 'Play') : (ko ? '일시정지' : 'Pause')); }
     function run() { if (want && inView && loaded) { var p = v.play(); if (p && p.catch) p.catch(function () {}); } else if (!v.paused) v.pause(); }
     function load() {
@@ -430,20 +436,20 @@
       var base = v.dataset.base, list = tall ? [['-720x1148.mp4', 'video/mp4']] : [['-1280x800.webm', 'video/webm'], ['-1280x800.mp4', 'video/mp4']];
       list.forEach(function (s) { var el = document.createElement('source'); el.src = base + s[0]; el.type = s[1]; v.appendChild(el); });
       v.preload = 'auto'; v.load();
-      v.addEventListener('loadedmetadata', function () { v.currentTime = at(+range.value); run(); }, { once: true });
+      v.addEventListener('loadedmetadata', function () { v.currentTime = to(+range.value); run(); }, { once: true });
     }
-    function seek(off) {
+    function seek(sec) {
       want = false; setPP();
-      sync(off);
-      if (!loaded) load(); else if (v.readyState >= 1) v.currentTime = at(off);
+      sync(sec);
+      if (!loaded) load(); else if (v.readyState >= 1) v.currentTime = to(sec);
       run();
     }
     v.addEventListener('play', function () { if (!raf) raf = requestAnimationFrame(tick); });
-    v.addEventListener('seeked', function () { if (v.paused) sync(offAt(v.currentTime)); });
+    v.addEventListener('seeked', function () { if (v.paused) sync(now()); });
     range.addEventListener('input', function () { seek(parseFloat(range.value)); });
     btns.forEach(function (b) { b.addEventListener('click', function () { seek(+b.dataset.v); }); });
     pp.addEventListener('click', function () { want = !want; setPP(); if (want && !loaded) load(); run(); });
-    var h = new Date().getHours() + new Date().getMinutes() / 60, start = h < 6 || h >= 22 ? SPAN : h - H0;   // the visitor's own time of day
+    var d = new Date(), start = secAt(d.getHours() + d.getMinutes() / 60);   // the visitor's own time of day
     sync(start); setPP();
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (es) {
