@@ -28,6 +28,7 @@
   th, td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
   th { color: var(--muted); font-weight: 600; }
   ul { padding-left: 1.2em; }
+  h3 { font-size: 1rem; margin: 20px 0 6px; }
   footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.9rem; }
   @media (max-width: 560px) { table, thead, tbody, tr, th, td { display: block; } thead { display: none; } td { border: 0; padding: 2px 0; } tr { border-bottom: 1px solid var(--line); padding: 10px 0; } td:first-child { font-weight: 600; } }
   body::before { content: ""; position: fixed; inset: 0; pointer-events: none; opacity: .07; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
@@ -41,14 +42,23 @@
 <main>
   <a class="app" href="../"><img src="../assets/icon-64.png" alt="" width="28" height="28" style="vertical-align:-7px;margin-right:8px;display:inline-block">GroovSide</a>
   <h1>Privacy Policy</h1>
-  <p class="meta">Effective October 26, 2026</p>
+  <p class="meta">Effective November 5, 2026</p>
 
   <p>GroovSide is a Mac app that shows the song playing in Apple Music or Spotify as a record on your desktop. It's made by zinu kim, an individual developer in South Korea ("I", "me"), and sold on the Mac App Store.</p>
   <p class="lead">The short version: <strong>the app has no accounts, no analytics and no tracking, and I don't collect any data about you.</strong> What it needs stays on your Mac. It only goes online to look up album track lists.</p>
 
   <h2>What the app reads on your Mac</h2>
   <p>To show the current song, the app asks Music or Spotify (with your permission, through macOS Automation) for the song title, artist, album, album artist, track and disc numbers, length, playback position and album art. It only reads. It doesn't control playback and never opens Music or Spotify.</p>
-  <p>It also reads your Mac's output volume to turn the volume knob, and your Mac's clock to set the light from the window.</p>
+  <p>It also reads your Mac's output volume to turn the volume knob, and your Mac's clock and time zone to set the light from the window.</p>
+  <h3>Your location (optional)</h3>
+  <p>In version 1.0.1 and later, if you turn on <strong>Use My Location</strong> in Settings → Appearance, the app times the window light and shadows to sunrise and sunset where you are. It stays off unless you turn it on, and macOS asks for your permission first.</p>
+  <ul>
+    <li>When you turn it on, and after that about once a day (for example when the app starts or your Mac wakes up), the app asks macOS for your approximate location, rounded to about 10 km before it is stored or used. It doesn't follow where you go.</li>
+    <li>macOS works out the location itself, under <a href="https://www.apple.com/legal/privacy/" rel="noopener noreferrer">Apple's privacy policy</a>. The app only receives the result.</li>
+    <li>The app uses your location only on your Mac, to work out the times of sunrise and sunset. It is never sent to me or anyone else.</li>
+    <li>The app keeps the last location on your Mac, so it can use it the next time it starts without asking again.</li>
+    <li>To stop, turn the setting off, or turn off GroovSide in <strong>System Settings → Privacy &amp; Security → Location Services</strong>. Either way the app stops using your location and deletes the saved one, and goes back to using your Mac's time zone.</li>
+  </ul>
 
   <h2>What the app sends over the internet</h2>
   <table>
@@ -59,7 +69,7 @@
     </tbody>
   </table>
   <p>These services see your IP address, as any website does, and handle it under their own privacy policies: <a href="https://www.apple.com/legal/privacy/" rel="noopener noreferrer">Apple</a>, <a href="https://www.spotify.com/legal/privacy-policy/" rel="noopener noreferrer">Spotify</a>. These requests don't go through me, and I never receive them.</p>
-  <p>Nothing else is sent. The app has no analytics, crash reporting or advertising code of its own, and I never receive your listening history.</p>
+  <p>Nothing else is sent. Your location, if you turn it on, is never sent either. The app has no analytics, crash reporting or advertising code of its own, and I never receive your listening history.</p>
 
   <h2>What the app keeps on your Mac</h2>
   <ul>
@@ -67,6 +77,7 @@
     <li><strong>Today's songs:</strong> the title, artist and time of each song played today, to show the "Played Today" count. It starts over each day.</li>
     <li><strong>The current record:</strong> the lines drawn on the record and which album it belongs to.</li>
     <li><strong>Album track lists</strong> found through the iTunes Search API, up to 500 albums, so they don't have to be looked up again.</li>
+    <li><strong>Your last location</strong>, only if you turned on Use My Location: the approximate latitude and longitude macOS last gave the app. It's deleted when you turn the setting off.</li>
   </ul>
   <p>This stays on your Mac and is never sent to me. It's kept in the app's own folder, <code>~/Library/Containers/kim.zinu.groovside</code>. macOS keeps that folder when you delete the app, so to remove the data too, quit the app and delete that folder.</p>
 
