@@ -70,6 +70,10 @@
   .cta { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: center; margin-top: 22px; }
   .badge { display: inline-flex; align-items: center; gap: 10px; padding: 13px 22px; border-radius: 999px; background: var(--ink); color: var(--bg); font-weight: 600; }
   .badge svg { width: 18px; height: 18px; fill: currentColor; }
+  /* launch: app-store-link */
+  a.badge { text-decoration: none; }
+  a.badge:hover { background: var(--green-soft); }
+  a.badge:focus-visible { border-radius: 999px; }
   .meta { color: var(--muted); font-size: .95rem; }
 
   /* the screen is the sleeve, the record slides out of it */
@@ -301,7 +305,7 @@
         <div>
           <p class="lede">Whatever you play in Apple Music or Spotify spins as a record on your Mac's desktop, right behind your icons. The cover becomes the label, the needle follows the song, and the longer you listen, the more little visitors drop by.</p>
           <div class="cta">
-            <span class="badge" aria-label="Coming soon to the Mac App Store">Coming soon to the Mac App Store</span>
+            <a class="badge" href="https://apps.apple.com/app/id6826888565?mt=12" rel="noopener noreferrer" data-cta="app-store">Get it on the Mac App Store</a>
             <span class="meta">$4.99 · macOS 14 or later</span>
           </div>
         </div>
@@ -371,7 +375,7 @@
       <div class="mini-rec" aria-hidden="true"></div>
       <img src="../assets/icon-256.png" width="84" height="84" alt="">
       <h2 id="end-title">Put a record on.</h2>
-      <div class="cta"><span class="badge">Coming soon to the Mac App Store</span></div>
+      <div class="cta"><a class="badge" href="https://apps.apple.com/app/id6826888565?mt=12" rel="noopener noreferrer" data-cta="app-store">Get it on the Mac App Store</a></div>
       <p class="meta" style="margin-top:16px">Works with Apple Music (built into macOS) and Spotify.</p>
     </section>
   </main>
