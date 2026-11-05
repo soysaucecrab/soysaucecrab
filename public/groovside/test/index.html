@@ -290,6 +290,11 @@
   .preview-bar { margin: 16px 0 0; padding: 10px 14px; border-radius: 12px; background: var(--paper); border: 1px solid var(--line); font-size: .92rem; line-height: 1.5; display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
   .preview-bar b { color: var(--orange-ink); font-weight: 600; }
   .preview-bar a { margin-left: auto; white-space: nowrap; }
+  /* launch sale (ends 2026-11-08; the script below puts the regular price back on that date) */
+  .meta .was { color: var(--muted); text-decoration: line-through; text-decoration-thickness: 1.5px; }
+  .meta .now { color: var(--orange-ink); font-weight: 700; }
+  .meta .nw { white-space: nowrap; }
+  .meta .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -311,7 +316,7 @@
           <p class="lede">Whatever you play in Apple Music or Spotify spins as a record on your Mac's desktop, right behind your icons. The cover becomes the label, the needle follows the song, and the longer you listen, the more little visitors drop by.</p>
           <div class="cta">
             <a class="badge" href="https://apps.apple.com/app/id6826888565?mt=12" rel="noopener noreferrer" data-cta="app-store">Get it on the Mac App Store</a>
-            <span class="meta">$4.99 · macOS 14 or later</span>
+            <span class="meta" data-regular="$4.99 · macOS 14 or later"><s class="was"><span class="vh">Regular price </span>$4.99</s> <b class="now"><span class="vh">Sale price </span>$2.99</b> · <span class="nw">Sale ends Nov 8</span> · <span class="nw">macOS 14 or later</span></span>
           </div>
         </div>
       </div>
@@ -525,6 +530,13 @@
       if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); }
     });
     fin.addEventListener('pointerleave', function () { on = false; rec.classList.remove('on'); });
+  })();
+</script>
+<script>
+  // Launch sale: on the visitor's own Nov 8 (the sale's end date), show the regular price again.
+  (function () {
+    if (new Date() < new Date(2026, 10, 8)) return;
+    document.querySelectorAll('.meta[data-regular]').forEach(function (m) { m.textContent = m.dataset.regular; });
   })();
 </script>
 </body>

@@ -297,6 +297,11 @@
   .top nav a.next:hover { border-color: var(--orange); text-decoration: none; }
   @media (max-width: 440px) { .top nav a.next { padding: 1px 8px 2px; } }
   @media (max-width: 400px) { .top nav { gap: 14px; } .top nav .opt2 { display: none; } }
+  /* launch sale (ends 2026-11-08; the script below puts the regular price back on that date) */
+  .meta .was { color: var(--muted); text-decoration: line-through; text-decoration-thickness: 1.5px; }
+  .meta .now { color: var(--orange-ink); font-weight: 700; }
+  .meta .nw { white-space: nowrap; }
+  .meta .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -317,7 +322,7 @@
           <p class="lede">Apple Music이나 Spotify에서 곡을 틀면 Mac 바탕화면 아이콘 뒤에서 레코드판이 돕니다. 앨범 커버가 라벨이 되고, 바늘은 곡을 따라 안쪽으로 들어갑니다. 오래 듣고 있으면 작은 사람들이 하나둘 모여듭니다.</p>
           <div class="cta">
             <a class="badge" href="https://apps.apple.com/kr/app/id6826888565?mt=12" rel="noopener noreferrer" data-cta="app-store">Mac App Store에서 받기</a>
-            <span class="meta">$4.99 · macOS 14 이상</span>
+            <span class="meta" data-regular="$4.99 · macOS 14 이상"><s class="was"><span class="vh">정가 </span>$4.99</s> <b class="now"><span class="vh">할인가 </span>$2.99</b> · <span class="nw">11월 8일 세일 종료</span> · <span class="nw">macOS 14 이상</span></span>
           </div>
         </div>
       </div>
@@ -497,6 +502,13 @@
       if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); }
     });
     fin.addEventListener('pointerleave', function () { on = false; rec.classList.remove('on'); });
+  })();
+</script>
+<script>
+  // Launch sale: on the visitor's own Nov 8 (the sale's end date), show the regular price again.
+  (function () {
+    if (new Date() < new Date(2026, 10, 8)) return;
+    document.querySelectorAll('.meta[data-regular]').forEach(function (m) { m.textContent = m.dataset.regular; });
   })();
 </script>
 </body>
