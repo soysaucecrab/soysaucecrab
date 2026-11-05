@@ -286,6 +286,10 @@
     }
     .mini-rec.on { opacity: 1; }
   }
+  /* preview bar on test pages */
+  .preview-bar { margin: 16px 0 0; padding: 10px 14px; border-radius: 12px; background: var(--paper); border: 1px solid var(--line); font-size: .92rem; line-height: 1.5; display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
+  .preview-bar b { color: var(--orange-ink); font-weight: 600; }
+  .preview-bar a { margin-left: auto; white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -294,6 +298,7 @@
     <a class="brand" href=".././"><img src="../assets/icon-64.png" alt="" width="30" height="30">GroovSide</a>
     <nav aria-label="Pages"><a href="settings/">Settings</a><a href="../support/">Support</a><a href="../ko/test/" hreflang="ko" lang="ko">한국어</a></nav>
   </header>
+  <p class="preview-bar" role="note"><b>Preview of the next update (1.0.1).</b> Some of what you see here isn’t in the App Store version yet. <a href="../">Back to the current page</a></p>
 
   <main>
     <section class="hero" aria-labelledby="title">

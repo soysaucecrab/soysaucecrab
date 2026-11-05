@@ -291,13 +291,19 @@
   h2, .final h2 { letter-spacing: -.02em; word-spacing: 0; line-height: 1.2; }
   .hero .tag { font-weight: 700; }
   .tracks b, .colors figcaption, .crate .t { font-family: var(--sans); font-weight: 650; letter-spacing: -.01em; }
+  /* next-update preview link (remove when 1.0.1 ships) */
+  .top nav a.next { display: inline-flex; align-items: center; gap: 6px; padding: 1px 10px 2px; border: 1px solid var(--line); border-radius: 999px; color: var(--ink); text-decoration: none; }
+  .top nav a.next::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--orange); }
+  .top nav a.next:hover { border-color: var(--orange); text-decoration: none; }
+  @media (max-width: 440px) { .top nav a.next { padding: 1px 8px 2px; } }
+  @media (max-width: 400px) { .top nav { gap: 14px; } .top nav .opt2 { display: none; } }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="top">
     <a class="brand" href="./"><img src="../assets/icon-64.png" alt="" width="30" height="30">GroovSide</a>
-    <nav aria-label="페이지"><a href="settings/">설정</a><a href="support/">지원</a><a href="../" hreflang="en" lang="en">English</a></nav>
+    <nav aria-label="페이지"><a class="next" href="test/" title="1.0.1 미리 보기">다음 업데이트</a><a class="opt2" href="settings/">설정</a><a class="opt" href="support/">지원</a><a href="../" hreflang="en" lang="en">English</a></nav>
   </header>
 
   <main>

@@ -285,13 +285,19 @@
     }
     .mini-rec.on { opacity: 1; }
   }
+  /* next-update preview link (remove when 1.0.1 ships) */
+  .top nav a.next { display: inline-flex; align-items: center; gap: 6px; padding: 1px 10px 2px; border: 1px solid var(--line); border-radius: 999px; color: var(--ink); text-decoration: none; }
+  .top nav a.next::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--orange); }
+  .top nav a.next:hover { border-color: var(--orange); text-decoration: none; }
+  @media (max-width: 440px) { .top nav a.next { padding: 1px 8px 2px; } }
+  @media (max-width: 400px) { .top nav { gap: 14px; } .top nav .opt2 { display: none; } }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="top">
     <a class="brand" href="./"><img src="assets/icon-64.png" alt="" width="30" height="30">GroovSide</a>
-    <nav aria-label="Pages"><a href="settings/">Settings</a><a href="support/">Support</a><a href="ko/" hreflang="ko" lang="ko">한국어</a></nav>
+    <nav aria-label="Pages"><a class="next" href="test/" title="A preview of version 1.0.1">Next update</a><a class="opt2" href="settings/">Settings</a><a class="opt" href="support/">Support</a><a href="ko/" hreflang="ko" lang="ko">한국어</a></nav>
   </header>
 
   <main>

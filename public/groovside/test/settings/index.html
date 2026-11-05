@@ -238,6 +238,10 @@
   .notes-sub + .notes { margin-top: 10px; }
   .notes-sub .gloss { font-weight: 500; color: var(--muted); margin-left: 8px; font-size: .92rem; }
   .testnote { margin: 10px 0 0; color: var(--orange-ink); font-size: .9rem; }
+  /* preview bar on test pages */
+  .preview-bar { margin: 16px 0 0; padding: 10px 14px; border-radius: 12px; background: var(--paper); border: 1px solid var(--line); font-size: .92rem; line-height: 1.5; display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
+  .preview-bar b { color: var(--orange-ink); font-weight: 600; }
+  .preview-bar a { margin-left: auto; white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -246,6 +250,7 @@
     <a class="brand" href="../../"><img src="../../assets/icon-64.png" alt="" width="30" height="30">GroovSide</a>
     <nav aria-label="Pages"><a href="./" aria-current="page">Settings</a><a href="../../support/">Support</a><a href="../../ko/test/settings/" hreflang="ko" lang="ko">한국어</a></nav>
   </header>
+  <p class="preview-bar" role="note"><b>Preview of the next update (1.0.1).</b> These are the settings of the coming version; the App Store version still has the old layout. <a href="../../settings/">Current settings guide</a></p>
 
   <main>
     <div class="intro">
