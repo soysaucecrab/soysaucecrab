@@ -44,7 +44,7 @@
 <main>
   <a class="app" href="../"><img src="../../assets/icon-64.png" alt="" width="28" height="28" style="vertical-align:-7px;margin-right:8px;display:inline-block">GroovSide</a>
   <h1>개인정보 처리방침</h1>
-  <p class="meta">시행일 2026년 11월 5일</p>
+  <p class="meta">시행일 2026년 11월 6일</p>
 
   <p>GroovSide는 Apple Music이나 Spotify에서 재생 중인 곡을 Mac 바탕화면 위의 레코드로 보여 주는 앱입니다. 한국에 사는 개인 개발자 zinu kim(이하 "저")이 만들고 Mac App Store에서 판매합니다.</p>
   <p class="lead">요약: <strong>앱에는 계정, 분석, 추적이 없고, 저는 이용자에 대한 정보를 수집하지 않습니다.</strong> 앱에 필요한 것은 이용자의 Mac에만 저장됩니다. 인터넷에는 앨범의 곡 목록을 찾을 때만 연결합니다.</p>
@@ -71,6 +71,7 @@
     </tbody>
   </table>
   <p>이 요청은 이용자의 Mac에서 Apple과 Spotify로 바로 가며 저를 거치지 않고, 저는 그 내용을 받지 않습니다. 두 회사는 여느 웹사이트처럼 IP 주소를 보게 되며, 각 회사의 방침(<a href="https://www.apple.com/kr/legal/privacy/" rel="noopener noreferrer">Apple</a>, <a href="https://www.spotify.com/kr-ko/legal/privacy-policy/" rel="noopener noreferrer">Spotify</a>)에 따라 처리합니다.</p>
+  <p>앱을 Mac App Store에서 정상적으로 받았는지 확인하려고 Apple의 StoreKit을 씁니다. 확인은 macOS가 <a href="https://www.apple.com/kr/legal/privacy/" rel="noopener noreferrer">Apple의 개인정보 처리방침</a>에 따라 Apple과 주고받고, 앱은 결과만 받습니다. 저에게는 아무것도 오지 않습니다.</p>
   <p>그 밖에는 아무것도 보내지 않습니다. 위치 설정을 켜도 위치는 보내지 않습니다. 앱에는 자체 분석, 충돌 보고, 광고 코드가 없고, 저는 이용자의 음악 감상 기록을 받지 않습니다.</p>
 
   <h2>3. 앱이 Mac에 저장하는 것</h2>
@@ -80,6 +81,7 @@
     <li><strong>지금 판</strong>: 판 위에 그려진 선과 그 판의 앨범</li>
     <li><strong>앨범 곡 목록</strong>: iTunes Search API로 찾은 곡 목록(최근 500개 앨범까지). 다시 찾지 않기 위해 저장합니다.</li>
     <li><strong>마지막 위치</strong>(Use My Location을 켠 경우만): macOS가 마지막으로 알려 준 대략의 위도와 경도. 설정을 끄면 지웁니다.</li>
+    <li><strong>구매 확인 기록</strong>: 이 Mac에서 구매가 확인되었다는 표시(Apple이 이 용도로 주는 값을 되돌릴 수 없게 바꾼 값이며, 그 값 자체는 저장하지 않음)와 처음 구매한 버전·날짜. 오프라인에서도 앱을 열 수 있게 하려는 것입니다.</li>
   </ul>
   <p>이 정보는 이용자의 Mac에만 있고 저에게 보내지 않습니다. 앱 전용 폴더 <code>~/Library/Containers/kim.zinu.groovside</code>에 저장됩니다. 앱을 지워도 macOS가 이 폴더를 남기므로, 정보까지 지우려면 앱을 끈 뒤 이 폴더를 지우면 됩니다.</p>
 
