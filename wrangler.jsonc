@@ -5,6 +5,8 @@
   // Static-assets-only Worker: serves the built Astro output in ./dist.
   // Build step (`npm run build`) produces dist; `wrangler deploy` uploads it.
   "assets": {
-    "directory": "./dist"
+    "directory": "./dist",
+    // Unknown paths get the nearest 404.html (e.g. /groovside/404.html); paths with none above them still get an empty 404.
+    "not_found_handling": "404-page"
   }
 }
