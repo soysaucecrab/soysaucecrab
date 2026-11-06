@@ -45,7 +45,7 @@
   <p class="meta">Effective November 7, 2026</p>
 
   <p>GroovSide is a Mac app that shows the song playing in Apple Music or Spotify as a record on your desktop. It's made by zinu kim, an individual developer in South Korea ("I", "me"), and sold on the Mac App Store.</p>
-  <p class="lead">The short version: <strong>the app has no accounts, no analytics and no tracking, and I don't collect any data about you.</strong> What it needs stays on your Mac. It only goes online to look up album track lists.</p>
+  <p class="lead">The short version: <strong>the app has no accounts, no analytics and no tracking, and I don't collect any data about you.</strong> What it needs stays on your Mac. It only goes online to look up album track lists and missing album covers.</p>
 
   <h2>What the app reads on your Mac</h2>
   <p>To show the current song, the app asks Music or Spotify (with your permission, through macOS Automation) for the song title, artist, album, album artist, track and disc numbers, length, playback position and album art. It only reads. It doesn't control playback and never opens Music or Spotify.</p>
@@ -66,6 +66,7 @@
     <thead><tr><th>Where</th><th>What is sent</th><th>Why</th></tr></thead>
     <tbody>
       <tr><td>Apple's iTunes Search API (<code>itunes.apple.com</code>)</td><td>Artist, album and song names of the song you're playing, and a store country</td><td>To find the album's track list and song lengths, so it can be split into LP sides</td></tr>
+      <tr><td>Apple Music API (<code>api.music.apple.com</code>), version 1.0.3 and later</td><td>Artist, album and song names of a song playing in Music that has no cover, and your Mac's region as the store country</td><td>To show that album's cover from the Apple Music catalog. The cover isn't saved on your Mac.</td></tr>
       <tr><td>Spotify's image server</td><td>A request for the album art address Spotify gave the app</td><td>To show the cover of a Spotify song</td></tr>
     </tbody>
   </table>
