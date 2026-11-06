@@ -172,16 +172,20 @@
   /* time-of-day slider */
   .daylight { margin-top: 32px; }
   .daylight .stagebox { position: relative; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,.06); aspect-ratio: 1000 / 650; background: #d9c9c4; }
-  .daylight .stagebox img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
-  .daylight .stagebox img.on { opacity: 1; }
+  .daylight .stagebox video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 600px) { .daylight .stagebox { aspect-ratio: 720 / 1148; } }
+  .daylight .pp { position: absolute; right: 12px; bottom: 10px; width: 34px; height: 34px; border: 0; border-radius: 50%; background: rgba(255,255,255,.78); backdrop-filter: blur(6px); cursor: pointer; display: grid; place-items: center; padding: 0; }
+  .daylight .pp::before { content: ""; width: 10px; height: 12px; border-left: 3px solid #1f2a25; border-right: 3px solid #1f2a25; box-sizing: border-box; }
+  .daylight .pp.paused::before { width: 0; height: 0; border: solid transparent; border-width: 7px 0 7px 11px; border-left-color: #1f2a25; margin-left: 3px; }
+  .daylight .pp:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
   .daylight .clock { position: absolute; left: 14px; bottom: 12px; padding: 4px 11px; border-radius: 999px; background: rgba(255,255,255,.78); color: #1f2a25; font: 600 .85rem/1.5 var(--mono); backdrop-filter: blur(6px); }
   .daylight input[type=range] { width: 100%; margin: 22px 0 6px; accent-color: var(--orange); height: 28px; cursor: pointer; }
   .daylight .marks { position: relative; height: 34px; margin: 0 9px; }
   .daylight .marks button { position: absolute; top: 0; transform: translateX(-50%); appearance: none; border: 0; background: none; padding: 4px 2px; font: italic 400 1.05rem/1.3 var(--serif); color: var(--muted); cursor: pointer; white-space: nowrap; }
-  .daylight .marks button:nth-child(1) { left: 0; transform: translateX(-9px); }
-  .daylight .marks button:nth-child(2) { left: 33.333%; }
-  .daylight .marks button:nth-child(3) { left: 66.667%; }
-  .daylight .marks button:nth-child(4) { left: 100%; transform: translateX(calc(-100% + 9px)); }
+  .daylight .marks button:nth-child(1) { left: 25%; }
+  .daylight .marks button:nth-child(2) { left: 46.083%; }
+  .daylight .marks button:nth-child(3) { left: 75%; }
+  .daylight .marks button:nth-child(4) { left: 87.667%; }
   .daylight .marks button[aria-pressed="true"] { color: var(--ink); font-weight: 600; }
 
   /* colors */
@@ -247,9 +251,7 @@
   @media (prefers-reduced-motion: reduce) { .visitors .shot.alt, .visitors .shade { transition: none; } .visitors .cap { transition: opacity .2s ease; transform: none; } }
 
   /* time of day: hovering a mark previews that hour; the slider stays where it was */
-  .daylight.peek .stagebox img { transition: opacity .45s ease; }
   .daylight .marks button:hover { color: var(--ink); }
-  @media (prefers-reduced-motion: reduce) { .daylight.peek .stagebox img { transition: none; } }
 
   /* the crate: the record peeks out of the top of its sleeve */
   @media (hover: hover) and (prefers-reduced-motion: no-preference) {
@@ -285,12 +287,6 @@
     }
     .mini-rec.on { opacity: 1; }
   }
-  /* next-update preview link (remove when 1.0.1 ships) */
-  .top nav a.next { display: inline-flex; align-items: center; gap: 6px; padding: 1px 10px 2px; border: 1px solid var(--line); border-radius: 999px; color: var(--ink); text-decoration: none; }
-  .top nav a.next::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--orange); }
-  .top nav a.next:hover { border-color: var(--orange); text-decoration: none; }
-  @media (max-width: 440px) { .top nav a.next { padding: 1px 8px 2px; } }
-  @media (max-width: 400px) { .top nav { gap: 14px; } .top nav .opt2 { display: none; } }
   /* launch sale (ends 2026-11-08; the script below puts the regular price back on that date) */
   .meta .was { color: var(--muted); text-decoration: line-through; text-decoration-thickness: 1.5px; }
   .meta .now { color: var(--orange-ink); font-weight: 700; }
@@ -302,7 +298,7 @@
 <div class="wrap">
   <header class="top">
     <a class="brand" href="./"><img src="assets/icon-64.png" alt="" width="30" height="30">GroovSide</a>
-    <nav aria-label="Pages"><a class="next" href="test/" title="A preview of version 1.0.1">Next update</a><a class="opt2" href="settings/">Settings</a><a class="opt" href="support/">Support</a><a href="ko/" hreflang="ko" lang="ko">한국어</a></nav>
+    <nav aria-label="Pages"><a href="settings/">Settings</a><a href="support/">Support</a><a href="ko/" hreflang="ko" lang="ko">한국어</a></nav>
   </header>
 
   <main>
@@ -356,13 +352,13 @@
     <section aria-labelledby="l-title">
       <h2 id="l-title">Time of day</h2>
       <p class="sub">Sunlight through a window moves across the desk with your Mac's clock, and the whole scene shifts its mood.</p>
-      <div class="daylight" data-clock='7:30 AM|1:00 PM|6:30 PM|10:00 PM' data-names='Morning|Noon|Sunset|Night'><div class="stagebox"><img src="assets/time-dawn.webp" alt="The turntable in soft peach morning light" class="on" width="1000" height="650"><img src="assets/time-noon.webp" alt="The turntable in bright noon light" loading="lazy" width="1000" height="650"><img src="assets/time-sunset.webp" alt="The turntable in orange sunset light" loading="lazy" width="1000" height="650"><img src="assets/time-night.webp" alt="The turntable in deep blue night" loading="lazy" width="1000" height="650"><span class="clock" aria-hidden="true">7:30 AM</span></div><input type="range" min="0" max="3" step="0.01" value="0" aria-label="Time of day" aria-valuetext="Morning" title="Drag to change the time"><div class="marks"><button type="button" data-v="0" aria-pressed="true">Morning</button><button type="button" data-v="1" aria-pressed="false">Noon</button><button type="button" data-v="2" aria-pressed="false">Sunset</button><button type="button" data-v="3" aria-pressed="false">Night</button></div></div>
+      <div class="daylight"><div class="stagebox"><video muted loop playsinline preload="none" poster="assets/daylight-poster.jpg" data-base="assets/daylight" aria-label="The turntable from morning to night: window light moves across the desk and the scene changes color with the hour"></video><span class="clock" aria-hidden="true">9:00 AM</span><button type="button" class="pp" aria-label="Pause"></button></div><input type="range" min="0" max="12" step="0.02" value="3" aria-label="Time of day" aria-valuetext="9:00 AM" title="Drag to change the time"><div class="marks"><button type="button" data-v="3" aria-pressed="true">Morning</button><button type="button" data-v="5.53" aria-pressed="false">Noon</button><button type="button" data-v="9" aria-pressed="false">Sunset</button><button type="button" data-v="10.52" aria-pressed="false">Night</button></div></div>
     </section>
 
     <section aria-labelledby="c-title">
       <h2 id="c-title">Your colors</h2>
       <p class="sub">Let the album pick the colors, press it on colored vinyl, or choose your own for the record, background, line, text and tonearm. Put the record on the left, center or right.</p>
-      <p class="sub" style="margin-top:10px"><a href="settings/#appearance">See every setting, tab by tab</a></p>
+      <p class="sub" style="margin-top:10px"><a href="settings/#colors">See every setting, tab by tab</a></p>
       <div class="colors">
         <figure><img src="assets/color-vinyl.webp" loading="lazy" width="1000" height="650" alt="A teal colored vinyl record"><figcaption>Colored vinyl<span>In the album's own color</span></figcaption></figure>
         <figure><img src="assets/color-black.webp" loading="lazy" width="1000" height="650" alt="A black record with a gold tonearm"><figcaption>Your colors<span>Black record, gold tonearm</span></figcaption></figure>
@@ -406,32 +402,66 @@
     if (mq.addEventListener) mq.addEventListener('change', apply);
   })();
 
-  // Time-of-day slider: crossfade the four scenes; start at the visitor's own time of day.
+  // Time of day: a 12-second loop through one whole day, 5 AM to 5 AM, with no seam. It plays while in view (not with
+  // reduced motion); the slider and the marks move it to an hour and pause it there, the round button plays or pauses.
+  // The clock is uneven, so the night goes by faster: K maps share of the clip → hour (29 = 5 AM the next day).
   (function () {
     var box = document.querySelector('.daylight'); if (!box) return;
-    var imgs = box.querySelectorAll('.stagebox img'), range = box.querySelector('input'), btns = box.querySelectorAll('.marks button');
-    var clock = box.querySelector('.clock'), clocks = box.dataset.clock.split('|'), names = box.dataset.names.split('|');
-    function show(v) {
-      v = Math.max(0, Math.min(3, v));
-      imgs.forEach(function (im, i) { im.classList.remove('on'); im.style.opacity = Math.max(0, 1 - Math.abs(v - i)); });
-      var n = Math.round(v);
-      btns.forEach(function (b, i) { b.setAttribute('aria-pressed', i === n ? 'true' : 'false'); });
-      clock.textContent = clocks[n]; range.setAttribute('aria-valuetext', names[n]);
+    var v = box.querySelector('video'), range = box.querySelector('input'), btns = box.querySelectorAll('.marks button');
+    var clock = box.querySelector('.clock'), pp = box.querySelector('.pp'), ko = document.documentElement.lang === 'ko';
+    var LEN = 12, K = [[0, 5], [0.12, 6.5], [0.75, 18.5], [0.85, 20.5], [1, 29]];
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var tall = window.matchMedia && matchMedia('(max-width: 600px)').matches;
+    var want = !reduce, inView = false, loaded = false, raf = 0;
+    if (tall) v.poster = v.dataset.base + '-poster-tall.jpg';
+    function len() { return isFinite(v.duration) && v.duration > 0 ? v.duration : LEN; }
+    function lerp(x, a, b) {   // along K, from column a to column b
+      for (var i = 1; i < K.length; i++) if (x <= K[i][a] || i === K.length - 1) { var p = K[i - 1], q = K[i]; return p[b] + (q[b] - p[b]) * (x - p[a]) / (q[a] - p[a]); }
     }
-    range.addEventListener('input', function () { box.classList.remove('peek'); show(parseFloat(range.value)); });
-    btns.forEach(function (b) { b.addEventListener('click', function () { range.value = b.dataset.v; show(+b.dataset.v); }); });
-    // Hover (or tab to) a mark to preview that hour; leaving puts back what the slider shows.
-    function peek(i) { box.classList.add('peek'); imgs.forEach(function (im, j) { im.style.opacity = j === i ? 1 : 0; }); clock.textContent = clocks[i]; }
-    function unpeek() { if (box.classList.contains('peek')) show(parseFloat(range.value)); }
-    btns.forEach(function (b, i) {
-      b.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') peek(i); });
-      b.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') unpeek(); });
-      b.addEventListener('focus', function () { if (b.matches(':focus-visible')) peek(i); });
-      b.addEventListener('blur', unpeek);
-    });
-    var h = new Date().getHours(), start = h < 6 || h >= 20 ? 3 : h < 10 ? 0 : h < 16 ? 1 : 2;
-    imgs.forEach(function (im) { im.loading = 'eager'; });
-    range.value = start; show(start);
+    function hourAt(sec) { return lerp(Math.max(0, Math.min(1, sec / LEN)), 0, 1); }
+    function secAt(h) { return lerp(h < 5 ? h + 24 : h, 1, 0) * LEN; }
+    function fmt(h) {
+      var m = Math.round(h * 12) * 5, hh = Math.floor(m / 60) % 24, mm = ('0' + m % 60).slice(-2), h12 = hh % 12 || 12;
+      return ko ? (hh < 12 ? '오전 ' : '오후 ') + h12 + ':' + mm : h12 + ':' + mm + (hh < 12 ? ' AM' : ' PM');
+    }
+    function sync(sec) {
+      sec = Math.max(0, Math.min(LEN, sec));
+      if (document.activeElement !== range) range.value = sec;
+      var s = fmt(hourAt(sec)); clock.textContent = s; range.setAttribute('aria-valuetext', s);
+      btns.forEach(function (b) { b.setAttribute('aria-pressed', Math.abs(+b.dataset.v - sec) < 0.6 ? 'true' : 'false'); });
+    }
+    function now() { return v.currentTime / len() * LEN; }
+    function to(sec) { return Math.min(sec / LEN * len(), len() - 0.05); }
+    function tick() { sync(now()); raf = !v.paused ? requestAnimationFrame(tick) : 0; }
+    function setPP() { var p = !want; pp.classList.toggle('paused', p); pp.setAttribute('aria-label', p ? (ko ? '재생' : 'Play') : (ko ? '일시정지' : 'Pause')); }
+    function run() { if (want && inView && loaded) { var p = v.play(); if (p && p.catch) p.catch(function () {}); } else if (!v.paused) v.pause(); }
+    function load() {
+      if (loaded) return; loaded = true;
+      var base = v.dataset.base, list = tall ? [['-720x1148.mp4', 'video/mp4']] : [['-1280x800.webm', 'video/webm'], ['-1280x800.mp4', 'video/mp4']];
+      list.forEach(function (s) { var el = document.createElement('source'); el.src = base + s[0]; el.type = s[1]; v.appendChild(el); });
+      v.preload = 'auto'; v.load();
+      v.addEventListener('loadedmetadata', function () { v.currentTime = to(+range.value); run(); }, { once: true });
+    }
+    function seek(sec) {
+      want = false; setPP();
+      sync(sec);
+      if (!loaded) load(); else if (v.readyState >= 1) v.currentTime = to(sec);
+      run();
+    }
+    v.addEventListener('play', function () { if (!raf) raf = requestAnimationFrame(tick); });
+    v.addEventListener('seeked', function () { if (v.paused) sync(now()); });
+    range.addEventListener('input', function () { seek(parseFloat(range.value)); });
+    btns.forEach(function (b) { b.addEventListener('click', function () { seek(+b.dataset.v); }); });
+    pp.addEventListener('click', function () { want = !want; setPP(); if (want && !loaded) load(); run(); });
+    var d = new Date(), start = secAt(d.getHours() + d.getMinutes() / 60);   // the visitor's own time of day
+    sync(start); setPP();
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        inView = es[0].isIntersecting;
+        if (inView) load();
+        run();
+      }, { rootMargin: '200px 0px' }).observe(box);
+    } else { inView = true; load(); }
   })();
 
   // Who drops by: hover, focus or tap a row to see the visitors doing it (the still changes to a frame where they are
