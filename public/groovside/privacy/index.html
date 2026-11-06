@@ -50,7 +50,7 @@
   <h2>What the app reads on your Mac</h2>
   <p>To show the current song, the app asks Music or Spotify (with your permission, through macOS Automation) for the song title, artist, album, album artist, track and disc numbers, length, playback position and album art. It only reads. It doesn't control playback and never opens Music or Spotify.</p>
   <p>It also reads your Mac's output volume to turn the volume knob, and your Mac's clock and time zone to set the light from the window.</p>
-  <p>To save battery, it also checks where other windows sit on your screen (only their position and size, not their titles, contents or which app they belong to) and stops drawing while they cover almost all of the desktop. This isn't stored or sent anywhere.</p>
+  <p>To save battery, it also checks where other windows sit on your screen (only their position and size, not their titles, contents or which app they belong to) and stops drawing while they cover almost all of the desktop. This isn't stored or sent anywhere. You can turn this off with Pause When Covered in Settings → General.</p>
   <h3>Your location (optional)</h3>
   <p>In version 1.0.1 and later, if you turn on <strong>Use My Location</strong> in Settings → Appearance, the app times the window light and shadows to sunrise and sunset where you are. It stays off unless you turn it on, and macOS asks for your permission first.</p>
   <ul>
@@ -66,7 +66,7 @@
     <thead><tr><th>Where</th><th>What is sent</th><th>Why</th></tr></thead>
     <tbody>
       <tr><td>Apple's iTunes Search API (<code>itunes.apple.com</code>)</td><td>Artist, album and song names of the song you're playing, and a store country</td><td>To find the album's track list and song lengths, so it can be split into LP sides</td></tr>
-      <tr><td>Apple Music API (<code>api.music.apple.com</code>), version 1.0.3 and later</td><td>Artist, album and song names of a song playing in Music that has no cover, and your Mac's region as the store country</td><td>To show that album's cover from the Apple Music catalog. The cover isn't saved on your Mac.</td></tr>
+      <tr><td>Apple Music API (<code>api.music.apple.com</code>) and Apple's image server, version 1.0.2 and later</td><td>Artist, album and song names of a song playing in Music that has no cover, and your Mac's region as the store country, then a request for the cover it found</td><td>To show that album's cover from the Apple Music catalog. The cover isn't saved on your Mac.</td></tr>
       <tr><td>Spotify's image server</td><td>A request for the album art address Spotify gave the app</td><td>To show the cover of a Spotify song</td></tr>
     </tbody>
   </table>
