@@ -6,8 +6,8 @@ Name:          GroovSide
 Developer:     zinu kim (solo developer), based in Korea
 Platform:      macOS 14 or later, Apple silicon and Intel
 Category:      Music
-Price:         $4.99, one-time purchase
-Availability:  Mac App Store, coming soon
+Price:         $3.99, one-time purchase
+Availability:  Mac App Store
 Languages:     App in English. Store listing in English and Korean.
 Works with:    Apple Music (built into macOS) and Spotify
 Privacy:       No accounts, no analytics, no tracking
@@ -22,7 +22,7 @@ SHORT (about 50 words)
 GroovSide shows whatever plays in Apple Music or Spotify as a record turning on a small illustrated turntable behind your Mac's desktop icons. The album cover becomes the label, the tonearm follows the song, and albums are split into LP sides. The longer you listen, the more tiny visitors drop by.
 
 LONG (about 150 words)
-GroovSide turns your Mac's desktop into a small listening room. Whatever plays in Apple Music or Spotify appears as a record on an illustrated turntable behind your icons. The album cover becomes the label, and the scene takes on its colors. The tonearm follows the song and leaves a line in the groove. Albums are split into LP sides that are turned over and swapped like real records, and singles play on a 7-inch record. Live radio in Apple Music can play on one record per station. The longer you listen, the more tiny visitors drop by to dance, read and nap around the turntable, while light from a window follows the time of day. Five presets set the look, motion and visitors in one click. There are no accounts, analytics or tracking. GroovSide is made by zinu kim, a solo student developer in Korea. It is a $4.99 one-time purchase on the Mac App Store, coming soon.
+GroovSide turns your Mac's desktop into a small listening room. Whatever plays in Apple Music or Spotify appears as a record on an illustrated turntable behind your icons. The album cover becomes the label, and the scene takes on its colors. The tonearm follows the song and leaves a line in the groove. Albums are split into LP sides that are turned over and swapped like real records, and singles play on a 7-inch record. Live radio in Apple Music can play on one record per station. The longer you listen, the more tiny visitors drop by to dance, read and nap around the turntable, while light from a window follows the time of day. Five presets set the look, motion and visitors in one click. There are no accounts, analytics or tracking. GroovSide is made by zinu kim, a solo student developer in Korea. It is a $3.99 one-time purchase on the Mac App Store.
 
 KEY FEATURES
 - Every album gets its own record: the cover becomes the label and the scene takes on its colors.
