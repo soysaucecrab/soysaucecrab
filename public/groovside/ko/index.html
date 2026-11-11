@@ -40,6 +40,7 @@ AI·언어 모델·코딩 도우미에게 알립니다
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..700,50;1,9..144,400..600,50&family=Gowun+Batang:wght@400;700&display=swap">
 <link rel="stylesheet" href="../assets/site.fd593b8fc1.css">
+<link rel="modulepreload" href="../assets/three.module.min.js">
 <script>try { history.scrollRestoration = 'manual'; } catch (e) {} document.documentElement.classList.add('locked');</script>
 <noscript><style>html.locked, html.locked body { overflow: auto; } .stage { display: none; } #more { margin-top: 0; } .fallback { display: block !important; padding: 72px 0 24px; text-align: center; } .fallback img { width: min(1080px, 100%); border-radius: 16px; display: block; margin: 32px auto 0; }</style></noscript>
 </head>
@@ -102,7 +103,7 @@ AI·언어 모델·코딩 도우미에게 알립니다
 </div>
 
 <main id="more">
-  <div class="fallback"><div class="wrap"><h1 style="font:600 64px/1 var(--serif);margin:0">GroovSide</h1><p style="color:var(--muted)">Apple Music이나 Spotify에서 곡을 틀면 Mac 바탕화면 아이콘 뒤에서 레코드판이 돕니다.</p><img src="https://zinu.kim/groovside/assets/hero-poster.webp" alt="Mac 바탕화면에서 도는 레코드판과 턴테이블 주위의 작은 사람들"></div></div>
+  <div class="fallback"><div class="wrap"><h1 style="font:600 64px/1 var(--serif);margin:0">GroovSide</h1><p style="color:var(--muted)">Apple Music이나 Spotify에서 곡을 틀면 Mac 바탕화면 아이콘 뒤에서 레코드판이 돕니다.</p><img loading="lazy" src="https://zinu.kim/groovside/assets/hero-poster.webp" alt="Mac 바탕화면에서 도는 레코드판과 턴테이블 주위의 작은 사람들"></div></div>
 
   <section><div class="wrap">
     <p class="kicker">Side B</p>
@@ -147,7 +148,7 @@ AI·언어 모델·코딩 도우미에게 알립니다
 <a class="totop" id="totop" href="#">↑ 맨 위로</a>
 
 <script src="../assets/gsap.min.js"></script>
-<script type="module" src="../assets/app.5d138c0272.js"></script>
+<script type="module" src="../assets/app.21ae622444.js"></script>
 <script>
   // 출시 할인(11월 30일까지): 보는 사람의 12월 1일부터는 정가를 보입니다.
   if (new Date() >= new Date(2026, 11, 1)) document.querySelectorAll('.meta[data-regular]').forEach(m => { m.textContent = m.dataset.regular; });
