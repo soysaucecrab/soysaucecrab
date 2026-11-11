@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Settings — GroovSide</title>
 <meta name="description" content="What every setting in GroovSide does, tab by tab, in a working copy of the app&#x27;s Settings window.">
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="dark">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/icon-32.png">
 <link rel="icon" type="image/png" sizes="64x64" href="../assets/icon-64.png">
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
@@ -238,14 +238,28 @@
   .notes-col h2 + .notes-sub { margin-top: 18px; }
   .notes-sub + .notes { margin-top: 10px; }
   .notes-sub .gloss { font-weight: 500; color: var(--muted); margin-left: 8px; font-size: .92rem; }
+
+  /* header, footer and colors as on the home page (2026-11-12): always the dark room. The macOS settings window
+     replica keeps following the visitor's Mac. (Written to stand apart from this page's own nav and footer rules.) */
+  header.gs-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; max-width: 1180px; margin: 0 auto; padding: 14px 20px; position: relative; z-index: 2; box-sizing: border-box; justify-self: stretch; align-self: start; }
+  header.gs-top a.gs-brand { display: flex; align-items: center; gap: 10px; font: 600 1.1rem/1 "Fraunces", "Iowan Old Style", Georgia, serif; color: var(--ink, #ecebe5); text-decoration: none; border: 0; padding: 0; background: none; }
+  header.gs-top a.gs-brand img { width: 28px; height: 28px; display: block; }
+  header.gs-top nav.gs-nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 2px; margin: 0; }
+  header.gs-top nav.gs-nav a { display: inline-block; font: 600 13px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, "Apple SD Gothic Neo", sans-serif; color: rgba(236,235,229,.72); text-decoration: none; padding: 8px 9px; border: 0; border-radius: 999px; background: none; }
+  header.gs-top nav.gs-nav a:hover, header.gs-top nav.gs-nav a[aria-current="page"] { color: #f4efe9; background: rgba(244,239,233,.08); }
+  @media (max-width: 560px) { header.gs-top nav.gs-nav a.wide { display: none; } header.gs-top nav.gs-nav a { padding: 8px 6px; } }
+  footer.gs-foot { display: block; width: 100%; margin: 96px 0 0; padding: 0; border: 0; border-top: 1px solid var(--line, #2a332e); color: var(--muted, #a5aea8); font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, "Apple SD Gothic Neo", sans-serif; position: relative; z-index: 2; box-sizing: border-box; justify-self: stretch; align-self: end; text-align: left; }
+  footer.gs-foot .in { max-width: 1180px; margin: 0 auto; padding: 32px 20px 56px; display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; }
+  footer.gs-foot nav { display: flex; flex-wrap: wrap; gap: 8px 18px; justify-content: flex-start; }
+  footer.gs-foot a { display: inline; color: inherit; text-decoration: none; padding: 0; border: 0; border-radius: 0; background: none; font-weight: 400; }
+  footer.gs-foot a:hover { color: var(--ink, #ecebe5); text-decoration: none; }
+  footer.gs-foot .copy { margin-right: auto; }
+  :root { --ink: #ecebe5; --muted: #a5aea8; --line: #2a332e; --rule: #ecebe5; --green-soft: #8cc3a8; --orange-ink: #f07a58; --paper: #161d19; --shadow: 0 34px 70px -34px rgba(0, 0, 0, .8); --vinyl: #0b0d0c; --vinyl-2: #181b19; --bg: #0f1311; color-scheme: dark; }
 </style>
 </head>
 <body>
+<header class="gs-top"><a class="gs-brand" href="https://zinu.kim/groovside/"><img src="https://zinu.kim/groovside/assets/icon-64.png" alt="" width="28" height="28">GroovSide</a><nav class="gs-nav" aria-label="GroovSide pages"><a href="https://zinu.kim/groovside/settings/" aria-current="page">Settings</a><a href="https://zinu.kim/groovside/support/">Support</a><a href="https://zinu.kim/groovside/privacy/">Privacy Policy</a><a class="wide" href="https://zinu.kim/groovside/press/">Press</a><a href="https://zinu.kim/groovside/ko/settings/" lang="ko" hreflang="ko">한국어</a></nav></header>
 <div class="wrap">
-  <header class="top">
-    <a class="brand" href="../"><img src="../assets/icon-64.png" alt="" width="30" height="30">GroovSide</a>
-    <nav aria-label="Pages"><a href="./" aria-current="page">Settings</a><a href="../support/">Support</a><a href="../ko/settings/" hreflang="ko" lang="ko">한국어</a></nav>
-  </header>
 
   <main>
     <div class="intro">
@@ -284,11 +298,6 @@
       <p class="sub" style="margin-top:14px">Still stuck? See <a href="../support/">Support</a>.</p>
     </section>
   </main>
-
-  <footer>
-    <span>© 2026 zinu kim</span>
-    <nav aria-label="Footer"><a href="../">GroovSide</a><a href="../support/">Support</a><a href="../privacy/">Privacy Policy</a><a href="../press/">Press</a><a href="../ko/settings/" hreflang="ko" lang="ko">한국어</a><a href="mailto:support@zinu.kim">support@zinu.kim</a></nav>
-  </footer>
 </div>
 <script>
 (function () {
@@ -517,5 +526,6 @@
   fromHash(true);
 })();
 </script>
+<footer class="gs-foot"><div class="in"><span class="copy">© 2026 zinu kim</span><nav aria-label="Footer"><a href="https://zinu.kim/groovside/settings/">Settings</a><a href="https://zinu.kim/groovside/support/">Support</a><a href="https://zinu.kim/groovside/privacy/">Privacy Policy</a><a href="https://zinu.kim/groovside/press/">Press</a><a href="https://zinu.kim/groovside/ko/settings/" lang="ko" hreflang="ko">한국어</a><a href="https://www.threads.com/@groovside.app">Threads</a><a href="https://www.instagram.com/groovside.app/" target="_blank" rel="noopener">Instagram</a><a href="mailto:support@zinu.kim">support@zinu.kim</a></nav></div></footer>
 </body>
 </html>
