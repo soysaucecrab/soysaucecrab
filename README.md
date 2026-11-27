@@ -4,9 +4,11 @@
 
 ## 👨‍💻 About Me
 
-- 🎓 Studying at **Sungkyunkwan University (@SKKU)**
-- 💻 Interested in **Algorithmic Problem Solving**, **Game Development**, and **Machine Learning**
-- 📬 Personal Hompage : https://zinu.kim
+- 🎓 Studying **Intelligent Software** at **Sungkyunkwan University (@SKKU)**
+- 🔬 Research Intern at **[SLPR Lab](https://sites.google.com/view/slpr)** (Speech, Language, Perception & Reasoning) — speech & audio AI, on-device systems
+- 💻 Interested in **Machine Learning**, **Algorithmic Problem Solving**, and **Game Development**
+- 🏠 Website : https://zinu.kim
+- 📄 CV : https://zinu.kim/cv.pdf
 
 ---
 
@@ -36,7 +38,16 @@
 
 - **[GroovSide](https://zinu.kim/groovside)** — a macOS menu-bar app that turns whatever is playing in Apple Music or Spotify into a spinning record on your desktop, behind your icons. The cover becomes the label and the needle follows the song. No accounts, no tracking. *(macOS 14+, App Store coming soon)*
 - **[zipge](https://github.com/soysaucecrab/zipge)** — on-device semantic search for static sites; Korean search runs entirely in the browser, zero server cost.
+- **[SoundLanes](https://github.com/soysaucecrab/SoundLanes)** — per-app audio output routing for macOS, built on Core Audio process taps.
 - **[sideways](https://github.com/soysaucecrab/sideways)** — a SOCKS5 proxy that shares an iPhone's cellular data with a Mac over USB.
+
+---
+
+## 🏛 Organizations
+
+- **[SLPR Lab](https://github.com/slpr-lab)** — Speech, Language, Perception & Reasoning Lab, SKKU
+- **[Axoneo](https://github.com/Axoneo)** — developer group
+- **[NFE404](https://github.com/NFE404)** — two-person dev team
 
 ---
 
