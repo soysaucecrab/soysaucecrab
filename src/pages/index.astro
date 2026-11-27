@@ -1,5 +1,260 @@
 ---
-import Base from '../layouts/Base.astro';
-import Home from '../components/Home.astro';
+// zinu.kim — professional single-page profile (clean, angular, spec-sheet sections).
+const photo = '/me.jpg';
 ---
-<Base lang="en" page="home"><Home lang="en" /></Base>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zinu Kim</title>
+  <meta name="description" content="Zinu Kim — ML researcher and developer. Speech and audio AI, on-device systems. SLPR Lab, Sungkyunkwan University." />
+  <meta property="og:title" content="Zinu Kim" />
+  <meta property="og:description" content="ML Researcher & Developer — speech and audio AI, on-device systems." />
+  <meta property="og:type" content="website" />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Inter:wght@400;500;600&family=Noto+Sans+KR:wght@400;500&display=swap" />
+  <style is:global>
+    /* Clean, angular, professional profile: porcelain ground, ink text, one quiet slate accent.
+       Sections read like a spec sheet — label in the left margin, a rule and air between each. */
+    :root{
+      --bg:#F5F5F2; --fg:#1A1B1D; --muted:#6C6F73; --line:#D9D9D3; --line-strong:#B6B6AE; --accent:#315B86;
+      --serif:'Newsreader',Georgia,'Times New Roman',serif;
+      --sans:'Inter','Noto Sans KR',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Segoe UI',system-ui,sans-serif;
+      --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    }
+    @media (prefers-color-scheme:dark){
+      :root:not([data-theme="light"]){ --bg:#141517; --fg:#ECECEA; --muted:#9A9DA2; --line:#2B2C2F; --line-strong:#43454A; --accent:#89B2D6; color-scheme:dark; }
+    }
+    :root[data-theme="dark"]{ --bg:#141517; --fg:#ECECEA; --muted:#9A9DA2; --line:#2B2C2F; --line-strong:#43454A; --accent:#89B2D6; color-scheme:dark; }
+
+    *{box-sizing:border-box;}
+    body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);
+      font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;letter-spacing:-0.004em;}
+    a{color:inherit;}
+    ::selection{background:color-mix(in srgb,var(--accent) 22%,transparent);}
+    :focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+
+    .page{max-width:720px;margin:0 auto;padding:clamp(48px,9vw,96px) max(24px,env(safe-area-inset-left,0px));}
+
+    .hero{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;}
+    .portrait{width:128px;aspect-ratio:413/531;overflow:hidden;border:1px solid var(--line-strong);background:#fff;}
+    .portrait img{display:block;width:100%;height:100%;object-fit:cover;}
+    .intro h1{margin:0;font-family:var(--serif);font-weight:500;font-size:clamp(2rem,6vw,2.7rem);
+      line-height:1.05;letter-spacing:-0.015em;}
+    .intro h1 .kr{font-size:.5em;color:var(--muted);font-weight:400;margin-left:.45em;letter-spacing:0;}
+    .intro .role{margin:.5rem 0 0;font-size:1.02rem;font-weight:500;}
+    .intro .sub{margin:.1rem 0 0;color:var(--muted);font-size:.95rem;}
+    .handle{display:inline-flex;align-items:center;gap:7px;margin:.75rem 0 0;padding:4px 10px;
+      border:1px solid var(--line-strong);border-radius:3px;width:max-content;
+      font-family:var(--mono);font-size:.78rem;color:var(--muted);text-decoration:none;
+      transition:border-color .15s,color .15s;}
+    .handle:hover{border-color:var(--accent);color:var(--fg);}
+    .handle b{font-weight:500;color:var(--fg);}
+    .contact{margin:.85rem 0 0;display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.9rem;}
+    .contact .em{color:var(--fg);}
+    .contact a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s;}
+    .contact a:hover{border-color:var(--accent);}
+    .contact .sep{color:var(--line-strong);}
+
+    .lede{margin:32px 0 0;font-size:1.06rem;line-height:1.6;max-width:62ch;}
+
+    .section{display:grid;grid-template-columns:116px 1fr;gap:0 34px;padding-top:30px;border-top:1px solid var(--line-strong);}
+    .section:first-of-type{margin-top:52px;}
+    .label{margin:0;font-size:.7rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);padding-top:3px;}
+    .body{min-width:0;padding-bottom:30px;}
+
+    .lab-name{margin:0;font-weight:600;}
+    .lab-name a{text-decoration:none;border-bottom:1px solid var(--line-strong);}
+    .lab-name a:hover{border-bottom-color:var(--accent);}
+    .lab-who{color:var(--muted);font-size:.95rem;margin:3px 0 0;}
+    .chips{margin:13px 0 0;display:flex;flex-wrap:wrap;gap:7px;}
+    .chips span{font-size:.8rem;color:var(--fg);border:1px solid var(--line);border-radius:3px;padding:3px 9px;}
+    .sublabel{margin:24px 0 10px;font-size:.68rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+
+    .row{display:grid;grid-template-columns:1fr auto;gap:2px 20px;align-items:baseline;padding:11px 0;}
+    .row + .row{border-top:1px solid var(--line);}
+    .row:first-child{padding-top:0;}
+    .main{min-width:0;}
+    .t{font-weight:600;}
+    .t a{text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s;}
+    .t a:hover{border-bottom-color:currentColor;}
+    .d{color:var(--muted);font-size:.92rem;margin-top:3px;line-height:1.5;}
+    .meta{color:var(--muted);font-size:.82rem;white-space:nowrap;font-variant-numeric:tabular-nums;}
+    .tags{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;}
+    .tags span{font-size:.74rem;color:var(--muted);border:1px solid var(--line);border-radius:3px;padding:1px 8px;}
+    .skills p{margin:0 0 8px;}
+    .skills b{font-weight:600;}
+    .orgs a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;}
+    .orgs a:hover{border-color:var(--accent);}
+
+    footer{padding-top:24px;border-top:1px solid var(--line-strong);color:var(--muted);font-size:.82rem;}
+
+    @media (prefers-reduced-motion:no-preference){
+      .page>*{opacity:0;transform:translateY(6px);animation:rise .55s cubic-bezier(.2,.65,.3,1) forwards;}
+      .page>.lede{animation-delay:.05s;}
+      .page>.section:nth-of-type(1){animation-delay:.09s;}
+      .page>.section:nth-of-type(2){animation-delay:.13s;}
+      .page>.section:nth-of-type(3){animation-delay:.17s;}
+      .page>.section:nth-of-type(4){animation-delay:.21s;}
+      .page>.section:nth-of-type(5){animation-delay:.25s;}
+      @keyframes rise{to{opacity:1;transform:none;}}
+    }
+    @media (max-width:640px){
+      .hero{grid-template-columns:1fr;gap:18px;}
+      .portrait{width:116px;}
+      .section{grid-template-columns:1fr;gap:12px;padding-top:24px;}
+      .label{padding-top:0;}
+      .body{padding-bottom:24px;}
+      .row{grid-template-columns:1fr;}
+      .meta{margin-top:4px;}
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="portrait"><img src={photo} alt="Zinu Kim" width="413" height="531" /></div>
+      <div class="intro">
+        <h1>Zinu Kim<span class="kr">김진우</span></h1>
+        <p class="role">ML Researcher &amp; Developer</p>
+        <p class="sub">Speech &amp; audio AI · on-device systems</p>
+        <a class="handle" href="https://github.com/soysaucecrab" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">🦀</span><b>soysaucecrab</b>&nbsp;on GitHub</a>
+        <p class="contact">
+          <span class="em">me@zinu.kim</span><span class="sep">·</span>
+          <a href="/cv.pdf" target="_blank" rel="noopener noreferrer">CV</a><span class="sep">·</span>
+          <a href="https://sites.google.com/view/slpr/members" target="_blank" rel="noopener noreferrer">SLPR Lab</a>
+        </p>
+      </div>
+    </header>
+
+    <p class="lede">I build machine-learning systems for speech and audio, and ship them as software people use. Undergraduate researcher at Sungkyunkwan University's SLPR Lab, in the Intelligent Software program.</p>
+
+    <section class="section">
+      <p class="label">Research</p>
+      <div class="body">
+        <p class="lab-name"><a href="https://sites.google.com/view/slpr" target="_blank" rel="noopener noreferrer">SLPR Lab</a> — Speech, Language, Perception &amp; Reasoning, SKKU</p>
+        <p class="lab-who">Research Intern · advised by Prof. Kyuhong Shim · Jun 2026 – Present</p>
+        <div class="chips">
+          <span>Speech–robotics integration</span>
+          <span>On-device speech processing</span>
+          <span>Robust speech recognition &amp; enhancement</span>
+        </div>
+        <p class="sublabel">Publication</p>
+        <div class="row">
+          <div class="main">
+            <div class="t">NeurIPS 2026 Workshop on On-Device Intelligence (ODI)</div>
+            <div class="d">Accepted poster.</div>
+          </div>
+          <div class="meta">2026</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <p class="label">Education</p>
+      <div class="body">
+        <div class="row">
+          <div class="main">
+            <div class="t">Sungkyunkwan University (SKKU)</div>
+            <div class="d">B.S. in Intelligent Software · Seoul</div>
+          </div>
+          <div class="meta">Expected 2030</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <p class="label">Apps</p>
+      <div class="body">
+        <div class="row">
+          <div class="main">
+            <div class="t"><a href="/groovside" target="_blank" rel="noopener noreferrer">GroovSide</a></div>
+            <div class="d">A macOS menu-bar app that turns the song playing in Apple Music or Spotify into a record spinning on your desktop, behind your icons.</div>
+            <div class="tags"><span>macOS</span><span>Swift</span></div>
+          </div>
+          <div class="meta">2026</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <p class="label">Projects</p>
+      <div class="body">
+        <div class="row">
+          <div class="main">
+            <div class="t"><a href="https://github.com/soysaucecrab/zipge" target="_blank" rel="noopener noreferrer">zipge</a></div>
+            <div class="d">On-device semantic search for static sites — Korean search runs entirely in the browser, with zero server cost.</div>
+            <div class="tags"><span>ML</span><span>Systems</span></div>
+          </div>
+          <div class="meta">2026</div>
+        </div>
+        <div class="row">
+          <div class="main">
+            <div class="t"><a href="https://github.com/soysaucecrab/SoundLanes" target="_blank" rel="noopener noreferrer">SoundLanes</a></div>
+            <div class="d">Per-app audio output routing for macOS, built on Core Audio process taps.</div>
+            <div class="tags"><span>macOS</span><span>Core Audio</span></div>
+          </div>
+          <div class="meta">2026</div>
+        </div>
+        <div class="row">
+          <div class="main">
+            <div class="t"><a href="https://github.com/soysaucecrab/sideways" target="_blank" rel="noopener noreferrer">sideways</a></div>
+            <div class="d">A SOCKS5 proxy that shares an iPhone's cellular data with a Mac over USB.</div>
+            <div class="tags"><span>Systems</span></div>
+          </div>
+          <div class="meta">2026</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section orgs">
+      <p class="label">Organizations</p>
+      <div class="body">
+        <div class="row">
+          <div class="main">
+            <div class="t"><a href="https://github.com/slpr-lab" target="_blank" rel="noopener noreferrer">SLPR Lab</a></div>
+            <div class="d">Speech, Language, Perception &amp; Reasoning Lab, SKKU</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="main">
+            <div class="t"><a href="https://github.com/Axoneo" target="_blank" rel="noopener noreferrer">Axoneo</a></div>
+            <div class="d">Developer group</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="main">
+            <div class="t"><a href="https://github.com/NFE404" target="_blank" rel="noopener noreferrer">NFE404</a></div>
+            <div class="d">Two-person dev team</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section skills">
+      <p class="label">Skills</p>
+      <div class="body">
+        <p><b>Languages</b> &nbsp;Python, C, C++, C#, Swift</p>
+        <p><b>ML &amp; audio</b> &nbsp;PyTorch, on-device inference, speech enhancement &amp; recognition</p>
+        <p><b>Also</b> &nbsp;Unity, Astro, Cloudflare</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <p class="label">Contact</p>
+      <div class="body">
+        <div class="row">
+          <div class="main"><div class="t" style="font-weight:500">me@zinu.kim</div></div>
+          <div class="meta"><a href="https://github.com/soysaucecrab" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:none">github.com/soysaucecrab</a></div>
+        </div>
+      </div>
+    </section>
+
+    <footer>© 2026 Zinu Kim · Seoul, Korea</footer>
+  </main>
+</body>
+</html>

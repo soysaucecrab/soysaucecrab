@@ -1,0 +1,88 @@
+% Zinu Kim — CV
+% Compiles with pdflatex (TeX Live / MacTeX / Overleaf). Build: latexmk -pdf cv.tex
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1.9cm]{geometry}
+\usepackage{helvet}\renewcommand{\familydefault}{\sfdefault}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{ink}{HTML}{1A1B1D}
+\definecolor{muted}{HTML}{6C6F73}
+\definecolor{accent}{HTML}{315B86}
+\definecolor{rule}{HTML}{B6B6AE}
+
+\hypersetup{colorlinks=true, urlcolor=accent}
+\setlength{\parindent}{0pt}
+\pagestyle{empty}
+
+% --- section style: small caps-ish bold label with a thin rule ---
+\titleformat{\section}{\large\bfseries\color{ink}}{}{0pt}{}[\vspace{1pt}{\color{rule}\titlerule[0.8pt]}]
+\titlespacing*{\section}{0pt}{14pt}{7pt}
+
+\newcommand{\entry}[4]{%
+  % #1 title  #2 right  #3 subtitle  #4 right-sub
+  \textbf{#1}\hfill{\color{muted}#2}\\[1pt]
+  {\color{muted}#3}\ifx\relax#4\relax\else\hfill{\color{muted}#4}\fi\par\vspace{3pt}
+}
+
+\begin{document}
+\color{ink}
+
+% ---------- Header ----------
+{\fontsize{26}{30}\selectfont\bfseries Zinu Kim}\\[3pt]
+{\color{muted}ML Researcher \& Developer \,\textbullet\, Speech \& audio AI, on-device systems}\\[5pt]
+{\small
+\href{mailto:me@zinu.kim}{me@zinu.kim} \ \textbullet\ \
+\href{https://zinu.kim}{zinu.kim} \ \textbullet\ \
+\href{https://github.com/soysaucecrab}{github.com/soysaucecrab} \ \textbullet\ \
+Seoul, Korea}
+
+% ---------- Research ----------
+\section{Research}
+\textbf{SLPR Lab} — Speech, Language, Perception \& Reasoning, Sungkyunkwan University\hfill{\color{muted}Jun 2026 -- Present}\\[1pt]
+{\color{muted}Research Intern \,\textbullet\, advised by Prof.\ Kyuhong Shim}
+\begin{itemize}[leftmargin=1.1em,itemsep=1pt,topsep=4pt]
+  \item Speech--robotics integration.
+  \item On-device speech processing.
+  \item Robust speech recognition \& enhancement.
+\end{itemize}
+
+% ---------- Publications ----------
+\section{Publications}
+% TODO: add exact paper title and author list once confirmed (OpenReview forum link).
+Accepted poster, \textbf{NeurIPS 2026 Workshop on On-Device Intelligence (ODI)}.\hfill{\color{muted}2026}
+
+% ---------- Education ----------
+\section{Education}
+\textbf{Sungkyunkwan University (SKKU)}, Seoul\hfill{\color{muted}Expected 2030}\\[1pt]
+{\color{muted}B.S.\ in Intelligent Software}
+
+% ---------- Software ----------
+\section{Software}
+\textbf{\href{https://zinu.kim/groovside}{GroovSide}} — macOS menu-bar app that turns the song playing in Apple Music or Spotify into a record spinning on the desktop, behind your icons.\hfill{\color{muted}Swift}\\[4pt]
+\textbf{\href{https://github.com/soysaucecrab/zipge}{zipge}} — on-device semantic search for static sites; Korean search runs entirely in the browser, with zero server cost.\hfill{\color{muted}ML, Systems}\\[4pt]
+\textbf{\href{https://github.com/soysaucecrab/sideways}{sideways}} — SOCKS5 proxy that shares an iPhone's cellular data with a Mac over USB.\hfill{\color{muted}Systems}\\[4pt]
+\textbf{\href{https://github.com/soysaucecrab/SoundLanes}{SoundLanes}} — per-app audio output routing for macOS, built on Core Audio process taps.\hfill{\color{muted}Swift, Core Audio}
+
+% ---------- Organizations ----------
+% miseskorea / Mises Institute Korea intentionally omitted — managed, not a personal affiliation.
+\section{Organizations}
+Member of GitHub organizations:
+\href{https://github.com/slpr-lab}{slpr-lab} (SLPR Lab),\ %
+\href{https://github.com/Axoneo}{Axoneo} (developer group),\ %
+\href{https://github.com/NFE404}{NFE404} (two-person dev team).
+
+% ---------- Skills ----------
+\section{Skills}
+\begin{itemize}[leftmargin=1.1em,itemsep=2pt,topsep=4pt]
+  \item \textbf{Languages:} Python, C, C++, C\#, Swift
+  \item \textbf{ML \& audio:} PyTorch, on-device inference, speech enhancement \& recognition
+  \item \textbf{Also:} Unity, Astro, Cloudflare
+\end{itemize}
+
+\end{document}
